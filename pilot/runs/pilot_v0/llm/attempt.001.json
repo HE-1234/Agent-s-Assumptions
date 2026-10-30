@@ -1,0 +1,117 @@
+{
+  "tag": "builder.BigCodeBench_398",
+  "content_hash": "1a8c9c49e9934603f4a99e87f6b7271de778ad08bb35e714440d7104366757e0",
+  "requested_model": "gpt-6.1-sol",
+  "configured_model": "gpt-6.1-sol",
+  "served_model": null,
+  "reasoning_effort": "high",
+  "source": "codex_subagent",
+  "usage": {},
+  "usage_available": false,
+  "request": {
+    "model": "gpt-6.1-sol",
+    "reasoning_effort": "high",
+    "fork_turns": "none",
+    "system": "You are a fast, surgical dataset builder for an AI agent ambiguity benchmark.\nYou will receive a seed task containing:\n1. `full_instruction`\n2. `gold_solution` (reference code that implements the instruction)\n\nYour job is to select AT MOST 3 maskable subparts—OR immediately reject the seed task if it has no clean maskable parameters.\n\nSTRICT SELECTION RULES:\n1. Target-First Filtering (Do NOT decompose the whole prompt):\n   Only select parameters that pass ALL THREE questions:\n   - Still the Same Task: If removed, the core goal remains intact.\n   - Short List of Values: Has 2–5 realistic values (e.g., CSV vs. JSON, drop vs. fill NaN, round down vs. round to nearest). Never pick arbitrary invented names.\n   - Visible in the Work: Code written for `alternative_value` would look visibly different from code written for `original_value`, or would give a visibly different result.\n   Also: `gold_solution` must implement `original_value` as the instruction states it. If the instruction and `gold_solution` disagree about a parameter, do not select it.\n   If NO parameter in `full_instruction` meets these criteria, return `\"status\": \"skip_seed_task\"` with a `skip_reason` immediately.\n\n2. Surgical Span Extraction (Do NOT rewrite the prompt):\n   - List every exact substring in `full_instruction` (`spans_removed`) that states or hints at this parameter, and the neutral replacement string (`replaced_with`, which may be `\"\"` or a neutral phrase like `\"in a file\"` or `\"convert it to an integer\"`).\n   - Ensure `spans_removed` matches `full_instruction` character-for-character so a Python script can run `str.replace()` without touching any other word.\n   - The function signature at the end of `full_instruction` is part of the instruction. If a default argument or type hint states or hints at the selected value, include that substring in `spans_removed` too.\n\n3. One Alternative Value:\n   - Give exactly one realistic alternative value in `alternative_values`.",
+    "user": "Task ID: \"BigCodeBench/398\"\nFull Instruction:\n\"\"\"\nCheck that the data in a JSON file is a list of dictionaries (objects in JavaScript).\nThe function should output with:\n    bool: True if the data is a list of dictionaries, False otherwise.\nYou should write self-contained code starting with:\n```\nimport json\nimport os\ndef task_func(file_path):\n```\n\"\"\"\nGold Solution:\n\"\"\"\n    if not os.path.exists(file_path):\n        return False\n\n    with open(file_path, 'r') as file:\n        try:\n            data = json.load(file)\n        except json.JSONDecodeError:\n            return False\n\n    return isinstance(data, list) and all(isinstance(item, dict) for item in data)\n\"\"\"\n\nReturn JSON only using this exact schema:\n{\n  \"status\": \"ok\" | \"skip_seed_task\",\n  \"skip_reason\": \"\",\n  \"candidate_subparts\": [\n    {\n      \"subpart_id\": \"gap_1\",\n      \"variable\": \"short_snake_case_name\",\n      \"original_value\": \"exact value in full instruction\",\n      \"alternative_values\": [\"one realistic alternative value\"],\n      \"spans_removed\": [\"exact substring 1 from full_instruction\"],\n      \"replaced_with\": [\"neutral replacement 1 or empty string\"]\n    }\n  ]\n}\n`skip_reason` is an empty string when `status` is \"ok\".",
+    "schema": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "skip_reason",
+        "candidate_subparts"
+      ],
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": [
+            "ok",
+            "skip_seed_task"
+          ]
+        },
+        "skip_reason": {
+          "type": "string"
+        },
+        "candidate_subparts": {
+          "type": "array",
+          "maxItems": 3,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "subpart_id",
+              "variable",
+              "original_value",
+              "alternative_values",
+              "spans_removed",
+              "replaced_with"
+            ],
+            "properties": {
+              "subpart_id": {
+                "type": "string"
+              },
+              "variable": {
+                "type": "string"
+              },
+              "original_value": {
+                "type": "string"
+              },
+              "alternative_values": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "minItems": 1,
+                "maxItems": 1
+              },
+              "spans_removed": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "replaced_with": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "transport": "codex_subagent",
+    "tools_allowed": false
+  },
+  "dispatch_message": "Complete this isolated text-only evaluation. Do not use tools, read files, run code, or create agents. Return only the requested JSON.\n\nSYSTEM PROMPT:\nYou are a fast, surgical dataset builder for an AI agent ambiguity benchmark.\nYou will receive a seed task containing:\n1. `full_instruction`\n2. `gold_solution` (reference code that implements the instruction)\n\nYour job is to select AT MOST 3 maskable subparts—OR immediately reject the seed task if it has no clean maskable parameters.\n\nSTRICT SELECTION RULES:\n1. Target-First Filtering (Do NOT decompose the whole prompt):\n   Only select parameters that pass ALL THREE questions:\n   - Still the Same Task: If removed, the core goal remains intact.\n   - Short List of Values: Has 2–5 realistic values (e.g., CSV vs. JSON, drop vs. fill NaN, round down vs. round to nearest). Never pick arbitrary invented names.\n   - Visible in the Work: Code written for `alternative_value` would look visibly different from code written for `original_value`, or would give a visibly different result.\n   Also: `gold_solution` must implement `original_value` as the instruction states it. If the instruction and `gold_solution` disagree about a parameter, do not select it.\n   If NO parameter in `full_instruction` meets these criteria, return `\"status\": \"skip_seed_task\"` with a `skip_reason` immediately.\n\n2. Surgical Span Extraction (Do NOT rewrite the prompt):\n   - List every exact substring in `full_instruction` (`spans_removed`) that states or hints at this parameter, and the neutral replacement string (`replaced_with`, which may be `\"\"` or a neutral phrase like `\"in a file\"` or `\"convert it to an integer\"`).\n   - Ensure `spans_removed` matches `full_instruction` character-for-character so a Python script can run `str.replace()` without touching any other word.\n   - The function signature at the end of `full_instruction` is part of the instruction. If a default argument or type hint states or hints at the selected value, include that substring in `spans_removed` too.\n\n3. One Alternative Value:\n   - Give exactly one realistic alternative value in `alternative_values`.\n\nUSER PROMPT:\nTask ID: \"BigCodeBench/398\"\nFull Instruction:\n\"\"\"\nCheck that the data in a JSON file is a list of dictionaries (objects in JavaScript).\nThe function should output with:\n    bool: True if the data is a list of dictionaries, False otherwise.\nYou should write self-contained code starting with:\n```\nimport json\nimport os\ndef task_func(file_path):\n```\n\"\"\"\nGold Solution:\n\"\"\"\n    if not os.path.exists(file_path):\n        return False\n\n    with open(file_path, 'r') as file:\n        try:\n            data = json.load(file)\n        except json.JSONDecodeError:\n            return False\n\n    return isinstance(data, list) and all(isinstance(item, dict) for item in data)\n\"\"\"\n\nReturn JSON only using this exact schema:\n{\n  \"status\": \"ok\" | \"skip_seed_task\",\n  \"skip_reason\": \"\",\n  \"candidate_subparts\": [\n    {\n      \"subpart_id\": \"gap_1\",\n      \"variable\": \"short_snake_case_name\",\n      \"original_value\": \"exact value in full instruction\",\n      \"alternative_values\": [\"one realistic alternative value\"],\n      \"spans_removed\": [\"exact substring 1 from full_instruction\"],\n      \"replaced_with\": [\"neutral replacement 1 or empty string\"]\n    }\n  ]\n}\n`skip_reason` is an empty string when `status` is \"ok\".",
+  "status": "completed",
+  "dispatch_started_at": 1793330263.790488,
+  "response": "{\n  \"status\": \"ok\",\n  \"skip_reason\": \"\",\n  \"candidate_subparts\": [\n    {\n      \"subpart_id\": \"gap_1\",\n      \"variable\": \"file_format\",\n      \"original_value\": \"JSON\",\n      \"alternative_values\": [\"Pickle\"],\n      \"spans_removed\": [\n        \"a JSON file\",\n        \" (objects in JavaScript)\",\n        \"import json\\n\"\n      ],\n      \"replaced_with\": [\n        \"a file\",\n        \"\",\n        \"\"\n      ]\n    }\n  ]\n}",
+  "latency_s": 98.1888427734375,
+  "parsed": {
+    "status": "ok",
+    "skip_reason": "",
+    "candidate_subparts": [
+      {
+        "subpart_id": "gap_1",
+        "variable": "file_format",
+        "original_value": "JSON",
+        "alternative_values": [
+          "Pickle"
+        ],
+        "spans_removed": [
+          "a JSON file",
+          " (objects in JavaScript)",
+          "import json\n"
+        ],
+        "replaced_with": [
+          "a file",
+          "",
+          ""
+        ]
+      }
+    ]
+  }
+}

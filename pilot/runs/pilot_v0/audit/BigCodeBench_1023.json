@@ -1,0 +1,345 @@
+{
+  "task_id": "BigCodeBench/1023",
+  "full_instruction": "Calculate the correlation matrix of a DataFrame and plot a scatter plot for the pair of columns with the highest absolute correlation. Exception Handling: - Raises ValueError if the input DataFrame is empty. - Raises TypeError if any column in the DataFrame is non-numeric. - Raises ValueError if the DataFrame has fewer than two columns.\nThe function should output with:\n    ax (plt.Axes): The scatter plot of the pair of columns with the highest absolute correlation.\nYou should write self-contained code starting with:\n```\nimport pandas as pd\nimport numpy as np\nimport matplotlib.pyplot as plt\ndef task_func(dataframe):\n```",
+  "llm_calls": [
+    {
+      "tag": "builder.BigCodeBench_1023",
+      "content_hash": "e47b934a49cd92a900d35c031593558a25ea660293b0da67c8b093cf0a6ccd08",
+      "requested_model": "gpt-6.1-sol",
+      "configured_model": "gpt-6.1-sol",
+      "served_model": null,
+      "reasoning_effort": "high",
+      "source": "codex_subagent",
+      "usage": {},
+      "usage_available": false,
+      "request": {
+        "model": "gpt-6.1-sol",
+        "reasoning_effort": "high",
+        "fork_turns": "none",
+        "system": "You are a fast, surgical dataset builder for an AI agent ambiguity benchmark.\nYou will receive a seed task containing:\n1. `full_instruction`\n2. `gold_solution` (reference code that implements the instruction)\n\nYour job is to select AT MOST 3 maskable subparts—OR immediately reject the seed task if it has no clean maskable parameters.\n\nSTRICT SELECTION RULES:\n1. Target-First Filtering (Do NOT decompose the whole prompt):\n   Only select parameters that pass ALL THREE questions:\n   - Still the Same Task: If removed, the core goal remains intact.\n   - Short List of Values: Has 2–5 realistic values (e.g., CSV vs. JSON, drop vs. fill NaN, round down vs. round to nearest). Never pick arbitrary invented names.\n   - Visible in the Work: Code written for `alternative_value` would look visibly different from code written for `original_value`, or would give a visibly different result.\n   Also: `gold_solution` must implement `original_value` as the instruction states it. If the instruction and `gold_solution` disagree about a parameter, do not select it.\n   If NO parameter in `full_instruction` meets these criteria, return `\"status\": \"skip_seed_task\"` with a `skip_reason` immediately.\n\n2. Surgical Span Extraction (Do NOT rewrite the prompt):\n   - List every exact substring in `full_instruction` (`spans_removed`) that states or hints at this parameter, and the neutral replacement string (`replaced_with`, which may be `\"\"` or a neutral phrase like `\"in a file\"` or `\"convert it to an integer\"`).\n   - Ensure `spans_removed` matches `full_instruction` character-for-character so a Python script can run `str.replace()` without touching any other word.\n   - The function signature at the end of `full_instruction` is part of the instruction. If a default argument or type hint states or hints at the selected value, include that substring in `spans_removed` too.\n\n3. One Alternative Value:\n   - Give exactly one realistic alternative value in `alternative_values`.",
+        "user": "Task ID: \"BigCodeBench/1023\"\nFull Instruction:\n\"\"\"\nCalculate the correlation matrix of a DataFrame and plot a scatter plot for the pair of columns with the highest absolute correlation. Exception Handling: - Raises ValueError if the input DataFrame is empty. - Raises TypeError if any column in the DataFrame is non-numeric. - Raises ValueError if the DataFrame has fewer than two columns.\nThe function should output with:\n    ax (plt.Axes): The scatter plot of the pair of columns with the highest absolute correlation.\nYou should write self-contained code starting with:\n```\nimport pandas as pd\nimport numpy as np\nimport matplotlib.pyplot as plt\ndef task_func(dataframe):\n```\n\"\"\"\nGold Solution:\n\"\"\"\n\n    if dataframe.empty:\n        raise ValueError(\"DataFrame is empty.\")\n        \n    if not all(dataframe.dtypes.apply(lambda x: np.issubdtype(x, np.number))):\n        raise TypeError(\"All columns must be numeric for correlation calculation.\")\n\n    if dataframe.shape[1] < 2:\n        raise ValueError(\"DataFrame must have at least two columns for correlation calculation.\")\n\n    # Explicit use of pd.DataFrame.corr() to calculate the correlation matrix\n    corr_matrix = pd.DataFrame.corr(dataframe)\n    abs_corr_matrix = corr_matrix.abs()\n\n    # Finding the pair of columns with the highest absolute correlation\n    highest_corr_value = abs_corr_matrix.unstack().dropna().nlargest(2).iloc[-1]\n    max_corr_pair = np.where(abs_corr_matrix == highest_corr_value)\n\n    # Extracting column names for the highest correlation\n    column_x = dataframe.columns[max_corr_pair[0][0]]\n    column_y = dataframe.columns[max_corr_pair[1][0]]\n\n    # Using plt to plot the scatter plot\n    plt.figure(figsize=(10, 6))  # Creating a figure\n    plt.scatter(dataframe[column_x], dataframe[column_y])  # Plotting the scatter plot\n    plt.title(f\"Scatter plot between {column_x} and {column_y}\")  # Setting the title\n    plt.xlabel(column_x)  # Setting the x-axis label\n    plt.ylabel(column_y)  # Setting the y-axis label\n    plt.show()  # Displaying the figure\n\n    return plt.gca()  # Returning the current Axes object for further use\n\"\"\"\n\nReturn JSON only using this exact schema:\n{\n  \"status\": \"ok\" | \"skip_seed_task\",\n  \"skip_reason\": \"\",\n  \"candidate_subparts\": [\n    {\n      \"subpart_id\": \"gap_1\",\n      \"variable\": \"short_snake_case_name\",\n      \"original_value\": \"exact value in full instruction\",\n      \"alternative_values\": [\"one realistic alternative value\"],\n      \"spans_removed\": [\"exact substring 1 from full_instruction\"],\n      \"replaced_with\": [\"neutral replacement 1 or empty string\"]\n    }\n  ]\n}\n`skip_reason` is an empty string when `status` is \"ok\".",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "status",
+            "skip_reason",
+            "candidate_subparts"
+          ],
+          "properties": {
+            "status": {
+              "type": "string",
+              "enum": [
+                "ok",
+                "skip_seed_task"
+              ]
+            },
+            "skip_reason": {
+              "type": "string"
+            },
+            "candidate_subparts": {
+              "type": "array",
+              "maxItems": 3,
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "subpart_id",
+                  "variable",
+                  "original_value",
+                  "alternative_values",
+                  "spans_removed",
+                  "replaced_with"
+                ],
+                "properties": {
+                  "subpart_id": {
+                    "type": "string"
+                  },
+                  "variable": {
+                    "type": "string"
+                  },
+                  "original_value": {
+                    "type": "string"
+                  },
+                  "alternative_values": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    },
+                    "minItems": 1,
+                    "maxItems": 1
+                  },
+                  "spans_removed": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "replaced_with": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "transport": "codex_subagent",
+        "tools_allowed": false
+      },
+      "dispatch_message": "Complete this isolated text-only evaluation. Do not use tools, read files, run code, or create agents. Return only the requested JSON.\n\nSYSTEM PROMPT:\nYou are a fast, surgical dataset builder for an AI agent ambiguity benchmark.\nYou will receive a seed task containing:\n1. `full_instruction`\n2. `gold_solution` (reference code that implements the instruction)\n\nYour job is to select AT MOST 3 maskable subparts—OR immediately reject the seed task if it has no clean maskable parameters.\n\nSTRICT SELECTION RULES:\n1. Target-First Filtering (Do NOT decompose the whole prompt):\n   Only select parameters that pass ALL THREE questions:\n   - Still the Same Task: If removed, the core goal remains intact.\n   - Short List of Values: Has 2–5 realistic values (e.g., CSV vs. JSON, drop vs. fill NaN, round down vs. round to nearest). Never pick arbitrary invented names.\n   - Visible in the Work: Code written for `alternative_value` would look visibly different from code written for `original_value`, or would give a visibly different result.\n   Also: `gold_solution` must implement `original_value` as the instruction states it. If the instruction and `gold_solution` disagree about a parameter, do not select it.\n   If NO parameter in `full_instruction` meets these criteria, return `\"status\": \"skip_seed_task\"` with a `skip_reason` immediately.\n\n2. Surgical Span Extraction (Do NOT rewrite the prompt):\n   - List every exact substring in `full_instruction` (`spans_removed`) that states or hints at this parameter, and the neutral replacement string (`replaced_with`, which may be `\"\"` or a neutral phrase like `\"in a file\"` or `\"convert it to an integer\"`).\n   - Ensure `spans_removed` matches `full_instruction` character-for-character so a Python script can run `str.replace()` without touching any other word.\n   - The function signature at the end of `full_instruction` is part of the instruction. If a default argument or type hint states or hints at the selected value, include that substring in `spans_removed` too.\n\n3. One Alternative Value:\n   - Give exactly one realistic alternative value in `alternative_values`.\n\nUSER PROMPT:\nTask ID: \"BigCodeBench/1023\"\nFull Instruction:\n\"\"\"\nCalculate the correlation matrix of a DataFrame and plot a scatter plot for the pair of columns with the highest absolute correlation. Exception Handling: - Raises ValueError if the input DataFrame is empty. - Raises TypeError if any column in the DataFrame is non-numeric. - Raises ValueError if the DataFrame has fewer than two columns.\nThe function should output with:\n    ax (plt.Axes): The scatter plot of the pair of columns with the highest absolute correlation.\nYou should write self-contained code starting with:\n```\nimport pandas as pd\nimport numpy as np\nimport matplotlib.pyplot as plt\ndef task_func(dataframe):\n```\n\"\"\"\nGold Solution:\n\"\"\"\n\n    if dataframe.empty:\n        raise ValueError(\"DataFrame is empty.\")\n        \n    if not all(dataframe.dtypes.apply(lambda x: np.issubdtype(x, np.number))):\n        raise TypeError(\"All columns must be numeric for correlation calculation.\")\n\n    if dataframe.shape[1] < 2:\n        raise ValueError(\"DataFrame must have at least two columns for correlation calculation.\")\n\n    # Explicit use of pd.DataFrame.corr() to calculate the correlation matrix\n    corr_matrix = pd.DataFrame.corr(dataframe)\n    abs_corr_matrix = corr_matrix.abs()\n\n    # Finding the pair of columns with the highest absolute correlation\n    highest_corr_value = abs_corr_matrix.unstack().dropna().nlargest(2).iloc[-1]\n    max_corr_pair = np.where(abs_corr_matrix == highest_corr_value)\n\n    # Extracting column names for the highest correlation\n    column_x = dataframe.columns[max_corr_pair[0][0]]\n    column_y = dataframe.columns[max_corr_pair[1][0]]\n\n    # Using plt to plot the scatter plot\n    plt.figure(figsize=(10, 6))  # Creating a figure\n    plt.scatter(dataframe[column_x], dataframe[column_y])  # Plotting the scatter plot\n    plt.title(f\"Scatter plot between {column_x} and {column_y}\")  # Setting the title\n    plt.xlabel(column_x)  # Setting the x-axis label\n    plt.ylabel(column_y)  # Setting the y-axis label\n    plt.show()  # Displaying the figure\n\n    return plt.gca()  # Returning the current Axes object for further use\n\"\"\"\n\nReturn JSON only using this exact schema:\n{\n  \"status\": \"ok\" | \"skip_seed_task\",\n  \"skip_reason\": \"\",\n  \"candidate_subparts\": [\n    {\n      \"subpart_id\": \"gap_1\",\n      \"variable\": \"short_snake_case_name\",\n      \"original_value\": \"exact value in full instruction\",\n      \"alternative_values\": [\"one realistic alternative value\"],\n      \"spans_removed\": [\"exact substring 1 from full_instruction\"],\n      \"replaced_with\": [\"neutral replacement 1 or empty string\"]\n    }\n  ]\n}\n`skip_reason` is an empty string when `status` is \"ok\".",
+      "status": "completed",
+      "dispatch_started_at": 1793330270.151047,
+      "response": "{\n  \"status\": \"ok\",\n  \"skip_reason\": \"\",\n  \"candidate_subparts\": [\n    {\n      \"subpart_id\": \"gap_1\",\n      \"variable\": \"non_numeric_exception_type\",\n      \"original_value\": \"TypeError\",\n      \"alternative_values\": [\"ValueError\"],\n      \"spans_removed\": [\"TypeError\"],\n      \"replaced_with\": [\"an exception\"]\n    }\n  ]\n}",
+      "latency_s": 141.45455074310303,
+      "parsed": {
+        "status": "ok",
+        "skip_reason": "",
+        "candidate_subparts": [
+          {
+            "subpart_id": "gap_1",
+            "variable": "non_numeric_exception_type",
+            "original_value": "TypeError",
+            "alternative_values": [
+              "ValueError"
+            ],
+            "spans_removed": [
+              "TypeError"
+            ],
+            "replaced_with": [
+              "an exception"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "tag": "check1.BigCodeBench_1023.gap_1",
+      "content_hash": "240555c9b357f77d6b87cb90dd85c95583881c7b72bce8495810f2d8886f1ed9",
+      "requested_model": "gpt-6.1-sol",
+      "configured_model": "gpt-6.1-sol",
+      "served_model": null,
+      "reasoning_effort": "high",
+      "source": "codex_subagent",
+      "usage": {},
+      "usage_available": false,
+      "request": {
+        "model": "gpt-6.1-sol",
+        "reasoning_effort": "high",
+        "fork_turns": "none",
+        "system": "You will read a task instruction where a detail was removed. Your job is to try to guess the removed detail using ONLY the words still visible in the instruction. Look carefully for any leftover hints, pronouns, or clues in other sentences.",
+        "user": "Visible Instruction:\n\"\"\"\nCalculate the correlation matrix of a DataFrame and plot a scatter plot for the pair of columns with the highest absolute correlation. Exception Handling: - Raises ValueError if the input DataFrame is empty. - Raises an exception if any column in the DataFrame is non-numeric. - Raises ValueError if the DataFrame has fewer than two columns.\nThe function should output with:\n    ax (plt.Axes): The scatter plot of the pair of columns with the highest absolute correlation.\nYou should write self-contained code starting with:\n```\nimport pandas as pd\nimport numpy as np\nimport matplotlib.pyplot as plt\ndef task_func(dataframe):\n```\n\"\"\"\n\nQuestion: Based strictly on the visible text above, what is the value of `non_numeric_exception_type`?\nOptions:\n1) TypeError\n2) ValueError\n3) Completely undetermined (no hints in the text favor 1 or 2)\n\nReturn JSON only:\n{\n  \"choice\": \"1\" | \"2\" | \"3\",\n  \"confidence_0_to_1\": 0.0,\n  \"leftover_clue_spans\": [\"list the exact words in the Visible Instruction that hinted at 1 or 2, or empty list\"]\n}",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "choice",
+            "confidence_0_to_1",
+            "leftover_clue_spans"
+          ],
+          "properties": {
+            "choice": {
+              "type": "string",
+              "enum": [
+                "1",
+                "2",
+                "3"
+              ]
+            },
+            "confidence_0_to_1": {
+              "type": "number"
+            },
+            "leftover_clue_spans": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "transport": "codex_subagent",
+        "tools_allowed": false
+      },
+      "dispatch_message": "Complete this isolated text-only evaluation. Do not use tools, read files, run code, or create agents. Return only the requested JSON.\n\nSYSTEM PROMPT:\nYou will read a task instruction where a detail was removed. Your job is to try to guess the removed detail using ONLY the words still visible in the instruction. Look carefully for any leftover hints, pronouns, or clues in other sentences.\n\nUSER PROMPT:\nVisible Instruction:\n\"\"\"\nCalculate the correlation matrix of a DataFrame and plot a scatter plot for the pair of columns with the highest absolute correlation. Exception Handling: - Raises ValueError if the input DataFrame is empty. - Raises an exception if any column in the DataFrame is non-numeric. - Raises ValueError if the DataFrame has fewer than two columns.\nThe function should output with:\n    ax (plt.Axes): The scatter plot of the pair of columns with the highest absolute correlation.\nYou should write self-contained code starting with:\n```\nimport pandas as pd\nimport numpy as np\nimport matplotlib.pyplot as plt\ndef task_func(dataframe):\n```\n\"\"\"\n\nQuestion: Based strictly on the visible text above, what is the value of `non_numeric_exception_type`?\nOptions:\n1) TypeError\n2) ValueError\n3) Completely undetermined (no hints in the text favor 1 or 2)\n\nReturn JSON only:\n{\n  \"choice\": \"1\" | \"2\" | \"3\",\n  \"confidence_0_to_1\": 0.0,\n  \"leftover_clue_spans\": [\"list the exact words in the Visible Instruction that hinted at 1 or 2, or empty list\"]\n}",
+      "status": "completed",
+      "dispatch_started_at": 1793330420.1514657,
+      "response": "{\"choice\":\"3\",\"confidence_0_to_1\":0.99,\"leftover_clue_spans\":[]}",
+      "latency_s": 78.54282140731812,
+      "parsed": {
+        "choice": "3",
+        "confidence_0_to_1": 0.99,
+        "leftover_clue_spans": []
+      }
+    }
+  ],
+  "gates": [
+    {
+      "gate": "G1",
+      "result": "pass",
+      "evidence": {
+        "status": "ok"
+      }
+    }
+  ],
+  "subparts": [
+    {
+      "subpart": {
+        "subpart_id": "gap_1",
+        "variable": "non_numeric_exception_type",
+        "original_value": "TypeError",
+        "alternative_values": [
+          "ValueError"
+        ],
+        "spans_removed": [
+          "TypeError"
+        ],
+        "replaced_with": [
+          "an exception"
+        ]
+      },
+      "gates": [
+        {
+          "gate": "G2",
+          "result": "pass",
+          "evidence": {
+            "alternative_count": 1,
+            "span_count": 1,
+            "replacement_count": 1
+          }
+        },
+        {
+          "gate": "G3",
+          "result": "pass",
+          "evidence": {
+            "ok": true,
+            "issues": []
+          }
+        },
+        {
+          "gate": "G4",
+          "result": "pass",
+          "evidence": {
+            "result": "pass",
+            "reader_choice": "undetermined",
+            "reader_value": null,
+            "raw_choice": "3",
+            "option_order": [
+              "original_value",
+              "alternative_value"
+            ],
+            "option_values": [
+              "TypeError",
+              "ValueError"
+            ],
+            "confidence": 0.99,
+            "leftover_clue_spans": [],
+            "clue_spans_checked": []
+          }
+        }
+      ],
+      "surface_flags": [],
+      "splice_s": 1.0875985026359558e-05,
+      "splice": {
+        "ok": true,
+        "issues": []
+      },
+      "masked_single": "Calculate the correlation matrix of a DataFrame and plot a scatter plot for the pair of columns with the highest absolute correlation. Exception Handling: - Raises ValueError if the input DataFrame is empty. - Raises an exception if any column in the DataFrame is non-numeric. - Raises ValueError if the DataFrame has fewer than two columns.\nThe function should output with:\n    ax (plt.Axes): The scatter plot of the pair of columns with the highest absolute correlation.\nYou should write self-contained code starting with:\n```\nimport pandas as pd\nimport numpy as np\nimport matplotlib.pyplot as plt\ndef task_func(dataframe):\n```",
+      "check1_s": 87.0286199580878,
+      "leakage_check": {
+        "result": "pass",
+        "reader_choice": "undetermined",
+        "reader_value": null,
+        "raw_choice": "3",
+        "option_order": [
+          "original_value",
+          "alternative_value"
+        ],
+        "option_values": [
+          "TypeError",
+          "ValueError"
+        ],
+        "confidence": 0.99,
+        "leftover_clue_spans": [],
+        "clue_spans_checked": []
+      },
+      "verdict": "accepted",
+      "stopped_at": null,
+      "reason": "passed"
+    }
+  ],
+  "entries": [
+    {
+      "task_id": "BigCodeBench/1023::single::non_numeric_exception_type",
+      "seed_task_id": "BigCodeBench/1023",
+      "source": {
+        "benchmark": "BigCodeBench",
+        "version": "v0.1.4",
+        "instruction_sha256": "e7958e88a1c17bef0dc5c72584138553c97bbbf97fb8c62771316f2fc4c42524"
+      },
+      "full_instruction": "Calculate the correlation matrix of a DataFrame and plot a scatter plot for the pair of columns with the highest absolute correlation. Exception Handling: - Raises ValueError if the input DataFrame is empty. - Raises TypeError if any column in the DataFrame is non-numeric. - Raises ValueError if the DataFrame has fewer than two columns.\nThe function should output with:\n    ax (plt.Axes): The scatter plot of the pair of columns with the highest absolute correlation.\nYou should write self-contained code starting with:\n```\nimport pandas as pd\nimport numpy as np\nimport matplotlib.pyplot as plt\ndef task_func(dataframe):\n```",
+      "masked_instruction": "Calculate the correlation matrix of a DataFrame and plot a scatter plot for the pair of columns with the highest absolute correlation. Exception Handling: - Raises ValueError if the input DataFrame is empty. - Raises an exception if any column in the DataFrame is non-numeric. - Raises ValueError if the DataFrame has fewer than two columns.\nThe function should output with:\n    ax (plt.Axes): The scatter plot of the pair of columns with the highest absolute correlation.\nYou should write self-contained code starting with:\n```\nimport pandas as pd\nimport numpy as np\nimport matplotlib.pyplot as plt\ndef task_func(dataframe):\n```",
+      "masking_mode": "single_gap",
+      "reference_ambiguities": [
+        {
+          "subpart_id": "gap_1",
+          "variable": "non_numeric_exception_type",
+          "spans_removed": [
+            "TypeError"
+          ],
+          "replaced_with": [
+            "an exception"
+          ],
+          "original_value": "TypeError",
+          "alternative_values": [
+            "ValueError"
+          ],
+          "answer_source": "User",
+          "is_crucial": true,
+          "leakage_check": {
+            "result": "pass",
+            "reader_choice": "undetermined",
+            "option_order": [
+              "original_value",
+              "alternative_value"
+            ],
+            "leftover_clue_spans": []
+          }
+        }
+      ],
+      "extra_gaps": [],
+      "review": {
+        "owner_verdict": null,
+        "owner_note": null
+      }
+    }
+  ],
+  "fixture_only": false,
+  "timings_s": {
+    "builder": 152.07992263697088,
+    "splice": 1.0875985026359558e-05,
+    "check1": 87.0286199580878
+  },
+  "builder_output": {
+    "status": "ok",
+    "skip_reason": "",
+    "candidate_subparts": [
+      {
+        "subpart_id": "gap_1",
+        "variable": "non_numeric_exception_type",
+        "original_value": "TypeError",
+        "alternative_values": [
+          "ValueError"
+        ],
+        "spans_removed": [
+          "TypeError"
+        ],
+        "replaced_with": [
+          "an exception"
+        ]
+      }
+    ]
+  },
+  "seed_status": "accepted"
+}

@@ -1,0 +1,24 @@
+{
+  "sample_design": "benchmark-only purposive pilot; new external sources tracked separately",
+  "seeds": 2,
+  "domain_counts": {
+    "coding": 2
+  },
+  "candidates": 2,
+  "unique_crucial_gaps": 2,
+  "category_counts": {
+    "Task": 2
+  },
+  "answer_source_counts": {
+    "User": 2
+  },
+  "finalized_entries": 0,
+  "independent_model_calls": 0,
+  "live_agent_runs": 0,
+  "pending_blind_checks": 2,
+  "atomic_decomposition": "Selected maskable facts only, not exhaustive atomization.",
+  "source_hashes": {
+    "BigCodeBench/889": "db8b6fb9737ffe3f816130d9dcbd40baa717323f2f686c6d89c748c43bac17b2",
+    "BigCodeBench/985": "d08ceee47de003d89dfc3c78c64e59c22df4c6e73097c12b78c17c117e89e144"
+  }
+}

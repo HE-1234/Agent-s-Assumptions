@@ -1,0 +1,184 @@
+{
+ "BigCodeBench/232": {
+  "status": "ok",
+  "skip_reason": "",
+  "candidate_subparts": [
+   {
+    "subpart_id": "oracle_dedup",
+    "variable": "oracle_dedup",
+    "category": "Task",
+    "answer_source": "User",
+    "is_crucial": true,
+    "original_value": "orig oracle_dedup",
+    "alternative_values": [
+     "alt oracle_dedup"
+    ],
+    "spans_removed": [
+     ", excluding duplicate customer names"
+    ],
+    "replaced_with": [
+     ""
+    ],
+    "linked_decisions": [],
+    "gold_solution_mutation": {
+     "find_in_gold": "    df = df.drop_duplicates(subset='Customer')\n",
+     "replace_in_gold": "",
+     "target_assertion": ""
+    },
+    "target_tests": [
+     "test_case_with_duplicates"
+    ],
+    "test_mutation": {
+     "find_in_tests": "expected_output = {'Total Sales': 1200, 'Most Popular Category': 'Electronics'}",
+     "replace_in_tests": "expected_output = {'Total Sales': 1400, 'Most Popular Category': 'Electronics'}"
+    }
+   },
+   {
+    "subpart_id": "null_noop",
+    "variable": "null_noop",
+    "category": "Task",
+    "answer_source": "User",
+    "is_crucial": true,
+    "original_value": "orig null_noop",
+    "alternative_values": [
+     "alt null_noop"
+    ],
+    "spans_removed": [
+     "total sales"
+    ],
+    "replaced_with": [
+     "sales"
+    ],
+    "linked_decisions": [],
+    "gold_solution_mutation": {
+     "find_in_gold": "total_sales = df",
+     "replace_in_gold": "total_sales = df",
+     "target_assertion": ""
+    },
+    "target_tests": [],
+    "test_mutation": {
+     "find_in_tests": "",
+     "replace_in_tests": ""
+    }
+   },
+   {
+    "subpart_id": "null_missing_span",
+    "variable": "null_missing_span",
+    "category": "Task",
+    "answer_source": "User",
+    "is_crucial": true,
+    "original_value": "orig null_missing_span",
+    "alternative_values": [
+     "alt null_missing_span"
+    ],
+    "spans_removed": [
+     "excluding duplicate customers"
+    ],
+    "replaced_with": [
+     ""
+    ],
+    "linked_decisions": [],
+    "gold_solution_mutation": {
+     "find_in_gold": "    df = df.drop_duplicates(subset='Customer')\n",
+     "replace_in_gold": "",
+     "target_assertion": ""
+    },
+    "target_tests": [
+     "test_case_with_duplicates"
+    ],
+    "test_mutation": {
+     "find_in_tests": "",
+     "replace_in_tests": ""
+    }
+   },
+   {
+    "subpart_id": "null_unrelated",
+    "variable": "null_unrelated",
+    "category": "Task",
+    "answer_source": "User",
+    "is_crucial": true,
+    "original_value": "orig null_unrelated",
+    "alternative_values": [
+     "alt null_unrelated"
+    ],
+    "spans_removed": [
+     "The report includes total sales"
+    ],
+    "replaced_with": [
+     "The report includes sales"
+    ],
+    "linked_decisions": [],
+    "gold_solution_mutation": {
+     "find_in_gold": "raise ValueError(\"The input df",
+     "replace_in_gold": "raise TypeError(\"The input df",
+     "target_assertion": ""
+    },
+    "target_tests": [
+     "test_case_regular"
+    ],
+    "test_mutation": {
+     "find_in_tests": "",
+     "replace_in_tests": ""
+    }
+   },
+   {
+    "subpart_id": "distractor_msg",
+    "variable": "distractor_msg",
+    "category": "Task",
+    "answer_source": "User",
+    "is_crucial": true,
+    "original_value": "orig distractor_msg",
+    "alternative_values": [
+     "alt distractor_msg"
+    ],
+    "spans_removed": [
+     "The function will raise a ValueError is input df is not a DataFrame"
+    ],
+    "replaced_with": [
+     "The function will raise a ValueError on bad input"
+    ],
+    "linked_decisions": [],
+    "gold_solution_mutation": {
+     "find_in_gold": "The input df is not a DataFrame",
+     "replace_in_gold": "Bad input",
+     "target_assertion": ""
+    },
+    "target_tests": [],
+    "test_mutation": {
+     "find_in_tests": "",
+     "replace_in_tests": ""
+    }
+   },
+   {
+    "subpart_id": "oracle_bad_testmut",
+    "variable": "oracle_bad_testmut",
+    "category": "Task",
+    "answer_source": "User",
+    "is_crucial": true,
+    "original_value": "orig oracle_bad_testmut",
+    "alternative_values": [
+     "alt oracle_bad_testmut"
+    ],
+    "spans_removed": [
+     ", excluding duplicate customer names"
+    ],
+    "replaced_with": [
+     ""
+    ],
+    "linked_decisions": [],
+    "gold_solution_mutation": {
+     "find_in_gold": "    df = df.drop_duplicates(subset='Customer')\n",
+     "replace_in_gold": "",
+     "target_assertion": ""
+    },
+    "target_tests": [
+     "test_case_with_duplicates"
+    ],
+    "test_mutation": {
+     "find_in_tests": "this string is not in the tests",
+     "replace_in_tests": "x"
+    }
+   }
+  ]
+ }
+}

@@ -1,0 +1,13 @@
+{
+  "seed_audits": 20,
+  "model_records": 48,
+  "builder_responses": 20,
+  "reader_responses": 28,
+  "all_responses_schema_valid": true,
+  "all_splices_reproduced": true,
+  "all_gate_verdicts_reconciled": true,
+  "accepted_entries": 22,
+  "rejected_records": 7,
+  "token_usage": "unavailable",
+  "provider_served_model": "unavailable"
+}

@@ -1,0 +1,79 @@
+{
+  "status": "prepared_not_executed",
+  "runs": [
+    {
+      "seed_task_id": "BigCodeBench/889",
+      "branch": "A",
+      "status": "not_run",
+      "agent_input": "stage2/BigCodeBench_889/A/agent_input.json",
+      "fresh_session_required": true,
+      "world_access": false,
+      "user_online": null
+    },
+    {
+      "seed_task_id": "BigCodeBench/889",
+      "branch": "B-Full",
+      "status": "not_run",
+      "agent_input": "stage2/BigCodeBench_889/B-Full/agent_input.json",
+      "fresh_session_required": true,
+      "world_access": true,
+      "user_online": true
+    },
+    {
+      "seed_task_id": "BigCodeBench/889",
+      "branch": "B-Online",
+      "status": "not_run",
+      "agent_input": "stage2/BigCodeBench_889/B-Online/agent_input.json",
+      "fresh_session_required": true,
+      "world_access": true,
+      "user_online": true
+    },
+    {
+      "seed_task_id": "BigCodeBench/889",
+      "branch": "B-Offline",
+      "status": "not_run",
+      "agent_input": "stage2/BigCodeBench_889/B-Offline/agent_input.json",
+      "fresh_session_required": true,
+      "world_access": true,
+      "user_online": false
+    },
+    {
+      "seed_task_id": "BigCodeBench/985",
+      "branch": "A",
+      "status": "not_run",
+      "agent_input": "stage2/BigCodeBench_985/A/agent_input.json",
+      "fresh_session_required": true,
+      "world_access": false,
+      "user_online": null
+    },
+    {
+      "seed_task_id": "BigCodeBench/985",
+      "branch": "B-Full",
+      "status": "not_run",
+      "agent_input": "stage2/BigCodeBench_985/B-Full/agent_input.json",
+      "fresh_session_required": true,
+      "world_access": true,
+      "user_online": true
+    },
+    {
+      "seed_task_id": "BigCodeBench/985",
+      "branch": "B-Online",
+      "status": "not_run",
+      "agent_input": "stage2/BigCodeBench_985/B-Online/agent_input.json",
+      "fresh_session_required": true,
+      "world_access": true,
+      "user_online": true
+    },
+    {
+      "seed_task_id": "BigCodeBench/985",
+      "branch": "B-Offline",
+      "status": "not_run",
+      "agent_input": "stage2/BigCodeBench_985/B-Offline/agent_input.json",
+      "fresh_session_required": true,
+      "world_access": true,
+      "user_online": false
+    }
+  ],
+  "boundary": "Only agent inputs and allowed tool data may enter agent context.",
+  "limitation": "Review bundles are not an enforced sandbox."
+}

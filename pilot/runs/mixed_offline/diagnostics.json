@@ -1,0 +1,14 @@
+{
+  "mean_to_median": {
+    "status": "pass",
+    "tests": {
+      "test_all_nan_column": "pass",
+      "test_empty_csv": "pass",
+      "test_file_not_found": "pass",
+      "test_mixed_columns": "pass",
+      "test_no_numeric_data": "pass",
+      "test_numeric_columns_nan_replacement": "pass"
+    }
+  },
+  "interpretation": "Test undercoverage, not proof of a safe distractor."
+}

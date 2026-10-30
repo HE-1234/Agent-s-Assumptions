@@ -1,0 +1,40 @@
+{
+  "reviewed_on": "2026-10-29",
+  "constraint": "Externally published task seeds only; do not author replacement tasks, expected answers, or graders.",
+  "datasets": [
+    {
+      "name": "WorkBench",
+      "url": "https://github.com/olly-styles/WorkBench",
+      "decision": "download limited calendar materials",
+      "reason": "Original calendar instructions, expected tool actions, initial database, and state-comparison evaluator are published together.",
+      "license": "MIT",
+      "limitations": [
+        "Benchmark-maintainer-generated workplace data, not private real-user records.",
+        "Source prompt and reference consistency still require per-task checks."
+      ]
+    },
+    {
+      "name": "TravelPlanner",
+      "url": "https://huggingface.co/datasets/osunlp/TravelPlanner",
+      "code_url": "https://github.com/OSU-NLP-Group/TravelPlanner",
+      "decision": "download training split and evaluator sources",
+      "reason": "Training split provides 45 queries with human-annotated plans; validation lacks annotated plans.",
+      "license": "CC-BY-4.0 data; MIT code",
+      "limitations": [
+        "Full evaluator depends on external travel catalogs and tool modules.",
+        "Source feasibility and alternative distinguishability not yet verified; no local test-pass claim."
+      ]
+    },
+    {
+      "name": "Agent-Diff",
+      "url": "https://github.com/agent-diff-bench/agent-diff",
+      "decision": "defer download",
+      "reason": "Published enterprise API tasks and deterministic state evaluation, but service-backed environment is more involved for this small offline review.",
+      "license": "MIT",
+      "limitations": [
+        "No local environment or task grader executed."
+      ]
+    }
+  ],
+  "policy": "Download originals and evidence only. Keep imported seeds outside candidates.jsonl until construction checks are completed."
+}

@@ -1,0 +1,59 @@
+{
+  "fixture_only": true,
+  "seeds": {
+    "drawn": 1,
+    "builder_ok": 1,
+    "builder_skip_seed_task": 0,
+    "builder_error": 0,
+    "needs_review": 0,
+    "budget_stopped": 0
+  },
+  "gaps": {
+    "proposed": 1,
+    "stopped_at": {
+      "G2": 0,
+      "G3": 0,
+      "G4": 0
+    },
+    "accepted": 1,
+    "needs_review": 0,
+    "budget_stopped": 0
+  },
+  "seeds_with_accepted_gap": 1,
+  "check1": {
+    "pass": 0,
+    "prior_lean": 0,
+    "fail": 0,
+    "skipped": 1
+  },
+  "model_calls": {
+    "count": 0,
+    "count_unit": "api_attempts",
+    "requested_models": [],
+    "reasoning_efforts": [],
+    "usage_available": true,
+    "input_tokens": 0,
+    "output_tokens": 0,
+    "served_models": []
+  },
+  "wall_clock": {
+    "total_s": 0.0074296691454946995,
+    "per_seed_stages": {
+      "builder": {
+        "median_s": 5.3676776587963104e-06,
+        "max_s": 5.3676776587963104e-06
+      },
+      "splice": {
+        "median_s": 1.926906406879425e-05,
+        "max_s": 1.926906406879425e-05
+      },
+      "check1": {
+        "median_s": 0,
+        "max_s": 0
+      }
+    }
+  },
+  "questions": 0,
+  "dataset_entries": 0,
+  "rejected_records": 0
+}

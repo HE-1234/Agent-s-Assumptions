@@ -1,0 +1,18 @@
+{
+  "benchmark": "TravelPlanner",
+  "verified_files": 49,
+  "original_files_preserved": 8,
+  "download_scope": "All files in the pinned Hugging Face dataset and all repository files except images and compiled bytecode. The separate Google Drive environment database archive is not included.",
+  "task_code_executed": false,
+  "task_counts": {
+    "train.csv": 45,
+    "validation.csv": 180,
+    "test.csv": 1000
+  },
+  "total_tasks": 1225,
+  "reference_information_counts": {
+    "train": 45,
+    "validation": 180,
+    "test": 1000
+  }
+}

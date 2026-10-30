@@ -1,0 +1,63 @@
+{
+  "fixture_only": false,
+  "seeds": {
+    "drawn": 20,
+    "builder_ok": 19,
+    "builder_skip_seed_task": 1,
+    "builder_error": 0,
+    "needs_review": 0,
+    "budget_stopped": 0
+  },
+  "gaps": {
+    "proposed": 28,
+    "stopped_at": {
+      "G2": 0,
+      "G3": 0,
+      "G4": 6
+    },
+    "accepted": 22,
+    "needs_review": 0,
+    "budget_stopped": 0
+  },
+  "seeds_with_accepted_gap": 16,
+  "check1": {
+    "pass": 22,
+    "prior_lean": 0,
+    "fail": 6,
+    "skipped": 0
+  },
+  "model_calls": {
+    "count": 48,
+    "count_unit": "subagent_invocations",
+    "requested_models": [
+      "gpt-6.1-sol"
+    ],
+    "reasoning_efforts": [
+      "high"
+    ],
+    "usage_available": false,
+    "input_tokens": null,
+    "output_tokens": null,
+    "served_models": []
+  },
+  "wall_clock": {
+    "total_s": 1466.3283470650204,
+    "per_seed_stages": {
+      "builder": {
+        "median_s": 105.11761707463302,
+        "max_s": 152.07992263697088
+      },
+      "splice": {
+        "median_s": 1.4616874977946281e-05,
+        "max_s": 5.0966162234544754e-05
+      },
+      "check1": {
+        "median_s": 79.52732987259515,
+        "max_s": 228.40523087792099
+      }
+    }
+  },
+  "questions": 1,
+  "dataset_entries": 22,
+  "rejected_records": 7
+}

@@ -1,0 +1,555 @@
+{
+  "task_id": "BigCodeBench/426",
+  "full_instruction": "Read an image, convert it to grayscale, binarize it using a given threshold, and save it as 'binary_image.jpg'. The function returns numpy arrays of the original and binarized images, and ensures that the threshold value is valid.\nThe function should raise the exception for: FileNotFoundError: If the image file does not exist at the specified path. ValueError: If the threshold is not an integer or not in the range 0-255.\nThe function should output with:\n    tuple: A tuple containing two numpy arrays; the first is the original grayscale image, the second is the binarized image.\nYou should write self-contained code starting with:\n```\nimport numpy as np\nimport cv2\nimport os\ndef task_func(image_path='image.jpg', threshold=128):\n```",
+  "llm_calls": [
+    {
+      "tag": "builder.BigCodeBench_426",
+      "content_hash": "8ea2573d7bdf31fef995c0b71c4238b29d1a55a649fbb1f9577a54782e21b391",
+      "requested_model": "gpt-6.1-sol",
+      "configured_model": "gpt-6.1-sol",
+      "served_model": null,
+      "reasoning_effort": "high",
+      "source": "codex_subagent",
+      "usage": {},
+      "usage_available": false,
+      "request": {
+        "model": "gpt-6.1-sol",
+        "reasoning_effort": "high",
+        "fork_turns": "none",
+        "system": "You are a fast, surgical dataset builder for an AI agent ambiguity benchmark.\nYou will receive a seed task containing:\n1. `full_instruction`\n2. `gold_solution` (reference code that implements the instruction)\n\nYour job is to select AT MOST 3 maskable subparts—OR immediately reject the seed task if it has no clean maskable parameters.\n\nSTRICT SELECTION RULES:\n1. Target-First Filtering (Do NOT decompose the whole prompt):\n   Only select parameters that pass ALL THREE questions:\n   - Still the Same Task: If removed, the core goal remains intact.\n   - Short List of Values: Has 2–5 realistic values (e.g., CSV vs. JSON, drop vs. fill NaN, round down vs. round to nearest). Never pick arbitrary invented names.\n   - Visible in the Work: Code written for `alternative_value` would look visibly different from code written for `original_value`, or would give a visibly different result.\n   Also: `gold_solution` must implement `original_value` as the instruction states it. If the instruction and `gold_solution` disagree about a parameter, do not select it.\n   If NO parameter in `full_instruction` meets these criteria, return `\"status\": \"skip_seed_task\"` with a `skip_reason` immediately.\n\n2. Surgical Span Extraction (Do NOT rewrite the prompt):\n   - List every exact substring in `full_instruction` (`spans_removed`) that states or hints at this parameter, and the neutral replacement string (`replaced_with`, which may be `\"\"` or a neutral phrase like `\"in a file\"` or `\"convert it to an integer\"`).\n   - Ensure `spans_removed` matches `full_instruction` character-for-character so a Python script can run `str.replace()` without touching any other word.\n   - The function signature at the end of `full_instruction` is part of the instruction. If a default argument or type hint states or hints at the selected value, include that substring in `spans_removed` too.\n\n3. One Alternative Value:\n   - Give exactly one realistic alternative value in `alternative_values`.",
+        "user": "Task ID: \"BigCodeBench/426\"\nFull Instruction:\n\"\"\"\nRead an image, convert it to grayscale, binarize it using a given threshold, and save it as 'binary_image.jpg'. The function returns numpy arrays of the original and binarized images, and ensures that the threshold value is valid.\nThe function should raise the exception for: FileNotFoundError: If the image file does not exist at the specified path. ValueError: If the threshold is not an integer or not in the range 0-255.\nThe function should output with:\n    tuple: A tuple containing two numpy arrays; the first is the original grayscale image, the second is the binarized image.\nYou should write self-contained code starting with:\n```\nimport numpy as np\nimport cv2\nimport os\ndef task_func(image_path='image.jpg', threshold=128):\n```\n\"\"\"\nGold Solution:\n\"\"\"\n\n    if not isinstance(threshold, int) or not (0 <= threshold <= 255):\n        raise ValueError(\"Threshold must be an integer between 0 and 255.\")\n\n    if not os.path.exists(image_path):\n        raise FileNotFoundError(f\"No image found at {image_path}\")\n\n    # Image processing\n    img = cv2.imread(image_path, cv2.IMREAD_GRAYSCALE)\n    binary_img = np.where(img >= threshold, 255, 0).astype('uint8')\n    cv2.imwrite('binary_image.jpg', binary_img)\n\n    return np.array(img), np.array(binary_img)\n\"\"\"\n\nReturn JSON only using this exact schema:\n{\n  \"status\": \"ok\" | \"skip_seed_task\",\n  \"skip_reason\": \"\",\n  \"candidate_subparts\": [\n    {\n      \"subpart_id\": \"gap_1\",\n      \"variable\": \"short_snake_case_name\",\n      \"original_value\": \"exact value in full instruction\",\n      \"alternative_values\": [\"one realistic alternative value\"],\n      \"spans_removed\": [\"exact substring 1 from full_instruction\"],\n      \"replaced_with\": [\"neutral replacement 1 or empty string\"]\n    }\n  ]\n}\n`skip_reason` is an empty string when `status` is \"ok\".",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "status",
+            "skip_reason",
+            "candidate_subparts"
+          ],
+          "properties": {
+            "status": {
+              "type": "string",
+              "enum": [
+                "ok",
+                "skip_seed_task"
+              ]
+            },
+            "skip_reason": {
+              "type": "string"
+            },
+            "candidate_subparts": {
+              "type": "array",
+              "maxItems": 3,
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "subpart_id",
+                  "variable",
+                  "original_value",
+                  "alternative_values",
+                  "spans_removed",
+                  "replaced_with"
+                ],
+                "properties": {
+                  "subpart_id": {
+                    "type": "string"
+                  },
+                  "variable": {
+                    "type": "string"
+                  },
+                  "original_value": {
+                    "type": "string"
+                  },
+                  "alternative_values": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    },
+                    "minItems": 1,
+                    "maxItems": 1
+                  },
+                  "spans_removed": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "replaced_with": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "transport": "codex_subagent",
+        "tools_allowed": false
+      },
+      "dispatch_message": "Complete this isolated text-only evaluation. Do not use tools, read files, run code, or create agents. Return only the requested JSON.\n\nSYSTEM PROMPT:\nYou are a fast, surgical dataset builder for an AI agent ambiguity benchmark.\nYou will receive a seed task containing:\n1. `full_instruction`\n2. `gold_solution` (reference code that implements the instruction)\n\nYour job is to select AT MOST 3 maskable subparts—OR immediately reject the seed task if it has no clean maskable parameters.\n\nSTRICT SELECTION RULES:\n1. Target-First Filtering (Do NOT decompose the whole prompt):\n   Only select parameters that pass ALL THREE questions:\n   - Still the Same Task: If removed, the core goal remains intact.\n   - Short List of Values: Has 2–5 realistic values (e.g., CSV vs. JSON, drop vs. fill NaN, round down vs. round to nearest). Never pick arbitrary invented names.\n   - Visible in the Work: Code written for `alternative_value` would look visibly different from code written for `original_value`, or would give a visibly different result.\n   Also: `gold_solution` must implement `original_value` as the instruction states it. If the instruction and `gold_solution` disagree about a parameter, do not select it.\n   If NO parameter in `full_instruction` meets these criteria, return `\"status\": \"skip_seed_task\"` with a `skip_reason` immediately.\n\n2. Surgical Span Extraction (Do NOT rewrite the prompt):\n   - List every exact substring in `full_instruction` (`spans_removed`) that states or hints at this parameter, and the neutral replacement string (`replaced_with`, which may be `\"\"` or a neutral phrase like `\"in a file\"` or `\"convert it to an integer\"`).\n   - Ensure `spans_removed` matches `full_instruction` character-for-character so a Python script can run `str.replace()` without touching any other word.\n   - The function signature at the end of `full_instruction` is part of the instruction. If a default argument or type hint states or hints at the selected value, include that substring in `spans_removed` too.\n\n3. One Alternative Value:\n   - Give exactly one realistic alternative value in `alternative_values`.\n\nUSER PROMPT:\nTask ID: \"BigCodeBench/426\"\nFull Instruction:\n\"\"\"\nRead an image, convert it to grayscale, binarize it using a given threshold, and save it as 'binary_image.jpg'. The function returns numpy arrays of the original and binarized images, and ensures that the threshold value is valid.\nThe function should raise the exception for: FileNotFoundError: If the image file does not exist at the specified path. ValueError: If the threshold is not an integer or not in the range 0-255.\nThe function should output with:\n    tuple: A tuple containing two numpy arrays; the first is the original grayscale image, the second is the binarized image.\nYou should write self-contained code starting with:\n```\nimport numpy as np\nimport cv2\nimport os\ndef task_func(image_path='image.jpg', threshold=128):\n```\n\"\"\"\nGold Solution:\n\"\"\"\n\n    if not isinstance(threshold, int) or not (0 <= threshold <= 255):\n        raise ValueError(\"Threshold must be an integer between 0 and 255.\")\n\n    if not os.path.exists(image_path):\n        raise FileNotFoundError(f\"No image found at {image_path}\")\n\n    # Image processing\n    img = cv2.imread(image_path, cv2.IMREAD_GRAYSCALE)\n    binary_img = np.where(img >= threshold, 255, 0).astype('uint8')\n    cv2.imwrite('binary_image.jpg', binary_img)\n\n    return np.array(img), np.array(binary_img)\n\"\"\"\n\nReturn JSON only using this exact schema:\n{\n  \"status\": \"ok\" | \"skip_seed_task\",\n  \"skip_reason\": \"\",\n  \"candidate_subparts\": [\n    {\n      \"subpart_id\": \"gap_1\",\n      \"variable\": \"short_snake_case_name\",\n      \"original_value\": \"exact value in full instruction\",\n      \"alternative_values\": [\"one realistic alternative value\"],\n      \"spans_removed\": [\"exact substring 1 from full_instruction\"],\n      \"replaced_with\": [\"neutral replacement 1 or empty string\"]\n    }\n  ]\n}\n`skip_reason` is an empty string when `status` is \"ok\".",
+      "status": "completed",
+      "dispatch_started_at": 1793331036.3413858,
+      "response": "{\n  \"status\": \"ok\",\n  \"skip_reason\": \"\",\n  \"candidate_subparts\": [\n    {\n      \"subpart_id\": \"gap_1\",\n      \"variable\": \"output_image_format\",\n      \"original_value\": \"jpg\",\n      \"alternative_values\": [\"png\"],\n      \"spans_removed\": [\"'binary_image.jpg'\"],\n      \"replaced_with\": [\"an image file\"]\n    },\n    {\n      \"subpart_id\": \"gap_2\",\n      \"variable\": \"return_container\",\n      \"original_value\": \"tuple\",\n      \"alternative_values\": [\"list\"],\n      \"spans_removed\": [\n        \"tuple: A tuple containing two numpy arrays;\"\n      ],\n      \"replaced_with\": [\n        \"Two numpy arrays;\"\n      ]\n    }\n  ]\n}",
+      "latency_s": 113.40416550636292,
+      "parsed": {
+        "status": "ok",
+        "skip_reason": "",
+        "candidate_subparts": [
+          {
+            "subpart_id": "gap_1",
+            "variable": "output_image_format",
+            "original_value": "jpg",
+            "alternative_values": [
+              "png"
+            ],
+            "spans_removed": [
+              "'binary_image.jpg'"
+            ],
+            "replaced_with": [
+              "an image file"
+            ]
+          },
+          {
+            "subpart_id": "gap_2",
+            "variable": "return_container",
+            "original_value": "tuple",
+            "alternative_values": [
+              "list"
+            ],
+            "spans_removed": [
+              "tuple: A tuple containing two numpy arrays;"
+            ],
+            "replaced_with": [
+              "Two numpy arrays;"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "tag": "check1.BigCodeBench_426.gap_1",
+      "content_hash": "7cb0ed7d5439257c87bf03a065507db4895d8e1475301b40f6dde28b02677ad8",
+      "requested_model": "gpt-6.1-sol",
+      "configured_model": "gpt-6.1-sol",
+      "served_model": null,
+      "reasoning_effort": "high",
+      "source": "codex_subagent",
+      "usage": {},
+      "usage_available": false,
+      "request": {
+        "model": "gpt-6.1-sol",
+        "reasoning_effort": "high",
+        "fork_turns": "none",
+        "system": "You will read a task instruction where a detail was removed. Your job is to try to guess the removed detail using ONLY the words still visible in the instruction. Look carefully for any leftover hints, pronouns, or clues in other sentences.",
+        "user": "Visible Instruction:\n\"\"\"\nRead an image, convert it to grayscale, binarize it using a given threshold, and save it as an image file. The function returns numpy arrays of the original and binarized images, and ensures that the threshold value is valid.\nThe function should raise the exception for: FileNotFoundError: If the image file does not exist at the specified path. ValueError: If the threshold is not an integer or not in the range 0-255.\nThe function should output with:\n    tuple: A tuple containing two numpy arrays; the first is the original grayscale image, the second is the binarized image.\nYou should write self-contained code starting with:\n```\nimport numpy as np\nimport cv2\nimport os\ndef task_func(image_path='image.jpg', threshold=128):\n```\n\"\"\"\n\nQuestion: Based strictly on the visible text above, what is the value of `output_image_format`?\nOptions:\n1) jpg\n2) png\n3) Completely undetermined (no hints in the text favor 1 or 2)\n\nReturn JSON only:\n{\n  \"choice\": \"1\" | \"2\" | \"3\",\n  \"confidence_0_to_1\": 0.0,\n  \"leftover_clue_spans\": [\"list the exact words in the Visible Instruction that hinted at 1 or 2, or empty list\"]\n}",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "choice",
+            "confidence_0_to_1",
+            "leftover_clue_spans"
+          ],
+          "properties": {
+            "choice": {
+              "type": "string",
+              "enum": [
+                "1",
+                "2",
+                "3"
+              ]
+            },
+            "confidence_0_to_1": {
+              "type": "number"
+            },
+            "leftover_clue_spans": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "transport": "codex_subagent",
+        "tools_allowed": false
+      },
+      "dispatch_message": "Complete this isolated text-only evaluation. Do not use tools, read files, run code, or create agents. Return only the requested JSON.\n\nSYSTEM PROMPT:\nYou will read a task instruction where a detail was removed. Your job is to try to guess the removed detail using ONLY the words still visible in the instruction. Look carefully for any leftover hints, pronouns, or clues in other sentences.\n\nUSER PROMPT:\nVisible Instruction:\n\"\"\"\nRead an image, convert it to grayscale, binarize it using a given threshold, and save it as an image file. The function returns numpy arrays of the original and binarized images, and ensures that the threshold value is valid.\nThe function should raise the exception for: FileNotFoundError: If the image file does not exist at the specified path. ValueError: If the threshold is not an integer or not in the range 0-255.\nThe function should output with:\n    tuple: A tuple containing two numpy arrays; the first is the original grayscale image, the second is the binarized image.\nYou should write self-contained code starting with:\n```\nimport numpy as np\nimport cv2\nimport os\ndef task_func(image_path='image.jpg', threshold=128):\n```\n\"\"\"\n\nQuestion: Based strictly on the visible text above, what is the value of `output_image_format`?\nOptions:\n1) jpg\n2) png\n3) Completely undetermined (no hints in the text favor 1 or 2)\n\nReturn JSON only:\n{\n  \"choice\": \"1\" | \"2\" | \"3\",\n  \"confidence_0_to_1\": 0.0,\n  \"leftover_clue_spans\": [\"list the exact words in the Visible Instruction that hinted at 1 or 2, or empty list\"]\n}",
+      "status": "completed",
+      "dispatch_started_at": 1793331155.4178042,
+      "response": "{\"choice\":\"1\",\"confidence_0_to_1\":0.6,\"leftover_clue_spans\":[\"image_path='image.jpg'\"]}",
+      "latency_s": 49.258527517318726,
+      "parsed": {
+        "choice": "1",
+        "confidence_0_to_1": 0.6,
+        "leftover_clue_spans": [
+          "image_path='image.jpg'"
+        ]
+      }
+    },
+    {
+      "tag": "check1.BigCodeBench_426.gap_2",
+      "content_hash": "b4240698a46ad617887be596e057d1b66e3ff4d12d4f97675f4834db3345fd1f",
+      "requested_model": "gpt-6.1-sol",
+      "configured_model": "gpt-6.1-sol",
+      "served_model": null,
+      "reasoning_effort": "high",
+      "source": "codex_subagent",
+      "usage": {},
+      "usage_available": false,
+      "request": {
+        "model": "gpt-6.1-sol",
+        "reasoning_effort": "high",
+        "fork_turns": "none",
+        "system": "You will read a task instruction where a detail was removed. Your job is to try to guess the removed detail using ONLY the words still visible in the instruction. Look carefully for any leftover hints, pronouns, or clues in other sentences.",
+        "user": "Visible Instruction:\n\"\"\"\nRead an image, convert it to grayscale, binarize it using a given threshold, and save it as 'binary_image.jpg'. The function returns numpy arrays of the original and binarized images, and ensures that the threshold value is valid.\nThe function should raise the exception for: FileNotFoundError: If the image file does not exist at the specified path. ValueError: If the threshold is not an integer or not in the range 0-255.\nThe function should output with:\n    Two numpy arrays; the first is the original grayscale image, the second is the binarized image.\nYou should write self-contained code starting with:\n```\nimport numpy as np\nimport cv2\nimport os\ndef task_func(image_path='image.jpg', threshold=128):\n```\n\"\"\"\n\nQuestion: Based strictly on the visible text above, what is the value of `return_container`?\nOptions:\n1) list\n2) tuple\n3) Completely undetermined (no hints in the text favor 1 or 2)\n\nReturn JSON only:\n{\n  \"choice\": \"1\" | \"2\" | \"3\",\n  \"confidence_0_to_1\": 0.0,\n  \"leftover_clue_spans\": [\"list the exact words in the Visible Instruction that hinted at 1 or 2, or empty list\"]\n}",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "choice",
+            "confidence_0_to_1",
+            "leftover_clue_spans"
+          ],
+          "properties": {
+            "choice": {
+              "type": "string",
+              "enum": [
+                "1",
+                "2",
+                "3"
+              ]
+            },
+            "confidence_0_to_1": {
+              "type": "number"
+            },
+            "leftover_clue_spans": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "transport": "codex_subagent",
+        "tools_allowed": false
+      },
+      "dispatch_message": "Complete this isolated text-only evaluation. Do not use tools, read files, run code, or create agents. Return only the requested JSON.\n\nSYSTEM PROMPT:\nYou will read a task instruction where a detail was removed. Your job is to try to guess the removed detail using ONLY the words still visible in the instruction. Look carefully for any leftover hints, pronouns, or clues in other sentences.\n\nUSER PROMPT:\nVisible Instruction:\n\"\"\"\nRead an image, convert it to grayscale, binarize it using a given threshold, and save it as 'binary_image.jpg'. The function returns numpy arrays of the original and binarized images, and ensures that the threshold value is valid.\nThe function should raise the exception for: FileNotFoundError: If the image file does not exist at the specified path. ValueError: If the threshold is not an integer or not in the range 0-255.\nThe function should output with:\n    Two numpy arrays; the first is the original grayscale image, the second is the binarized image.\nYou should write self-contained code starting with:\n```\nimport numpy as np\nimport cv2\nimport os\ndef task_func(image_path='image.jpg', threshold=128):\n```\n\"\"\"\n\nQuestion: Based strictly on the visible text above, what is the value of `return_container`?\nOptions:\n1) list\n2) tuple\n3) Completely undetermined (no hints in the text favor 1 or 2)\n\nReturn JSON only:\n{\n  \"choice\": \"1\" | \"2\" | \"3\",\n  \"confidence_0_to_1\": 0.0,\n  \"leftover_clue_spans\": [\"list the exact words in the Visible Instruction that hinted at 1 or 2, or empty list\"]\n}",
+      "status": "completed",
+      "dispatch_started_at": 1793331221.739159,
+      "response": "{\"choice\":\"3\",\"confidence_0_to_1\":0.96,\"leftover_clue_spans\":[]}",
+      "latency_s": 62.484843492507935,
+      "parsed": {
+        "choice": "3",
+        "confidence_0_to_1": 0.96,
+        "leftover_clue_spans": []
+      }
+    }
+  ],
+  "gates": [
+    {
+      "gate": "G1",
+      "result": "pass",
+      "evidence": {
+        "status": "ok"
+      }
+    }
+  ],
+  "subparts": [
+    {
+      "subpart": {
+        "subpart_id": "gap_1",
+        "variable": "output_image_format",
+        "original_value": "jpg",
+        "alternative_values": [
+          "png"
+        ],
+        "spans_removed": [
+          "'binary_image.jpg'"
+        ],
+        "replaced_with": [
+          "an image file"
+        ]
+      },
+      "gates": [
+        {
+          "gate": "G2",
+          "result": "pass",
+          "evidence": {
+            "alternative_count": 1,
+            "span_count": 1,
+            "replacement_count": 1
+          }
+        },
+        {
+          "gate": "G3",
+          "result": "pass",
+          "evidence": {
+            "ok": true,
+            "issues": []
+          }
+        },
+        {
+          "gate": "G4",
+          "result": "fail",
+          "evidence": {
+            "result": "fail",
+            "reader_choice": "original_value",
+            "reader_value": "jpg",
+            "raw_choice": "1",
+            "option_order": [
+              "original_value",
+              "alternative_value"
+            ],
+            "option_values": [
+              "jpg",
+              "png"
+            ],
+            "confidence": 0.6,
+            "leftover_clue_spans": [
+              "image_path='image.jpg'"
+            ],
+            "clue_spans_checked": [
+              {
+                "span": "image_path='image.jpg'",
+                "present_in_masked": true
+              }
+            ]
+          }
+        }
+      ],
+      "surface_flags": [],
+      "splice_s": 2.6369933038949966e-05,
+      "splice": {
+        "ok": true,
+        "issues": []
+      },
+      "masked_single": "Read an image, convert it to grayscale, binarize it using a given threshold, and save it as an image file. The function returns numpy arrays of the original and binarized images, and ensures that the threshold value is valid.\nThe function should raise the exception for: FileNotFoundError: If the image file does not exist at the specified path. ValueError: If the threshold is not an integer or not in the range 0-255.\nThe function should output with:\n    tuple: A tuple containing two numpy arrays; the first is the original grayscale image, the second is the binarized image.\nYou should write self-contained code starting with:\n```\nimport numpy as np\nimport cv2\nimport os\ndef task_func(image_path='image.jpg', threshold=128):\n```",
+      "check1_s": 54.90670502791181,
+      "leakage_check": {
+        "result": "fail",
+        "reader_choice": "original_value",
+        "reader_value": "jpg",
+        "raw_choice": "1",
+        "option_order": [
+          "original_value",
+          "alternative_value"
+        ],
+        "option_values": [
+          "jpg",
+          "png"
+        ],
+        "confidence": 0.6,
+        "leftover_clue_spans": [
+          "image_path='image.jpg'"
+        ],
+        "clue_spans_checked": [
+          {
+            "span": "image_path='image.jpg'",
+            "present_in_masked": true
+          }
+        ]
+      },
+      "verdict": "rejected",
+      "stopped_at": "G4",
+      "reason": "leakage",
+      "evidence": {
+        "result": "fail",
+        "reader_choice": "original_value",
+        "reader_value": "jpg",
+        "raw_choice": "1",
+        "option_order": [
+          "original_value",
+          "alternative_value"
+        ],
+        "option_values": [
+          "jpg",
+          "png"
+        ],
+        "confidence": 0.6,
+        "leftover_clue_spans": [
+          "image_path='image.jpg'"
+        ],
+        "clue_spans_checked": [
+          {
+            "span": "image_path='image.jpg'",
+            "present_in_masked": true
+          }
+        ]
+      }
+    },
+    {
+      "subpart": {
+        "subpart_id": "gap_2",
+        "variable": "return_container",
+        "original_value": "tuple",
+        "alternative_values": [
+          "list"
+        ],
+        "spans_removed": [
+          "tuple: A tuple containing two numpy arrays;"
+        ],
+        "replaced_with": [
+          "Two numpy arrays;"
+        ]
+      },
+      "gates": [
+        {
+          "gate": "G2",
+          "result": "pass",
+          "evidence": {
+            "alternative_count": 1,
+            "span_count": 1,
+            "replacement_count": 1
+          }
+        },
+        {
+          "gate": "G3",
+          "result": "pass",
+          "evidence": {
+            "ok": true,
+            "issues": []
+          }
+        },
+        {
+          "gate": "G4",
+          "result": "pass",
+          "evidence": {
+            "result": "pass",
+            "reader_choice": "undetermined",
+            "reader_value": null,
+            "raw_choice": "3",
+            "option_order": [
+              "alternative_value",
+              "original_value"
+            ],
+            "option_values": [
+              "list",
+              "tuple"
+            ],
+            "confidence": 0.96,
+            "leftover_clue_spans": [],
+            "clue_spans_checked": []
+          }
+        }
+      ],
+      "surface_flags": [],
+      "splice_s": 7.922295480966568e-06,
+      "splice": {
+        "ok": true,
+        "issues": []
+      },
+      "masked_single": "Read an image, convert it to grayscale, binarize it using a given threshold, and save it as 'binary_image.jpg'. The function returns numpy arrays of the original and binarized images, and ensures that the threshold value is valid.\nThe function should raise the exception for: FileNotFoundError: If the image file does not exist at the specified path. ValueError: If the threshold is not an integer or not in the range 0-255.\nThe function should output with:\n    Two numpy arrays; the first is the original grayscale image, the second is the binarized image.\nYou should write self-contained code starting with:\n```\nimport numpy as np\nimport cv2\nimport os\ndef task_func(image_path='image.jpg', threshold=128):\n```",
+      "check1_s": 79.44417182775214,
+      "leakage_check": {
+        "result": "pass",
+        "reader_choice": "undetermined",
+        "reader_value": null,
+        "raw_choice": "3",
+        "option_order": [
+          "alternative_value",
+          "original_value"
+        ],
+        "option_values": [
+          "list",
+          "tuple"
+        ],
+        "confidence": 0.96,
+        "leftover_clue_spans": [],
+        "clue_spans_checked": []
+      },
+      "verdict": "accepted",
+      "stopped_at": null,
+      "reason": "passed"
+    }
+  ],
+  "entries": [
+    {
+      "task_id": "BigCodeBench/426::single::return_container",
+      "seed_task_id": "BigCodeBench/426",
+      "source": {
+        "benchmark": "BigCodeBench",
+        "version": "v0.1.4",
+        "instruction_sha256": "70e9deac865824a8c1920f317319c1858c75a18ff097eb6e7f5f9901ee0b82e4"
+      },
+      "full_instruction": "Read an image, convert it to grayscale, binarize it using a given threshold, and save it as 'binary_image.jpg'. The function returns numpy arrays of the original and binarized images, and ensures that the threshold value is valid.\nThe function should raise the exception for: FileNotFoundError: If the image file does not exist at the specified path. ValueError: If the threshold is not an integer or not in the range 0-255.\nThe function should output with:\n    tuple: A tuple containing two numpy arrays; the first is the original grayscale image, the second is the binarized image.\nYou should write self-contained code starting with:\n```\nimport numpy as np\nimport cv2\nimport os\ndef task_func(image_path='image.jpg', threshold=128):\n```",
+      "masked_instruction": "Read an image, convert it to grayscale, binarize it using a given threshold, and save it as 'binary_image.jpg'. The function returns numpy arrays of the original and binarized images, and ensures that the threshold value is valid.\nThe function should raise the exception for: FileNotFoundError: If the image file does not exist at the specified path. ValueError: If the threshold is not an integer or not in the range 0-255.\nThe function should output with:\n    Two numpy arrays; the first is the original grayscale image, the second is the binarized image.\nYou should write self-contained code starting with:\n```\nimport numpy as np\nimport cv2\nimport os\ndef task_func(image_path='image.jpg', threshold=128):\n```",
+      "masking_mode": "single_gap",
+      "reference_ambiguities": [
+        {
+          "subpart_id": "gap_2",
+          "variable": "return_container",
+          "spans_removed": [
+            "tuple: A tuple containing two numpy arrays;"
+          ],
+          "replaced_with": [
+            "Two numpy arrays;"
+          ],
+          "original_value": "tuple",
+          "alternative_values": [
+            "list"
+          ],
+          "answer_source": "User",
+          "is_crucial": true,
+          "leakage_check": {
+            "result": "pass",
+            "reader_choice": "undetermined",
+            "option_order": [
+              "alternative_value",
+              "original_value"
+            ],
+            "leftover_clue_spans": []
+          }
+        }
+      ],
+      "extra_gaps": [],
+      "review": {
+        "owner_verdict": null,
+        "owner_note": null
+      }
+    }
+  ],
+  "fixture_only": false,
+  "timings_s": {
+    "builder": 120.01414266508073,
+    "splice": 3.4292228519916534e-05,
+    "check1": 134.35087685566396
+  },
+  "builder_output": {
+    "status": "ok",
+    "skip_reason": "",
+    "candidate_subparts": [
+      {
+        "subpart_id": "gap_1",
+        "variable": "output_image_format",
+        "original_value": "jpg",
+        "alternative_values": [
+          "png"
+        ],
+        "spans_removed": [
+          "'binary_image.jpg'"
+        ],
+        "replaced_with": [
+          "an image file"
+        ]
+      },
+      {
+        "subpart_id": "gap_2",
+        "variable": "return_container",
+        "original_value": "tuple",
+        "alternative_values": [
+          "list"
+        ],
+        "spans_removed": [
+          "tuple: A tuple containing two numpy arrays;"
+        ],
+        "replaced_with": [
+          "Two numpy arrays;"
+        ]
+      }
+    ]
+  },
+  "seed_status": "accepted"
+}

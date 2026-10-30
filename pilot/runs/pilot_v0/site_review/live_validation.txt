@@ -1,0 +1,5 @@
+PASS: 20 exact seeds; all 100 seed/stage views render; search and keyboard navigation; no fixture in dataset; live counts match the saved summary; all proposed-gap views render; unavailable usage is explicit; all downloads and resource links verified; active hosting directory is out.
+PASS: Live-results desktop rendering inspected in Firefox.
+PUBLISHED: https://assumption-lab-pilot-review.eric-h4312.chatgpt.site
+Source commit: b2a69eb3abac7d929ae7cfd3de866d09cbd654b1
+Deployment: appgdep_6ae4136ae7748191a650a3b84b2c8d7a (succeeded; owner-private).

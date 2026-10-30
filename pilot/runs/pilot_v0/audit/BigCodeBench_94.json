@@ -1,0 +1,567 @@
+{
+  "task_id": "BigCodeBench/94",
+  "full_instruction": "Generates a histogram of samples drawn from a normal distribution and overlays the probability density function (PDF) of the normal distribution. The plot is titled with the fit results, showing the mean and standard deviation used in the generation. The function returns both the plot and the samples generated.\nNote that: Notes: The plot title is \"Fit results: mean = %.2f, std = %.2f\". This title format on the plot displays the mean and standard deviation of the normal distribution used to generate the histogram. The values are presented in a format where %.2f is replaced by the floating-point numbers corresponding to `mean` and `std_dev` respectively, rounded to two decimal places. The number of bins is set to 30 The actual values in the array depend on the random seed and will vary each time the function is called.\nThe function should output with:\n    tuple: A tuple containing:\n    matplotlib.figure.Figure: The figure object for the plot.\n    numpy.ndarray: An array of samples drawn from the normal distribution.\nYou should write self-contained code starting with:\n```\nimport numpy as np\nfrom scipy.stats import norm\nimport matplotlib.pyplot as plt\ndef task_func(mean, std_dev, num_samples):\n```",
+  "llm_calls": [
+    {
+      "tag": "builder.BigCodeBench_94",
+      "content_hash": "629d7e14649fe8ea4df64fe5e84e98f72cd176d21629bfed6829c7f7361ad131",
+      "requested_model": "gpt-6.1-sol",
+      "configured_model": "gpt-6.1-sol",
+      "served_model": null,
+      "reasoning_effort": "high",
+      "source": "codex_subagent",
+      "usage": {},
+      "usage_available": false,
+      "request": {
+        "model": "gpt-6.1-sol",
+        "reasoning_effort": "high",
+        "fork_turns": "none",
+        "system": "You are a fast, surgical dataset builder for an AI agent ambiguity benchmark.\nYou will receive a seed task containing:\n1. `full_instruction`\n2. `gold_solution` (reference code that implements the instruction)\n\nYour job is to select AT MOST 3 maskable subparts—OR immediately reject the seed task if it has no clean maskable parameters.\n\nSTRICT SELECTION RULES:\n1. Target-First Filtering (Do NOT decompose the whole prompt):\n   Only select parameters that pass ALL THREE questions:\n   - Still the Same Task: If removed, the core goal remains intact.\n   - Short List of Values: Has 2–5 realistic values (e.g., CSV vs. JSON, drop vs. fill NaN, round down vs. round to nearest). Never pick arbitrary invented names.\n   - Visible in the Work: Code written for `alternative_value` would look visibly different from code written for `original_value`, or would give a visibly different result.\n   Also: `gold_solution` must implement `original_value` as the instruction states it. If the instruction and `gold_solution` disagree about a parameter, do not select it.\n   If NO parameter in `full_instruction` meets these criteria, return `\"status\": \"skip_seed_task\"` with a `skip_reason` immediately.\n\n2. Surgical Span Extraction (Do NOT rewrite the prompt):\n   - List every exact substring in `full_instruction` (`spans_removed`) that states or hints at this parameter, and the neutral replacement string (`replaced_with`, which may be `\"\"` or a neutral phrase like `\"in a file\"` or `\"convert it to an integer\"`).\n   - Ensure `spans_removed` matches `full_instruction` character-for-character so a Python script can run `str.replace()` without touching any other word.\n   - The function signature at the end of `full_instruction` is part of the instruction. If a default argument or type hint states or hints at the selected value, include that substring in `spans_removed` too.\n\n3. One Alternative Value:\n   - Give exactly one realistic alternative value in `alternative_values`.",
+        "user": "Task ID: \"BigCodeBench/94\"\nFull Instruction:\n\"\"\"\nGenerates a histogram of samples drawn from a normal distribution and overlays the probability density function (PDF) of the normal distribution. The plot is titled with the fit results, showing the mean and standard deviation used in the generation. The function returns both the plot and the samples generated.\nNote that: Notes: The plot title is \"Fit results: mean = %.2f, std = %.2f\". This title format on the plot displays the mean and standard deviation of the normal distribution used to generate the histogram. The values are presented in a format where %.2f is replaced by the floating-point numbers corresponding to `mean` and `std_dev` respectively, rounded to two decimal places. The number of bins is set to 30 The actual values in the array depend on the random seed and will vary each time the function is called.\nThe function should output with:\n    tuple: A tuple containing:\n    matplotlib.figure.Figure: The figure object for the plot.\n    numpy.ndarray: An array of samples drawn from the normal distribution.\nYou should write self-contained code starting with:\n```\nimport numpy as np\nfrom scipy.stats import norm\nimport matplotlib.pyplot as plt\ndef task_func(mean, std_dev, num_samples):\n```\n\"\"\"\nGold Solution:\n\"\"\"\n    samples = np.random.normal(mean, std_dev, num_samples)\n    fig, ax = plt.subplots()\n    ax.hist(samples, bins=30, density=True, alpha=0.6, color='g')\n\n    xmin, xmax = ax.get_xlim()\n    x = np.linspace(xmin, xmax, 100)\n    p = norm.pdf(x, mean, std_dev)\n    ax.plot(x, p, 'k', linewidth=2)\n    title = \"Fit results: mean = %.2f,  std = %.2f\" % (mean, std_dev)\n    ax.set_title(title)\n\n    return samples, fig\n\"\"\"\n\nReturn JSON only using this exact schema:\n{\n  \"status\": \"ok\" | \"skip_seed_task\",\n  \"skip_reason\": \"\",\n  \"candidate_subparts\": [\n    {\n      \"subpart_id\": \"gap_1\",\n      \"variable\": \"short_snake_case_name\",\n      \"original_value\": \"exact value in full instruction\",\n      \"alternative_values\": [\"one realistic alternative value\"],\n      \"spans_removed\": [\"exact substring 1 from full_instruction\"],\n      \"replaced_with\": [\"neutral replacement 1 or empty string\"]\n    }\n  ]\n}\n`skip_reason` is an empty string when `status` is \"ok\".",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "status",
+            "skip_reason",
+            "candidate_subparts"
+          ],
+          "properties": {
+            "status": {
+              "type": "string",
+              "enum": [
+                "ok",
+                "skip_seed_task"
+              ]
+            },
+            "skip_reason": {
+              "type": "string"
+            },
+            "candidate_subparts": {
+              "type": "array",
+              "maxItems": 3,
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "subpart_id",
+                  "variable",
+                  "original_value",
+                  "alternative_values",
+                  "spans_removed",
+                  "replaced_with"
+                ],
+                "properties": {
+                  "subpart_id": {
+                    "type": "string"
+                  },
+                  "variable": {
+                    "type": "string"
+                  },
+                  "original_value": {
+                    "type": "string"
+                  },
+                  "alternative_values": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    },
+                    "minItems": 1,
+                    "maxItems": 1
+                  },
+                  "spans_removed": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "replaced_with": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "transport": "codex_subagent",
+        "tools_allowed": false
+      },
+      "dispatch_message": "Complete this isolated text-only evaluation. Do not use tools, read files, run code, or create agents. Return only the requested JSON.\n\nSYSTEM PROMPT:\nYou are a fast, surgical dataset builder for an AI agent ambiguity benchmark.\nYou will receive a seed task containing:\n1. `full_instruction`\n2. `gold_solution` (reference code that implements the instruction)\n\nYour job is to select AT MOST 3 maskable subparts—OR immediately reject the seed task if it has no clean maskable parameters.\n\nSTRICT SELECTION RULES:\n1. Target-First Filtering (Do NOT decompose the whole prompt):\n   Only select parameters that pass ALL THREE questions:\n   - Still the Same Task: If removed, the core goal remains intact.\n   - Short List of Values: Has 2–5 realistic values (e.g., CSV vs. JSON, drop vs. fill NaN, round down vs. round to nearest). Never pick arbitrary invented names.\n   - Visible in the Work: Code written for `alternative_value` would look visibly different from code written for `original_value`, or would give a visibly different result.\n   Also: `gold_solution` must implement `original_value` as the instruction states it. If the instruction and `gold_solution` disagree about a parameter, do not select it.\n   If NO parameter in `full_instruction` meets these criteria, return `\"status\": \"skip_seed_task\"` with a `skip_reason` immediately.\n\n2. Surgical Span Extraction (Do NOT rewrite the prompt):\n   - List every exact substring in `full_instruction` (`spans_removed`) that states or hints at this parameter, and the neutral replacement string (`replaced_with`, which may be `\"\"` or a neutral phrase like `\"in a file\"` or `\"convert it to an integer\"`).\n   - Ensure `spans_removed` matches `full_instruction` character-for-character so a Python script can run `str.replace()` without touching any other word.\n   - The function signature at the end of `full_instruction` is part of the instruction. If a default argument or type hint states or hints at the selected value, include that substring in `spans_removed` too.\n\n3. One Alternative Value:\n   - Give exactly one realistic alternative value in `alternative_values`.\n\nUSER PROMPT:\nTask ID: \"BigCodeBench/94\"\nFull Instruction:\n\"\"\"\nGenerates a histogram of samples drawn from a normal distribution and overlays the probability density function (PDF) of the normal distribution. The plot is titled with the fit results, showing the mean and standard deviation used in the generation. The function returns both the plot and the samples generated.\nNote that: Notes: The plot title is \"Fit results: mean = %.2f, std = %.2f\". This title format on the plot displays the mean and standard deviation of the normal distribution used to generate the histogram. The values are presented in a format where %.2f is replaced by the floating-point numbers corresponding to `mean` and `std_dev` respectively, rounded to two decimal places. The number of bins is set to 30 The actual values in the array depend on the random seed and will vary each time the function is called.\nThe function should output with:\n    tuple: A tuple containing:\n    matplotlib.figure.Figure: The figure object for the plot.\n    numpy.ndarray: An array of samples drawn from the normal distribution.\nYou should write self-contained code starting with:\n```\nimport numpy as np\nfrom scipy.stats import norm\nimport matplotlib.pyplot as plt\ndef task_func(mean, std_dev, num_samples):\n```\n\"\"\"\nGold Solution:\n\"\"\"\n    samples = np.random.normal(mean, std_dev, num_samples)\n    fig, ax = plt.subplots()\n    ax.hist(samples, bins=30, density=True, alpha=0.6, color='g')\n\n    xmin, xmax = ax.get_xlim()\n    x = np.linspace(xmin, xmax, 100)\n    p = norm.pdf(x, mean, std_dev)\n    ax.plot(x, p, 'k', linewidth=2)\n    title = \"Fit results: mean = %.2f,  std = %.2f\" % (mean, std_dev)\n    ax.set_title(title)\n\n    return samples, fig\n\"\"\"\n\nReturn JSON only using this exact schema:\n{\n  \"status\": \"ok\" | \"skip_seed_task\",\n  \"skip_reason\": \"\",\n  \"candidate_subparts\": [\n    {\n      \"subpart_id\": \"gap_1\",\n      \"variable\": \"short_snake_case_name\",\n      \"original_value\": \"exact value in full instruction\",\n      \"alternative_values\": [\"one realistic alternative value\"],\n      \"spans_removed\": [\"exact substring 1 from full_instruction\"],\n      \"replaced_with\": [\"neutral replacement 1 or empty string\"]\n    }\n  ]\n}\n`skip_reason` is an empty string when `status` is \"ok\".",
+      "status": "completed",
+      "dispatch_started_at": 1793331039.1488395,
+      "response": "{\n  \"status\": \"ok\",\n  \"skip_reason\": \"\",\n  \"candidate_subparts\": [\n    {\n      \"subpart_id\": \"gap_1\",\n      \"variable\": \"display_precision\",\n      \"original_value\": \"two decimal places\",\n      \"alternative_values\": [\"three decimal places\"],\n      \"spans_removed\": [\n        \"The plot title is \\\"Fit results: mean = %.2f, std = %.2f\\\". \",\n        \"The values are presented in a format where %.2f is replaced by the floating-point numbers corresponding to `mean` and `std_dev` respectively, rounded to two decimal places. \"\n      ],\n      \"replaced_with\": [\"\", \"\"]\n    },\n    {\n      \"subpart_id\": \"gap_2\",\n      \"variable\": \"histogram_binning\",\n      \"original_value\": \"30\",\n      \"alternative_values\": [\"automatic bin selection\"],\n      \"spans_removed\": [\n        \"The number of bins is set to 30 \"\n      ],\n      \"replaced_with\": [\"\"]\n    }\n  ]\n}",
+      "latency_s": 113.38695454597473,
+      "parsed": {
+        "status": "ok",
+        "skip_reason": "",
+        "candidate_subparts": [
+          {
+            "subpart_id": "gap_1",
+            "variable": "display_precision",
+            "original_value": "two decimal places",
+            "alternative_values": [
+              "three decimal places"
+            ],
+            "spans_removed": [
+              "The plot title is \"Fit results: mean = %.2f, std = %.2f\". ",
+              "The values are presented in a format where %.2f is replaced by the floating-point numbers corresponding to `mean` and `std_dev` respectively, rounded to two decimal places. "
+            ],
+            "replaced_with": [
+              "",
+              ""
+            ]
+          },
+          {
+            "subpart_id": "gap_2",
+            "variable": "histogram_binning",
+            "original_value": "30",
+            "alternative_values": [
+              "automatic bin selection"
+            ],
+            "spans_removed": [
+              "The number of bins is set to 30 "
+            ],
+            "replaced_with": [
+              ""
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "tag": "check1.BigCodeBench_94.gap_1",
+      "content_hash": "5aa352e21389c54ded3cf406f7bd75d012a1215d7ecb2b1fa7fd30215f2d778d",
+      "requested_model": "gpt-6.1-sol",
+      "configured_model": "gpt-6.1-sol",
+      "served_model": null,
+      "reasoning_effort": "high",
+      "source": "codex_subagent",
+      "usage": {},
+      "usage_available": false,
+      "request": {
+        "model": "gpt-6.1-sol",
+        "reasoning_effort": "high",
+        "fork_turns": "none",
+        "system": "You will read a task instruction where a detail was removed. Your job is to try to guess the removed detail using ONLY the words still visible in the instruction. Look carefully for any leftover hints, pronouns, or clues in other sentences.",
+        "user": "Visible Instruction:\n\"\"\"\nGenerates a histogram of samples drawn from a normal distribution and overlays the probability density function (PDF) of the normal distribution. The plot is titled with the fit results, showing the mean and standard deviation used in the generation. The function returns both the plot and the samples generated.\nNote that: Notes: This title format on the plot displays the mean and standard deviation of the normal distribution used to generate the histogram. The number of bins is set to 30 The actual values in the array depend on the random seed and will vary each time the function is called.\nThe function should output with:\n    tuple: A tuple containing:\n    matplotlib.figure.Figure: The figure object for the plot.\n    numpy.ndarray: An array of samples drawn from the normal distribution.\nYou should write self-contained code starting with:\n```\nimport numpy as np\nfrom scipy.stats import norm\nimport matplotlib.pyplot as plt\ndef task_func(mean, std_dev, num_samples):\n```\n\"\"\"\n\nQuestion: Based strictly on the visible text above, what is the value of `display_precision`?\nOptions:\n1) three decimal places\n2) two decimal places\n3) Completely undetermined (no hints in the text favor 1 or 2)\n\nReturn JSON only:\n{\n  \"choice\": \"1\" | \"2\" | \"3\",\n  \"confidence_0_to_1\": 0.0,\n  \"leftover_clue_spans\": [\"list the exact words in the Visible Instruction that hinted at 1 or 2, or empty list\"]\n}",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "choice",
+            "confidence_0_to_1",
+            "leftover_clue_spans"
+          ],
+          "properties": {
+            "choice": {
+              "type": "string",
+              "enum": [
+                "1",
+                "2",
+                "3"
+              ]
+            },
+            "confidence_0_to_1": {
+              "type": "number"
+            },
+            "leftover_clue_spans": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "transport": "codex_subagent",
+        "tools_allowed": false
+      },
+      "dispatch_message": "Complete this isolated text-only evaluation. Do not use tools, read files, run code, or create agents. Return only the requested JSON.\n\nSYSTEM PROMPT:\nYou will read a task instruction where a detail was removed. Your job is to try to guess the removed detail using ONLY the words still visible in the instruction. Look carefully for any leftover hints, pronouns, or clues in other sentences.\n\nUSER PROMPT:\nVisible Instruction:\n\"\"\"\nGenerates a histogram of samples drawn from a normal distribution and overlays the probability density function (PDF) of the normal distribution. The plot is titled with the fit results, showing the mean and standard deviation used in the generation. The function returns both the plot and the samples generated.\nNote that: Notes: This title format on the plot displays the mean and standard deviation of the normal distribution used to generate the histogram. The number of bins is set to 30 The actual values in the array depend on the random seed and will vary each time the function is called.\nThe function should output with:\n    tuple: A tuple containing:\n    matplotlib.figure.Figure: The figure object for the plot.\n    numpy.ndarray: An array of samples drawn from the normal distribution.\nYou should write self-contained code starting with:\n```\nimport numpy as np\nfrom scipy.stats import norm\nimport matplotlib.pyplot as plt\ndef task_func(mean, std_dev, num_samples):\n```\n\"\"\"\n\nQuestion: Based strictly on the visible text above, what is the value of `display_precision`?\nOptions:\n1) three decimal places\n2) two decimal places\n3) Completely undetermined (no hints in the text favor 1 or 2)\n\nReturn JSON only:\n{\n  \"choice\": \"1\" | \"2\" | \"3\",\n  \"confidence_0_to_1\": 0.0,\n  \"leftover_clue_spans\": [\"list the exact words in the Visible Instruction that hinted at 1 or 2, or empty list\"]\n}",
+      "status": "completed",
+      "dispatch_started_at": 1793331158.5499873,
+      "response": "{\n  \"choice\": \"3\",\n  \"confidence_0_to_1\": 1.0,\n  \"leftover_clue_spans\": []\n}",
+      "latency_s": 49.24792265892029,
+      "parsed": {
+        "choice": "3",
+        "confidence_0_to_1": 1.0,
+        "leftover_clue_spans": []
+      }
+    },
+    {
+      "tag": "check1.BigCodeBench_94.gap_2",
+      "content_hash": "848785236d915946d48002ecce3dca14d7c8ca83af71a00ce7e73ac674af5712",
+      "requested_model": "gpt-6.1-sol",
+      "configured_model": "gpt-6.1-sol",
+      "served_model": null,
+      "reasoning_effort": "high",
+      "source": "codex_subagent",
+      "usage": {},
+      "usage_available": false,
+      "request": {
+        "model": "gpt-6.1-sol",
+        "reasoning_effort": "high",
+        "fork_turns": "none",
+        "system": "You will read a task instruction where a detail was removed. Your job is to try to guess the removed detail using ONLY the words still visible in the instruction. Look carefully for any leftover hints, pronouns, or clues in other sentences.",
+        "user": "Visible Instruction:\n\"\"\"\nGenerates a histogram of samples drawn from a normal distribution and overlays the probability density function (PDF) of the normal distribution. The plot is titled with the fit results, showing the mean and standard deviation used in the generation. The function returns both the plot and the samples generated.\nNote that: Notes: The plot title is \"Fit results: mean = %.2f, std = %.2f\". This title format on the plot displays the mean and standard deviation of the normal distribution used to generate the histogram. The values are presented in a format where %.2f is replaced by the floating-point numbers corresponding to `mean` and `std_dev` respectively, rounded to two decimal places. The actual values in the array depend on the random seed and will vary each time the function is called.\nThe function should output with:\n    tuple: A tuple containing:\n    matplotlib.figure.Figure: The figure object for the plot.\n    numpy.ndarray: An array of samples drawn from the normal distribution.\nYou should write self-contained code starting with:\n```\nimport numpy as np\nfrom scipy.stats import norm\nimport matplotlib.pyplot as plt\ndef task_func(mean, std_dev, num_samples):\n```\n\"\"\"\n\nQuestion: Based strictly on the visible text above, what is the value of `histogram_binning`?\nOptions:\n1) automatic bin selection\n2) 30\n3) Completely undetermined (no hints in the text favor 1 or 2)\n\nReturn JSON only:\n{\n  \"choice\": \"1\" | \"2\" | \"3\",\n  \"confidence_0_to_1\": 0.0,\n  \"leftover_clue_spans\": [\"list the exact words in the Visible Instruction that hinted at 1 or 2, or empty list\"]\n}",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "choice",
+            "confidence_0_to_1",
+            "leftover_clue_spans"
+          ],
+          "properties": {
+            "choice": {
+              "type": "string",
+              "enum": [
+                "1",
+                "2",
+                "3"
+              ]
+            },
+            "confidence_0_to_1": {
+              "type": "number"
+            },
+            "leftover_clue_spans": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "transport": "codex_subagent",
+        "tools_allowed": false
+      },
+      "dispatch_message": "Complete this isolated text-only evaluation. Do not use tools, read files, run code, or create agents. Return only the requested JSON.\n\nSYSTEM PROMPT:\nYou will read a task instruction where a detail was removed. Your job is to try to guess the removed detail using ONLY the words still visible in the instruction. Look carefully for any leftover hints, pronouns, or clues in other sentences.\n\nUSER PROMPT:\nVisible Instruction:\n\"\"\"\nGenerates a histogram of samples drawn from a normal distribution and overlays the probability density function (PDF) of the normal distribution. The plot is titled with the fit results, showing the mean and standard deviation used in the generation. The function returns both the plot and the samples generated.\nNote that: Notes: The plot title is \"Fit results: mean = %.2f, std = %.2f\". This title format on the plot displays the mean and standard deviation of the normal distribution used to generate the histogram. The values are presented in a format where %.2f is replaced by the floating-point numbers corresponding to `mean` and `std_dev` respectively, rounded to two decimal places. The actual values in the array depend on the random seed and will vary each time the function is called.\nThe function should output with:\n    tuple: A tuple containing:\n    matplotlib.figure.Figure: The figure object for the plot.\n    numpy.ndarray: An array of samples drawn from the normal distribution.\nYou should write self-contained code starting with:\n```\nimport numpy as np\nfrom scipy.stats import norm\nimport matplotlib.pyplot as plt\ndef task_func(mean, std_dev, num_samples):\n```\n\"\"\"\n\nQuestion: Based strictly on the visible text above, what is the value of `histogram_binning`?\nOptions:\n1) automatic bin selection\n2) 30\n3) Completely undetermined (no hints in the text favor 1 or 2)\n\nReturn JSON only:\n{\n  \"choice\": \"1\" | \"2\" | \"3\",\n  \"confidence_0_to_1\": 0.0,\n  \"leftover_clue_spans\": [\"list the exact words in the Visible Instruction that hinted at 1 or 2, or empty list\"]\n}",
+      "status": "completed",
+      "dispatch_started_at": 1793331225.0572302,
+      "response": "{\"choice\":\"3\",\"confidence_0_to_1\":1.0,\"leftover_clue_spans\":[]}",
+      "latency_s": 122.87166500091553,
+      "parsed": {
+        "choice": "3",
+        "confidence_0_to_1": 1.0,
+        "leftover_clue_spans": []
+      }
+    }
+  ],
+  "gates": [
+    {
+      "gate": "G1",
+      "result": "pass",
+      "evidence": {
+        "status": "ok"
+      }
+    }
+  ],
+  "subparts": [
+    {
+      "subpart": {
+        "subpart_id": "gap_1",
+        "variable": "display_precision",
+        "original_value": "two decimal places",
+        "alternative_values": [
+          "three decimal places"
+        ],
+        "spans_removed": [
+          "The plot title is \"Fit results: mean = %.2f, std = %.2f\". ",
+          "The values are presented in a format where %.2f is replaced by the floating-point numbers corresponding to `mean` and `std_dev` respectively, rounded to two decimal places. "
+        ],
+        "replaced_with": [
+          "",
+          ""
+        ]
+      },
+      "gates": [
+        {
+          "gate": "G2",
+          "result": "pass",
+          "evidence": {
+            "alternative_count": 1,
+            "span_count": 2,
+            "replacement_count": 2
+          }
+        },
+        {
+          "gate": "G3",
+          "result": "pass",
+          "evidence": {
+            "ok": true,
+            "issues": []
+          }
+        },
+        {
+          "gate": "G4",
+          "result": "pass",
+          "evidence": {
+            "result": "pass",
+            "reader_choice": "undetermined",
+            "reader_value": null,
+            "raw_choice": "3",
+            "option_order": [
+              "alternative_value",
+              "original_value"
+            ],
+            "option_values": [
+              "three decimal places",
+              "two decimal places"
+            ],
+            "confidence": 1.0,
+            "leftover_clue_spans": [],
+            "clue_spans_checked": []
+          }
+        }
+      ],
+      "surface_flags": [],
+      "splice_s": 2.3074913769960403e-05,
+      "splice": {
+        "ok": true,
+        "issues": []
+      },
+      "masked_single": "Generates a histogram of samples drawn from a normal distribution and overlays the probability density function (PDF) of the normal distribution. The plot is titled with the fit results, showing the mean and standard deviation used in the generation. The function returns both the plot and the samples generated.\nNote that: Notes: This title format on the plot displays the mean and standard deviation of the normal distribution used to generate the histogram. The number of bins is set to 30 The actual values in the array depend on the random seed and will vary each time the function is called.\nThe function should output with:\n    tuple: A tuple containing:\n    matplotlib.figure.Figure: The figure object for the plot.\n    numpy.ndarray: An array of samples drawn from the normal distribution.\nYou should write self-contained code starting with:\n```\nimport numpy as np\nfrom scipy.stats import norm\nimport matplotlib.pyplot as plt\ndef task_func(mean, std_dev, num_samples):\n```",
+      "check1_s": 55.30501198209822,
+      "leakage_check": {
+        "result": "pass",
+        "reader_choice": "undetermined",
+        "reader_value": null,
+        "raw_choice": "3",
+        "option_order": [
+          "alternative_value",
+          "original_value"
+        ],
+        "option_values": [
+          "three decimal places",
+          "two decimal places"
+        ],
+        "confidence": 1.0,
+        "leftover_clue_spans": [],
+        "clue_spans_checked": []
+      },
+      "verdict": "accepted",
+      "stopped_at": null,
+      "reason": "passed"
+    },
+    {
+      "subpart": {
+        "subpart_id": "gap_2",
+        "variable": "histogram_binning",
+        "original_value": "30",
+        "alternative_values": [
+          "automatic bin selection"
+        ],
+        "spans_removed": [
+          "The number of bins is set to 30 "
+        ],
+        "replaced_with": [
+          ""
+        ]
+      },
+      "gates": [
+        {
+          "gate": "G2",
+          "result": "pass",
+          "evidence": {
+            "alternative_count": 1,
+            "span_count": 1,
+            "replacement_count": 1
+          }
+        },
+        {
+          "gate": "G3",
+          "result": "pass",
+          "evidence": {
+            "ok": true,
+            "issues": []
+          }
+        },
+        {
+          "gate": "G4",
+          "result": "pass",
+          "evidence": {
+            "result": "pass",
+            "reader_choice": "undetermined",
+            "reader_value": null,
+            "raw_choice": "3",
+            "option_order": [
+              "alternative_value",
+              "original_value"
+            ],
+            "option_values": [
+              "automatic bin selection",
+              "30"
+            ],
+            "confidence": 1.0,
+            "leftover_clue_spans": [],
+            "clue_spans_checked": []
+          }
+        }
+      ],
+      "surface_flags": [],
+      "splice_s": 7.41099938750267e-06,
+      "splice": {
+        "ok": true,
+        "issues": []
+      },
+      "masked_single": "Generates a histogram of samples drawn from a normal distribution and overlays the probability density function (PDF) of the normal distribution. The plot is titled with the fit results, showing the mean and standard deviation used in the generation. The function returns both the plot and the samples generated.\nNote that: Notes: The plot title is \"Fit results: mean = %.2f, std = %.2f\". This title format on the plot displays the mean and standard deviation of the normal distribution used to generate the histogram. The values are presented in a format where %.2f is replaced by the floating-point numbers corresponding to `mean` and `std_dev` respectively, rounded to two decimal places. The actual values in the array depend on the random seed and will vary each time the function is called.\nThe function should output with:\n    tuple: A tuple containing:\n    matplotlib.figure.Figure: The figure object for the plot.\n    numpy.ndarray: An array of samples drawn from the normal distribution.\nYou should write self-contained code starting with:\n```\nimport numpy as np\nfrom scipy.stats import norm\nimport matplotlib.pyplot as plt\ndef task_func(mean, std_dev, num_samples):\n```",
+      "check1_s": 140.17207195190713,
+      "leakage_check": {
+        "result": "pass",
+        "reader_choice": "undetermined",
+        "reader_value": null,
+        "raw_choice": "3",
+        "option_order": [
+          "alternative_value",
+          "original_value"
+        ],
+        "option_values": [
+          "automatic bin selection",
+          "30"
+        ],
+        "confidence": 1.0,
+        "leftover_clue_spans": [],
+        "clue_spans_checked": []
+      },
+      "verdict": "accepted",
+      "stopped_at": null,
+      "reason": "passed"
+    }
+  ],
+  "entries": [
+    {
+      "task_id": "BigCodeBench/94::single::display_precision",
+      "seed_task_id": "BigCodeBench/94",
+      "source": {
+        "benchmark": "BigCodeBench",
+        "version": "v0.1.4",
+        "instruction_sha256": "94c7bf6ee5f2fb3dae64f0befe4c81b787789759c60510b83536c77d5a092ea5"
+      },
+      "full_instruction": "Generates a histogram of samples drawn from a normal distribution and overlays the probability density function (PDF) of the normal distribution. The plot is titled with the fit results, showing the mean and standard deviation used in the generation. The function returns both the plot and the samples generated.\nNote that: Notes: The plot title is \"Fit results: mean = %.2f, std = %.2f\". This title format on the plot displays the mean and standard deviation of the normal distribution used to generate the histogram. The values are presented in a format where %.2f is replaced by the floating-point numbers corresponding to `mean` and `std_dev` respectively, rounded to two decimal places. The number of bins is set to 30 The actual values in the array depend on the random seed and will vary each time the function is called.\nThe function should output with:\n    tuple: A tuple containing:\n    matplotlib.figure.Figure: The figure object for the plot.\n    numpy.ndarray: An array of samples drawn from the normal distribution.\nYou should write self-contained code starting with:\n```\nimport numpy as np\nfrom scipy.stats import norm\nimport matplotlib.pyplot as plt\ndef task_func(mean, std_dev, num_samples):\n```",
+      "masked_instruction": "Generates a histogram of samples drawn from a normal distribution and overlays the probability density function (PDF) of the normal distribution. The plot is titled with the fit results, showing the mean and standard deviation used in the generation. The function returns both the plot and the samples generated.\nNote that: Notes: This title format on the plot displays the mean and standard deviation of the normal distribution used to generate the histogram. The number of bins is set to 30 The actual values in the array depend on the random seed and will vary each time the function is called.\nThe function should output with:\n    tuple: A tuple containing:\n    matplotlib.figure.Figure: The figure object for the plot.\n    numpy.ndarray: An array of samples drawn from the normal distribution.\nYou should write self-contained code starting with:\n```\nimport numpy as np\nfrom scipy.stats import norm\nimport matplotlib.pyplot as plt\ndef task_func(mean, std_dev, num_samples):\n```",
+      "masking_mode": "single_gap",
+      "reference_ambiguities": [
+        {
+          "subpart_id": "gap_1",
+          "variable": "display_precision",
+          "spans_removed": [
+            "The plot title is \"Fit results: mean = %.2f, std = %.2f\". ",
+            "The values are presented in a format where %.2f is replaced by the floating-point numbers corresponding to `mean` and `std_dev` respectively, rounded to two decimal places. "
+          ],
+          "replaced_with": [
+            "",
+            ""
+          ],
+          "original_value": "two decimal places",
+          "alternative_values": [
+            "three decimal places"
+          ],
+          "answer_source": "User",
+          "is_crucial": true,
+          "leakage_check": {
+            "result": "pass",
+            "reader_choice": "undetermined",
+            "option_order": [
+              "alternative_value",
+              "original_value"
+            ],
+            "leftover_clue_spans": []
+          }
+        }
+      ],
+      "extra_gaps": [],
+      "review": {
+        "owner_verdict": null,
+        "owner_note": null
+      }
+    },
+    {
+      "task_id": "BigCodeBench/94::single::histogram_binning",
+      "seed_task_id": "BigCodeBench/94",
+      "source": {
+        "benchmark": "BigCodeBench",
+        "version": "v0.1.4",
+        "instruction_sha256": "94c7bf6ee5f2fb3dae64f0befe4c81b787789759c60510b83536c77d5a092ea5"
+      },
+      "full_instruction": "Generates a histogram of samples drawn from a normal distribution and overlays the probability density function (PDF) of the normal distribution. The plot is titled with the fit results, showing the mean and standard deviation used in the generation. The function returns both the plot and the samples generated.\nNote that: Notes: The plot title is \"Fit results: mean = %.2f, std = %.2f\". This title format on the plot displays the mean and standard deviation of the normal distribution used to generate the histogram. The values are presented in a format where %.2f is replaced by the floating-point numbers corresponding to `mean` and `std_dev` respectively, rounded to two decimal places. The number of bins is set to 30 The actual values in the array depend on the random seed and will vary each time the function is called.\nThe function should output with:\n    tuple: A tuple containing:\n    matplotlib.figure.Figure: The figure object for the plot.\n    numpy.ndarray: An array of samples drawn from the normal distribution.\nYou should write self-contained code starting with:\n```\nimport numpy as np\nfrom scipy.stats import norm\nimport matplotlib.pyplot as plt\ndef task_func(mean, std_dev, num_samples):\n```",
+      "masked_instruction": "Generates a histogram of samples drawn from a normal distribution and overlays the probability density function (PDF) of the normal distribution. The plot is titled with the fit results, showing the mean and standard deviation used in the generation. The function returns both the plot and the samples generated.\nNote that: Notes: The plot title is \"Fit results: mean = %.2f, std = %.2f\". This title format on the plot displays the mean and standard deviation of the normal distribution used to generate the histogram. The values are presented in a format where %.2f is replaced by the floating-point numbers corresponding to `mean` and `std_dev` respectively, rounded to two decimal places. The actual values in the array depend on the random seed and will vary each time the function is called.\nThe function should output with:\n    tuple: A tuple containing:\n    matplotlib.figure.Figure: The figure object for the plot.\n    numpy.ndarray: An array of samples drawn from the normal distribution.\nYou should write self-contained code starting with:\n```\nimport numpy as np\nfrom scipy.stats import norm\nimport matplotlib.pyplot as plt\ndef task_func(mean, std_dev, num_samples):\n```",
+      "masking_mode": "single_gap",
+      "reference_ambiguities": [
+        {
+          "subpart_id": "gap_2",
+          "variable": "histogram_binning",
+          "spans_removed": [
+            "The number of bins is set to 30 "
+          ],
+          "replaced_with": [
+            ""
+          ],
+          "original_value": "30",
+          "alternative_values": [
+            "automatic bin selection"
+          ],
+          "answer_source": "User",
+          "is_crucial": true,
+          "leakage_check": {
+            "result": "pass",
+            "reader_choice": "undetermined",
+            "option_order": [
+              "alternative_value",
+              "original_value"
+            ],
+            "leftover_clue_spans": []
+          }
+        }
+      ],
+      "extra_gaps": [],
+      "review": {
+        "owner_verdict": null,
+        "owner_note": null
+      }
+    }
+  ],
+  "fixture_only": false,
+  "timings_s": {
+    "builder": 119.41703690914437,
+    "splice": 3.0485913157463074e-05,
+    "check1": 195.47708393400535
+  },
+  "builder_output": {
+    "status": "ok",
+    "skip_reason": "",
+    "candidate_subparts": [
+      {
+        "subpart_id": "gap_1",
+        "variable": "display_precision",
+        "original_value": "two decimal places",
+        "alternative_values": [
+          "three decimal places"
+        ],
+        "spans_removed": [
+          "The plot title is \"Fit results: mean = %.2f, std = %.2f\". ",
+          "The values are presented in a format where %.2f is replaced by the floating-point numbers corresponding to `mean` and `std_dev` respectively, rounded to two decimal places. "
+        ],
+        "replaced_with": [
+          "",
+          ""
+        ]
+      },
+      {
+        "subpart_id": "gap_2",
+        "variable": "histogram_binning",
+        "original_value": "30",
+        "alternative_values": [
+          "automatic bin selection"
+        ],
+        "spans_removed": [
+          "The number of bins is set to 30 "
+        ],
+        "replaced_with": [
+          ""
+        ]
+      }
+    ]
+  },
+  "seed_status": "accepted"
+}

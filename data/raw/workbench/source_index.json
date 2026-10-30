@@ -1,0 +1,1090 @@
+{
+  "benchmark": "WorkBench",
+  "repository": "https://github.com/olly-styles/WorkBench",
+  "revision": "49c7dfd00c03d384ec59ea57374f50b766aa5613",
+  "files": [
+    {
+      "path": ".gitignore",
+      "source_url": "https://raw.githubusercontent.com/olly-styles/WorkBench/49c7dfd00c03d384ec59ea57374f50b766aa5613/.gitignore",
+      "revision": "49c7dfd00c03d384ec59ea57374f50b766aa5613",
+      "sha256": "83cd016cdbaded2115308e0958c2f456c7a2a95fcfcdd112612df3baf17a66a0",
+      "bytes": 196,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": ".pre-commit-config.yaml",
+      "source_url": "https://raw.githubusercontent.com/olly-styles/WorkBench/49c7dfd00c03d384ec59ea57374f50b766aa5613/.pre-commit-config.yaml",
+      "revision": "49c7dfd00c03d384ec59ea57374f50b766aa5613",
+      "sha256": "53cccd2ab24ca31e39fe2a2c6923b325b32e3238d128055283e1cb342aed5b66",
+      "bytes": 495,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "LICENSE",
+      "source_url": "https://raw.githubusercontent.com/olly-styles/WorkBench/49c7dfd00c03d384ec59ea57374f50b766aa5613/LICENSE",
+      "revision": "49c7dfd00c03d384ec59ea57374f50b766aa5613",
+      "sha256": "e8bbcabb0cf6834062d9aec616ff9b52ee8c7ac2ff3e9f02a5a996e82717e26b",
+      "bytes": 1064,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "README.md",
+      "source_url": "https://raw.githubusercontent.com/olly-styles/WorkBench/49c7dfd00c03d384ec59ea57374f50b766aa5613/README.md",
+      "revision": "49c7dfd00c03d384ec59ea57374f50b766aa5613",
+      "sha256": "d2b138280a793839c4cd62b0f3c7d3972a7a07e96243ff3c7e3516f310a18df4",
+      "bytes": 10959,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "data/processed/analytics_data.csv",
+      "source_url": "https://raw.githubusercontent.com/olly-styles/WorkBench/49c7dfd00c03d384ec59ea57374f50b766aa5613/data/processed/analytics_data.csv",
+      "revision": "49c7dfd00c03d384ec59ea57374f50b766aa5613",
+      "sha256": "9f02ac1311812721fa4d521aaf91e2d3a4320d1409cfd5b43f130ee476cae709",
+      "bytes": 36031,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "data/processed/calendar_events.csv",
+      "source_url": "https://raw.githubusercontent.com/olly-styles/WorkBench/49c7dfd00c03d384ec59ea57374f50b766aa5613/data/processed/calendar_events.csv",
+      "revision": "49c7dfd00c03d384ec59ea57374f50b766aa5613",
+      "sha256": "9f029b17eb05e6b837946b50f15b63e59c939a544ba293075d98ac301554d636",
+      "bytes": 23620,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "data/processed/customer_relationship_manager_data.csv",
+      "source_url": "https://raw.githubusercontent.com/olly-styles/WorkBench/49c7dfd00c03d384ec59ea57374f50b766aa5613/data/processed/customer_relationship_manager_data.csv",
+      "revision": "49c7dfd00c03d384ec59ea57374f50b766aa5613",
+      "sha256": "18427f6443cfd04a9ae95ffb3720c9ee349131666e0ad6c813deaac242968f6f",
+      "bytes": 32370,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "data/processed/emails.csv",
+      "source_url": "https://raw.githubusercontent.com/olly-styles/WorkBench/49c7dfd00c03d384ec59ea57374f50b766aa5613/data/processed/emails.csv",
+      "revision": "49c7dfd00c03d384ec59ea57374f50b766aa5613",
+      "sha256": "35c0a3af40acddc9aa48d0289e75cc44785e33abedfa3e48ca3f7b2fb679f4c3",
+      "bytes": 163261,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "data/processed/project_tasks.csv",
+      "source_url": "https://raw.githubusercontent.com/olly-styles/WorkBench/49c7dfd00c03d384ec59ea57374f50b766aa5613/data/processed/project_tasks.csv",
+      "revision": "49c7dfd00c03d384ec59ea57374f50b766aa5613",
+      "sha256": "ef4941767aa7ec5c85f481d90d9fc9aef9f7424d972701d2149e0ef55e56b07d",
+      "bytes": 28504,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "data/processed/tasks_and_outcomes/analytics_tasks_and_outcomes.csv",
+      "source_url": "https://raw.githubusercontent.com/olly-styles/WorkBench/49c7dfd00c03d384ec59ea57374f50b766aa5613/data/processed/tasks_and_outcomes/analytics_tasks_and_outcomes.csv",
+      "revision": "49c7dfd00c03d384ec59ea57374f50b766aa5613",
+      "sha256": "d99dd61758a7ab6cd7c81cbc892701c8e54e0fe6711ea86395686a8ac5006290",
+      "bytes": 62941,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "data/processed/tasks_and_outcomes/calendar_tasks_and_outcomes.csv",
+      "source_url": "https://raw.githubusercontent.com/olly-styles/WorkBench/49c7dfd00c03d384ec59ea57374f50b766aa5613/data/processed/tasks_and_outcomes/calendar_tasks_and_outcomes.csv",
+      "revision": "49c7dfd00c03d384ec59ea57374f50b766aa5613",
+      "sha256": "0a2e31639292bc341ad17d1c4917a5becb2f1ae5b3a7109639baa2de38db2758",
+      "bytes": 37361,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "data/processed/tasks_and_outcomes/customer_relationship_manager_tasks_and_outcomes.csv",
+      "source_url": "https://raw.githubusercontent.com/olly-styles/WorkBench/49c7dfd00c03d384ec59ea57374f50b766aa5613/data/processed/tasks_and_outcomes/customer_relationship_manager_tasks_and_outcomes.csv",
+      "revision": "49c7dfd00c03d384ec59ea57374f50b766aa5613",
+      "sha256": "d10dedb1197c55202a551c337cd2a39cef619164fb1f9a8cdf66bbbb376173d8",
+      "bytes": 48077,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "data/processed/tasks_and_outcomes/email_tasks_and_outcomes.csv",
+      "source_url": "https://raw.githubusercontent.com/olly-styles/WorkBench/49c7dfd00c03d384ec59ea57374f50b766aa5613/data/processed/tasks_and_outcomes/email_tasks_and_outcomes.csv",
+      "revision": "49c7dfd00c03d384ec59ea57374f50b766aa5613",
+      "sha256": "be57642f3eb74bce2aba8586088e12781aa71eb6b628ba5091db20c0f86c084d",
+      "bytes": 36977,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "data/processed/tasks_and_outcomes/multi_domain_tasks_and_outcomes.csv",
+      "source_url": "https://raw.githubusercontent.com/olly-styles/WorkBench/49c7dfd00c03d384ec59ea57374f50b766aa5613/data/processed/tasks_and_outcomes/multi_domain_tasks_and_outcomes.csv",
+      "revision": "49c7dfd00c03d384ec59ea57374f50b766aa5613",
+      "sha256": "631491d266a03b71232629ce525c3718d7696c9d3243e1e1a7e00b36f0ac7b91",
+      "bytes": 228210,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "data/processed/tasks_and_outcomes/project_management_tasks_and_outcomes.csv",
+      "source_url": "https://raw.githubusercontent.com/olly-styles/WorkBench/49c7dfd00c03d384ec59ea57374f50b766aa5613/data/processed/tasks_and_outcomes/project_management_tasks_and_outcomes.csv",
+      "revision": "49c7dfd00c03d384ec59ea57374f50b766aa5613",
+      "sha256": "c73d34bdf50cfe2310eb4c8300bca70832bcc909824af2a6a33b835f3b18fd4d",
+      "bytes": 34615,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "data/processed/tasks_and_outcomes/v1/analytics_tasks_and_outcomes.csv",
+      "source_url": "https://raw.githubusercontent.com/olly-styles/WorkBench/49c7dfd00c03d384ec59ea57374f50b766aa5613/data/processed/tasks_and_outcomes/v1/analytics_tasks_and_outcomes.csv",
+      "revision": "49c7dfd00c03d384ec59ea57374f50b766aa5613",
+      "sha256": "d99dd61758a7ab6cd7c81cbc892701c8e54e0fe6711ea86395686a8ac5006290",
+      "bytes": 62941,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "data/processed/tasks_and_outcomes/v1/calendar_tasks_and_outcomes.csv",
+      "source_url": "https://raw.githubusercontent.com/olly-styles/WorkBench/49c7dfd00c03d384ec59ea57374f50b766aa5613/data/processed/tasks_and_outcomes/v1/calendar_tasks_and_outcomes.csv",
+      "revision": "49c7dfd00c03d384ec59ea57374f50b766aa5613",
+      "sha256": "196d2706626af0fc222e666bc830044150b870b2761713df774877c549ce83eb",
+      "bytes": 37359,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "data/processed/tasks_and_outcomes/v1/customer_relationship_manager_tasks_and_outcomes.csv",
+      "source_url": "https://raw.githubusercontent.com/olly-styles/WorkBench/49c7dfd00c03d384ec59ea57374f50b766aa5613/data/processed/tasks_and_outcomes/v1/customer_relationship_manager_tasks_and_outcomes.csv",
+      "revision": "49c7dfd00c03d384ec59ea57374f50b766aa5613",
+      "sha256": "cb894a33aeb9be1ad91f39d8f84615873fefc2875365772c6f5747373109badf",
+      "bytes": 48133,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "data/processed/tasks_and_outcomes/v1/email_tasks_and_outcomes.csv",
+      "source_url": "https://raw.githubusercontent.com/olly-styles/WorkBench/49c7dfd00c03d384ec59ea57374f50b766aa5613/data/processed/tasks_and_outcomes/v1/email_tasks_and_outcomes.csv",
+      "revision": "49c7dfd00c03d384ec59ea57374f50b766aa5613",
+      "sha256": "70b4fa7a98a8cc767721fe0e877cc5c41b60e4a9c95eb27af5f5ba605548bb33",
+      "bytes": 37039,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "data/processed/tasks_and_outcomes/v1/multi_domain_tasks_and_outcomes.csv",
+      "source_url": "https://raw.githubusercontent.com/olly-styles/WorkBench/49c7dfd00c03d384ec59ea57374f50b766aa5613/data/processed/tasks_and_outcomes/v1/multi_domain_tasks_and_outcomes.csv",
+      "revision": "49c7dfd00c03d384ec59ea57374f50b766aa5613",
+      "sha256": "c4dc69491d81d12cea9d6e18181dbeb82b351487b8922b3c17a6128ceccac83a",
+      "bytes": 227530,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "data/processed/tasks_and_outcomes/v1/project_management_tasks_and_outcomes.csv",
+      "source_url": "https://raw.githubusercontent.com/olly-styles/WorkBench/49c7dfd00c03d384ec59ea57374f50b766aa5613/data/processed/tasks_and_outcomes/v1/project_management_tasks_and_outcomes.csv",
+      "revision": "49c7dfd00c03d384ec59ea57374f50b766aa5613",
+      "sha256": "5953f6a8ac714ecf6ad0ecf12df8aa986d8ac56b68f247e9781df2018c475057",
+      "bytes": 34255,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "data/processed/tasks_and_outcomes/v2026-05-17/analytics_tasks_and_outcomes.csv",
+      "source_url": "https://raw.githubusercontent.com/olly-styles/WorkBench/49c7dfd00c03d384ec59ea57374f50b766aa5613/data/processed/tasks_and_outcomes/v2026-05-17/analytics_tasks_and_outcomes.csv",
+      "revision": "49c7dfd00c03d384ec59ea57374f50b766aa5613",
+      "sha256": "d99dd61758a7ab6cd7c81cbc892701c8e54e0fe6711ea86395686a8ac5006290",
+      "bytes": 62941,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "data/processed/tasks_and_outcomes/v2026-05-17/calendar_tasks_and_outcomes.csv",
+      "source_url": "https://raw.githubusercontent.com/olly-styles/WorkBench/49c7dfd00c03d384ec59ea57374f50b766aa5613/data/processed/tasks_and_outcomes/v2026-05-17/calendar_tasks_and_outcomes.csv",
+      "revision": "49c7dfd00c03d384ec59ea57374f50b766aa5613",
+      "sha256": "4ca02e4c162033d4a3661123d2bf5087e15212e570f7f6edbe8b6bef17232ff2",
+      "bytes": 37663,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "data/processed/tasks_and_outcomes/v2026-05-17/customer_relationship_manager_tasks_and_outcomes.csv",
+      "source_url": "https://raw.githubusercontent.com/olly-styles/WorkBench/49c7dfd00c03d384ec59ea57374f50b766aa5613/data/processed/tasks_and_outcomes/v2026-05-17/customer_relationship_manager_tasks_and_outcomes.csv",
+      "revision": "49c7dfd00c03d384ec59ea57374f50b766aa5613",
+      "sha256": "d10dedb1197c55202a551c337cd2a39cef619164fb1f9a8cdf66bbbb376173d8",
+      "bytes": 48077,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "data/processed/tasks_and_outcomes/v2026-05-17/email_tasks_and_outcomes.csv",
+      "source_url": "https://raw.githubusercontent.com/olly-styles/WorkBench/49c7dfd00c03d384ec59ea57374f50b766aa5613/data/processed/tasks_and_outcomes/v2026-05-17/email_tasks_and_outcomes.csv",
+      "revision": "49c7dfd00c03d384ec59ea57374f50b766aa5613",
+      "sha256": "d981d4624d50206c8cc4fdcbcf021ca300e1fa0a444a22f4451e0bdfd93627fb",
+      "bytes": 36841,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "data/processed/tasks_and_outcomes/v2026-05-17/multi_domain_tasks_and_outcomes.csv",
+      "source_url": "https://raw.githubusercontent.com/olly-styles/WorkBench/49c7dfd00c03d384ec59ea57374f50b766aa5613/data/processed/tasks_and_outcomes/v2026-05-17/multi_domain_tasks_and_outcomes.csv",
+      "revision": "49c7dfd00c03d384ec59ea57374f50b766aa5613",
+      "sha256": "180953b3b035bed49f8adb4f7fad65099de4cfeafed4c00c6cb21b2798c26b0d",
+      "bytes": 228406,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "data/processed/tasks_and_outcomes/v2026-05-17/project_management_tasks_and_outcomes.csv",
+      "source_url": "https://raw.githubusercontent.com/olly-styles/WorkBench/49c7dfd00c03d384ec59ea57374f50b766aa5613/data/processed/tasks_and_outcomes/v2026-05-17/project_management_tasks_and_outcomes.csv",
+      "revision": "49c7dfd00c03d384ec59ea57374f50b766aa5613",
+      "sha256": "5953f6a8ac714ecf6ad0ecf12df8aa986d8ac56b68f247e9781df2018c475057",
+      "bytes": 34255,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "data/processed/tasks_and_outcomes/v2026-05-19/analytics_tasks_and_outcomes.csv",
+      "source_url": "https://raw.githubusercontent.com/olly-styles/WorkBench/49c7dfd00c03d384ec59ea57374f50b766aa5613/data/processed/tasks_and_outcomes/v2026-05-19/analytics_tasks_and_outcomes.csv",
+      "revision": "49c7dfd00c03d384ec59ea57374f50b766aa5613",
+      "sha256": "d99dd61758a7ab6cd7c81cbc892701c8e54e0fe6711ea86395686a8ac5006290",
+      "bytes": 62941,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "data/processed/tasks_and_outcomes/v2026-05-19/calendar_tasks_and_outcomes.csv",
+      "source_url": "https://raw.githubusercontent.com/olly-styles/WorkBench/49c7dfd00c03d384ec59ea57374f50b766aa5613/data/processed/tasks_and_outcomes/v2026-05-19/calendar_tasks_and_outcomes.csv",
+      "revision": "49c7dfd00c03d384ec59ea57374f50b766aa5613",
+      "sha256": "4ca02e4c162033d4a3661123d2bf5087e15212e570f7f6edbe8b6bef17232ff2",
+      "bytes": 37663,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "data/processed/tasks_and_outcomes/v2026-05-19/customer_relationship_manager_tasks_and_outcomes.csv",
+      "source_url": "https://raw.githubusercontent.com/olly-styles/WorkBench/49c7dfd00c03d384ec59ea57374f50b766aa5613/data/processed/tasks_and_outcomes/v2026-05-19/customer_relationship_manager_tasks_and_outcomes.csv",
+      "revision": "49c7dfd00c03d384ec59ea57374f50b766aa5613",
+      "sha256": "d10dedb1197c55202a551c337cd2a39cef619164fb1f9a8cdf66bbbb376173d8",
+      "bytes": 48077,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "data/processed/tasks_and_outcomes/v2026-05-19/email_tasks_and_outcomes.csv",
+      "source_url": "https://raw.githubusercontent.com/olly-styles/WorkBench/49c7dfd00c03d384ec59ea57374f50b766aa5613/data/processed/tasks_and_outcomes/v2026-05-19/email_tasks_and_outcomes.csv",
+      "revision": "49c7dfd00c03d384ec59ea57374f50b766aa5613",
+      "sha256": "d981d4624d50206c8cc4fdcbcf021ca300e1fa0a444a22f4451e0bdfd93627fb",
+      "bytes": 36841,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "data/processed/tasks_and_outcomes/v2026-05-19/multi_domain_tasks_and_outcomes.csv",
+      "source_url": "https://raw.githubusercontent.com/olly-styles/WorkBench/49c7dfd00c03d384ec59ea57374f50b766aa5613/data/processed/tasks_and_outcomes/v2026-05-19/multi_domain_tasks_and_outcomes.csv",
+      "revision": "49c7dfd00c03d384ec59ea57374f50b766aa5613",
+      "sha256": "2efc5157b4a38f0a38b31b8ac135b4e7ae2c85312e5dc986b052a9111f45fed6",
+      "bytes": 228876,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "data/processed/tasks_and_outcomes/v2026-05-19/project_management_tasks_and_outcomes.csv",
+      "source_url": "https://raw.githubusercontent.com/olly-styles/WorkBench/49c7dfd00c03d384ec59ea57374f50b766aa5613/data/processed/tasks_and_outcomes/v2026-05-19/project_management_tasks_and_outcomes.csv",
+      "revision": "49c7dfd00c03d384ec59ea57374f50b766aa5613",
+      "sha256": "c73d34bdf50cfe2310eb4c8300bca70832bcc909824af2a6a33b835f3b18fd4d",
+      "bytes": 34615,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "data/raw/email_addresses.csv",
+      "source_url": "https://raw.githubusercontent.com/olly-styles/WorkBench/49c7dfd00c03d384ec59ea57374f50b766aa5613/data/raw/email_addresses.csv",
+      "revision": "49c7dfd00c03d384ec59ea57374f50b766aa5613",
+      "sha256": "d9227ee1a072e528c3735afea166a56e5d2e88f4c98dc7a0beba035ff0efcc2a",
+      "bytes": 450,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "data/raw/email_content_pairs.csv",
+      "source_url": "https://raw.githubusercontent.com/olly-styles/WorkBench/49c7dfd00c03d384ec59ea57374f50b766aa5613/data/raw/email_content_pairs.csv",
+      "revision": "49c7dfd00c03d384ec59ea57374f50b766aa5613",
+      "sha256": "4e5f3ca71a0495571936fa36f076ab2868d546d2ad96780e5c9ebb661a8c5d5d",
+      "bytes": 138714,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "data/raw/events.csv",
+      "source_url": "https://raw.githubusercontent.com/olly-styles/WorkBench/49c7dfd00c03d384ec59ea57374f50b766aa5613/data/raw/events.csv",
+      "revision": "49c7dfd00c03d384ec59ea57374f50b766aa5613",
+      "sha256": "0abb179439488eeb1c45a1760ddf3628c37af04fd9bc714026c2e09dd836a0fd",
+      "bytes": 1160,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "pyproject.toml",
+      "source_url": "https://raw.githubusercontent.com/olly-styles/WorkBench/49c7dfd00c03d384ec59ea57374f50b766aa5613/pyproject.toml",
+      "revision": "49c7dfd00c03d384ec59ea57374f50b766aa5613",
+      "sha256": "7ec47461f4f3ee8e4739a251f9d033408641800f0334e01d71a71e46b25ef18d",
+      "bytes": 1195,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "scripts/data_generation/sandbox_databases/generate_analytics_data.py",
+      "source_url": "https://raw.githubusercontent.com/olly-styles/WorkBench/49c7dfd00c03d384ec59ea57374f50b766aa5613/scripts/data_generation/sandbox_databases/generate_analytics_data.py",
+      "revision": "49c7dfd00c03d384ec59ea57374f50b766aa5613",
+      "sha256": "2e12229bd42c1f6dcf4cea73f9f929db8479500f32df33e59c4c93ab12406c71",
+      "bytes": 2610,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "scripts/data_generation/sandbox_databases/generate_calendar_data.py",
+      "source_url": "https://raw.githubusercontent.com/olly-styles/WorkBench/49c7dfd00c03d384ec59ea57374f50b766aa5613/scripts/data_generation/sandbox_databases/generate_calendar_data.py",
+      "revision": "49c7dfd00c03d384ec59ea57374f50b766aa5613",
+      "sha256": "53bd2c7d9c92de5a4f510bec1a8e322a501b086b8829b90940de705cef313f2c",
+      "bytes": 905,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "scripts/data_generation/sandbox_databases/generate_customer_relationship_manager_data.py",
+      "source_url": "https://raw.githubusercontent.com/olly-styles/WorkBench/49c7dfd00c03d384ec59ea57374f50b766aa5613/scripts/data_generation/sandbox_databases/generate_customer_relationship_manager_data.py",
+      "revision": "49c7dfd00c03d384ec59ea57374f50b766aa5613",
+      "sha256": "d79dc570e403e39aca3b7c4027082529b18be550280224aa9930318757e49811",
+      "bytes": 4171,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "scripts/data_generation/sandbox_databases/generate_email_data.py",
+      "source_url": "https://raw.githubusercontent.com/olly-styles/WorkBench/49c7dfd00c03d384ec59ea57374f50b766aa5613/scripts/data_generation/sandbox_databases/generate_email_data.py",
+      "revision": "49c7dfd00c03d384ec59ea57374f50b766aa5613",
+      "sha256": "207704ae3d0969fe377145b325277438b10fd6304de1d91c3d81e0425db1dd79",
+      "bytes": 1781,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "scripts/data_generation/sandbox_databases/generate_project_management_data.py",
+      "source_url": "https://raw.githubusercontent.com/olly-styles/WorkBench/49c7dfd00c03d384ec59ea57374f50b766aa5613/scripts/data_generation/sandbox_databases/generate_project_management_data.py",
+      "revision": "49c7dfd00c03d384ec59ea57374f50b766aa5613",
+      "sha256": "5beadb1ec0a2c60fa5a8d1bfd6ffe0edee52d98c85a711dee955ddaaab665818",
+      "bytes": 6447,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "scripts/data_generation/seed_data/analytics.json",
+      "source_url": "https://raw.githubusercontent.com/olly-styles/WorkBench/49c7dfd00c03d384ec59ea57374f50b766aa5613/scripts/data_generation/seed_data/analytics.json",
+      "revision": "49c7dfd00c03d384ec59ea57374f50b766aa5613",
+      "sha256": "596e2412673c6bbe1224e373ae71ab236ece7deafa8f3d1796e457b277630105",
+      "bytes": 137,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "scripts/data_generation/seed_data/crm.json",
+      "source_url": "https://raw.githubusercontent.com/olly-styles/WorkBench/49c7dfd00c03d384ec59ea57374f50b766aa5613/scripts/data_generation/seed_data/crm.json",
+      "revision": "49c7dfd00c03d384ec59ea57374f50b766aa5613",
+      "sha256": "2476f0aa94efd3792346f904b52ef021f0d1a6f2f95c68205b0b3848cf28da3e",
+      "bytes": 1596,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "scripts/data_generation/seed_data/email.json",
+      "source_url": "https://raw.githubusercontent.com/olly-styles/WorkBench/49c7dfd00c03d384ec59ea57374f50b766aa5613/scripts/data_generation/seed_data/email.json",
+      "revision": "49c7dfd00c03d384ec59ea57374f50b766aa5613",
+      "sha256": "a9df9f391362f9c6e045526b84f98e452b01c229e75864e2b25cf265d5230e8b",
+      "bytes": 2951,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "scripts/data_generation/seed_data/project_management.json",
+      "source_url": "https://raw.githubusercontent.com/olly-styles/WorkBench/49c7dfd00c03d384ec59ea57374f50b766aa5613/scripts/data_generation/seed_data/project_management.json",
+      "revision": "49c7dfd00c03d384ec59ea57374f50b766aa5613",
+      "sha256": "03cec3cd8684153df19edf4b3f73c5520fd398d81d3a54643410297758915946",
+      "bytes": 1190,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "scripts/data_generation/task_outcome_generation/generate_analytics_task_and_outcome.py",
+      "source_url": "https://raw.githubusercontent.com/olly-styles/WorkBench/49c7dfd00c03d384ec59ea57374f50b766aa5613/scripts/data_generation/task_outcome_generation/generate_analytics_task_and_outcome.py",
+      "revision": "49c7dfd00c03d384ec59ea57374f50b766aa5613",
+      "sha256": "be3740606841d7237b057376c6964a444c65b3db8ae4d6d72de176de81cbf13d",
+      "bytes": 18975,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "scripts/data_generation/task_outcome_generation/generate_calendar_task_and_outcome.py",
+      "source_url": "https://raw.githubusercontent.com/olly-styles/WorkBench/49c7dfd00c03d384ec59ea57374f50b766aa5613/scripts/data_generation/task_outcome_generation/generate_calendar_task_and_outcome.py",
+      "revision": "49c7dfd00c03d384ec59ea57374f50b766aa5613",
+      "sha256": "5dc4335ebe81a8ed15f41e614228d359dc549e9719c9034e5261ffc604a72e8d",
+      "bytes": 16008,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "scripts/data_generation/task_outcome_generation/generate_customer_relationship_manager_task_and_outcome.py",
+      "source_url": "https://raw.githubusercontent.com/olly-styles/WorkBench/49c7dfd00c03d384ec59ea57374f50b766aa5613/scripts/data_generation/task_outcome_generation/generate_customer_relationship_manager_task_and_outcome.py",
+      "revision": "49c7dfd00c03d384ec59ea57374f50b766aa5613",
+      "sha256": "1e629f0b2bb937a9b87cc69e16d0e38a0d7431c78bfb6e307c86b5b43495dc5b",
+      "bytes": 11226,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "scripts/data_generation/task_outcome_generation/generate_email_task_and_outcome.py",
+      "source_url": "https://raw.githubusercontent.com/olly-styles/WorkBench/49c7dfd00c03d384ec59ea57374f50b766aa5613/scripts/data_generation/task_outcome_generation/generate_email_task_and_outcome.py",
+      "revision": "49c7dfd00c03d384ec59ea57374f50b766aa5613",
+      "sha256": "99a7b3a23ad5844e916042f5a83ae49255b1b6b8f9e4e11a1156e2c84ae22073",
+      "bytes": 11131,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "scripts/data_generation/task_outcome_generation/generate_multi_domain_task_and_outcome.py",
+      "source_url": "https://raw.githubusercontent.com/olly-styles/WorkBench/49c7dfd00c03d384ec59ea57374f50b766aa5613/scripts/data_generation/task_outcome_generation/generate_multi_domain_task_and_outcome.py",
+      "revision": "49c7dfd00c03d384ec59ea57374f50b766aa5613",
+      "sha256": "b5b4d57b34549414e09717f92f2a588870538f24628e062997d8e9a87a1e16d4",
+      "bytes": 53653,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "scripts/data_generation/task_outcome_generation/generate_project_management_task_and_outcome.py",
+      "source_url": "https://raw.githubusercontent.com/olly-styles/WorkBench/49c7dfd00c03d384ec59ea57374f50b766aa5613/scripts/data_generation/task_outcome_generation/generate_project_management_task_and_outcome.py",
+      "revision": "49c7dfd00c03d384ec59ea57374f50b766aa5613",
+      "sha256": "8b3f5d23c1e9732fc16025f1a14cfd8d2408b0b27a8d1f54e60d065d3986e350",
+      "bytes": 10888,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "scripts/evals/calculate_metrics_for_single_file.py",
+      "source_url": "https://raw.githubusercontent.com/olly-styles/WorkBench/49c7dfd00c03d384ec59ea57374f50b766aa5613/scripts/evals/calculate_metrics_for_single_file.py",
+      "revision": "49c7dfd00c03d384ec59ea57374f50b766aa5613",
+      "sha256": "da369841ec0c6da076edbfa2e98e7f14e8a6d96f73a50f7d12c70322548643e7",
+      "bytes": 890,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "scripts/evals/estimate_model_costs.py",
+      "source_url": "https://raw.githubusercontent.com/olly-styles/WorkBench/49c7dfd00c03d384ec59ea57374f50b766aa5613/scripts/evals/estimate_model_costs.py",
+      "revision": "49c7dfd00c03d384ec59ea57374f50b766aa5613",
+      "sha256": "cc7879cef8becaba5a4977fcf805464aff224c2cf98db911d0dac2f391c5cfd3",
+      "bytes": 6404,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "scripts/evals/export_item_level_results.py",
+      "source_url": "https://raw.githubusercontent.com/olly-styles/WorkBench/49c7dfd00c03d384ec59ea57374f50b766aa5613/scripts/evals/export_item_level_results.py",
+      "revision": "49c7dfd00c03d384ec59ea57374f50b766aa5613",
+      "sha256": "ff8df7ac89fe7fcf9a3451c2cb325af7386dfa797794750d60807da89c31c3da",
+      "bytes": 7480,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "scripts/evals/generate_results_summary.py",
+      "source_url": "https://raw.githubusercontent.com/olly-styles/WorkBench/49c7dfd00c03d384ec59ea57374f50b766aa5613/scripts/evals/generate_results_summary.py",
+      "revision": "49c7dfd00c03d384ec59ea57374f50b766aa5613",
+      "sha256": "defe61106aab08655b7510ade13215e757028d9df9e02adcfd517ed1e710308d",
+      "bytes": 3774,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "scripts/evals/model_summary.py",
+      "source_url": "https://raw.githubusercontent.com/olly-styles/WorkBench/49c7dfd00c03d384ec59ea57374f50b766aa5613/scripts/evals/model_summary.py",
+      "revision": "49c7dfd00c03d384ec59ea57374f50b766aa5613",
+      "sha256": "286e9f74e2704110b7e16ff5f949cc86ba19c0c3e73313b42130a1539a1d8c36",
+      "bytes": 2437,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "scripts/inference/generate_all_results.py",
+      "source_url": "https://raw.githubusercontent.com/olly-styles/WorkBench/49c7dfd00c03d384ec59ea57374f50b766aa5613/scripts/inference/generate_all_results.py",
+      "revision": "49c7dfd00c03d384ec59ea57374f50b766aa5613",
+      "sha256": "c4ef9fbd1132fbd914072718729ce2fd0fc0c9cb50df2b643eb55b07e7f17720",
+      "bytes": 2824,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "scripts/plotting/plot_error_breakdown.py",
+      "source_url": "https://raw.githubusercontent.com/olly-styles/WorkBench/49c7dfd00c03d384ec59ea57374f50b766aa5613/scripts/plotting/plot_error_breakdown.py",
+      "revision": "49c7dfd00c03d384ec59ea57374f50b766aa5613",
+      "sha256": "b66e94e98ecdd31805f17c88ee5b95959f833c5a23ed3dd5d9a74f413ff0a771",
+      "bytes": 4131,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "scripts/plotting/plot_errors_per_template.py",
+      "source_url": "https://raw.githubusercontent.com/olly-styles/WorkBench/49c7dfd00c03d384ec59ea57374f50b766aa5613/scripts/plotting/plot_errors_per_template.py",
+      "revision": "49c7dfd00c03d384ec59ea57374f50b766aa5613",
+      "sha256": "a6f08c9cdcd4d584a6cc45f5654dc086718d60bdbd0b6b2c023684cb5101fb45",
+      "bytes": 3146,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "scripts/plotting/plot_number_of_tools.py",
+      "source_url": "https://raw.githubusercontent.com/olly-styles/WorkBench/49c7dfd00c03d384ec59ea57374f50b766aa5613/scripts/plotting/plot_number_of_tools.py",
+      "revision": "49c7dfd00c03d384ec59ea57374f50b766aa5613",
+      "sha256": "d0bc311975304e420966e3eecc0df6314de53b5e849bf7b6f61c5bc626baebf4",
+      "bytes": 1378,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "scripts/plotting/plot_outcome_action_lengths.py",
+      "source_url": "https://raw.githubusercontent.com/olly-styles/WorkBench/49c7dfd00c03d384ec59ea57374f50b766aa5613/scripts/plotting/plot_outcome_action_lengths.py",
+      "revision": "49c7dfd00c03d384ec59ea57374f50b766aa5613",
+      "sha256": "872c47d1cc8061995e0bd0401e30052054966de531883d8ebeb81fe2ae1da2f4",
+      "bytes": 1694,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "scripts/plotting/print_number_of_tasks.py",
+      "source_url": "https://raw.githubusercontent.com/olly-styles/WorkBench/49c7dfd00c03d384ec59ea57374f50b766aa5613/scripts/plotting/print_number_of_tasks.py",
+      "revision": "49c7dfd00c03d384ec59ea57374f50b766aa5613",
+      "sha256": "98a0c6d612154376c3d453253b64f18a0aa8aa2bb23f7a5482c66d166298ede7",
+      "bytes": 1572,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "src/__init__.py",
+      "source_url": "https://raw.githubusercontent.com/olly-styles/WorkBench/49c7dfd00c03d384ec59ea57374f50b766aa5613/src/__init__.py",
+      "revision": "49c7dfd00c03d384ec59ea57374f50b766aa5613",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "src/cli.py",
+      "source_url": "https://raw.githubusercontent.com/olly-styles/WorkBench/49c7dfd00c03d384ec59ea57374f50b766aa5613/src/cli.py",
+      "revision": "49c7dfd00c03d384ec59ea57374f50b766aa5613",
+      "sha256": "44e8523039d29d3afac0d2a595d114f10a736ef71c4f50ffd008bd2ad8d2e35f",
+      "bytes": 8728,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "src/data_generation/__init__.py",
+      "source_url": "https://raw.githubusercontent.com/olly-styles/WorkBench/49c7dfd00c03d384ec59ea57374f50b766aa5613/src/data_generation/__init__.py",
+      "revision": "49c7dfd00c03d384ec59ea57374f50b766aa5613",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "src/data_generation/data_generation_utils.py",
+      "source_url": "https://raw.githubusercontent.com/olly-styles/WorkBench/49c7dfd00c03d384ec59ea57374f50b766aa5613/src/data_generation/data_generation_utils.py",
+      "revision": "49c7dfd00c03d384ec59ea57374f50b766aa5613",
+      "sha256": "ccad50f6a84a7e9f7ff10027c008b273d1efdb76553b2c3939bdbd336e81cefa",
+      "bytes": 11289,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "src/evals/__init__.py",
+      "source_url": "https://raw.githubusercontent.com/olly-styles/WorkBench/49c7dfd00c03d384ec59ea57374f50b766aa5613/src/evals/__init__.py",
+      "revision": "49c7dfd00c03d384ec59ea57374f50b766aa5613",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "src/evals/actions.py",
+      "source_url": "https://raw.githubusercontent.com/olly-styles/WorkBench/49c7dfd00c03d384ec59ea57374f50b766aa5613/src/evals/actions.py",
+      "revision": "49c7dfd00c03d384ec59ea57374f50b766aa5613",
+      "sha256": "a8c9ef005e20923af95b85a227e0dc412954c89b45b02ca95a1008589f4f742b",
+      "bytes": 2980,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "src/evals/agent.py",
+      "source_url": "https://raw.githubusercontent.com/olly-styles/WorkBench/49c7dfd00c03d384ec59ea57374f50b766aa5613/src/evals/agent.py",
+      "revision": "49c7dfd00c03d384ec59ea57374f50b766aa5613",
+      "sha256": "3d20b9bee2d721f6d70ed3c0ab4bd5876ec23784971eead2c18548a3778d8506",
+      "bytes": 24840,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "src/evals/evaluation.py",
+      "source_url": "https://raw.githubusercontent.com/olly-styles/WorkBench/49c7dfd00c03d384ec59ea57374f50b766aa5613/src/evals/evaluation.py",
+      "revision": "49c7dfd00c03d384ec59ea57374f50b766aa5613",
+      "sha256": "2f3232424e7ccc1da5ca2950efc0941f49126d5445f8a7438e69d16ebbc6e579",
+      "bytes": 8164,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "src/evals/inference.py",
+      "source_url": "https://raw.githubusercontent.com/olly-styles/WorkBench/49c7dfd00c03d384ec59ea57374f50b766aa5613/src/evals/inference.py",
+      "revision": "49c7dfd00c03d384ec59ea57374f50b766aa5613",
+      "sha256": "15e6a272f17d6f4cd3c34a1cb23ab7c9ead04350b817aeafe809ccb906fe12c9",
+      "bytes": 13076,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "src/evals/metrics.py",
+      "source_url": "https://raw.githubusercontent.com/olly-styles/WorkBench/49c7dfd00c03d384ec59ea57374f50b766aa5613/src/evals/metrics.py",
+      "revision": "49c7dfd00c03d384ec59ea57374f50b766aa5613",
+      "sha256": "d56031422f6f61312d5af4e6c30ebbc73b8fe07e32ef344c43fb5d7f0ec6f2d9",
+      "bytes": 14183,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "src/tools/__init__.py",
+      "source_url": "https://raw.githubusercontent.com/olly-styles/WorkBench/49c7dfd00c03d384ec59ea57374f50b766aa5613/src/tools/__init__.py",
+      "revision": "49c7dfd00c03d384ec59ea57374f50b766aa5613",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "src/tools/_utils.py",
+      "source_url": "https://raw.githubusercontent.com/olly-styles/WorkBench/49c7dfd00c03d384ec59ea57374f50b766aa5613/src/tools/_utils.py",
+      "revision": "49c7dfd00c03d384ec59ea57374f50b766aa5613",
+      "sha256": "3fdd21de21503bde7851627dc2a3a9f76d587cb077afeef9980fd5afebf447d0",
+      "bytes": 1521,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "src/tools/analytics.py",
+      "source_url": "https://raw.githubusercontent.com/olly-styles/WorkBench/49c7dfd00c03d384ec59ea57374f50b766aa5613/src/tools/analytics.py",
+      "revision": "49c7dfd00c03d384ec59ea57374f50b766aa5613",
+      "sha256": "db2533cf086072cc8a9d8dc373fbbdbca3051dfc7b367531dc875bd7353945a8",
+      "bytes": 7747,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "src/tools/calendar.py",
+      "source_url": "https://raw.githubusercontent.com/olly-styles/WorkBench/49c7dfd00c03d384ec59ea57374f50b766aa5613/src/tools/calendar.py",
+      "revision": "49c7dfd00c03d384ec59ea57374f50b766aa5613",
+      "sha256": "50c1914ba8b0fdbbbb3bad9799d6e6c3556e91b923facfc86d02db8b2029e414",
+      "bytes": 6389,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "src/tools/company_directory.py",
+      "source_url": "https://raw.githubusercontent.com/olly-styles/WorkBench/49c7dfd00c03d384ec59ea57374f50b766aa5613/src/tools/company_directory.py",
+      "revision": "49c7dfd00c03d384ec59ea57374f50b766aa5613",
+      "sha256": "26722388e1516521b267992bd9846a5d65322c860412d6e157cc1a355d637db0",
+      "bytes": 858,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "src/tools/customer_relationship_manager.py",
+      "source_url": "https://raw.githubusercontent.com/olly-styles/WorkBench/49c7dfd00c03d384ec59ea57374f50b766aa5613/src/tools/customer_relationship_manager.py",
+      "revision": "49c7dfd00c03d384ec59ea57374f50b766aa5613",
+      "sha256": "d38c16f5b8a774b0e4bf4621d32c0a179a9fcbeaa77ffe7d2c4520f5e209fead",
+      "bytes": 9304,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "src/tools/email.py",
+      "source_url": "https://raw.githubusercontent.com/olly-styles/WorkBench/49c7dfd00c03d384ec59ea57374f50b766aa5613/src/tools/email.py",
+      "revision": "49c7dfd00c03d384ec59ea57374f50b766aa5613",
+      "sha256": "f1a7f50352840e4c714c1824c7bd1bac86b9964c8effb2d65232c4efb9681ef4",
+      "bytes": 7630,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "src/tools/project_management.py",
+      "source_url": "https://raw.githubusercontent.com/olly-styles/WorkBench/49c7dfd00c03d384ec59ea57374f50b766aa5613/src/tools/project_management.py",
+      "revision": "49c7dfd00c03d384ec59ea57374f50b766aa5613",
+      "sha256": "fc0d37cb624f8be4a785da7119902a3abdcb9d16d93f45f95782397da1b36e9c",
+      "bytes": 7826,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "src/tools/state.py",
+      "source_url": "https://raw.githubusercontent.com/olly-styles/WorkBench/49c7dfd00c03d384ec59ea57374f50b766aa5613/src/tools/state.py",
+      "revision": "49c7dfd00c03d384ec59ea57374f50b766aa5613",
+      "sha256": "04d218c2cffb1831d857f08bb17d111dcfb91a765422130ad05147f8c21b752c",
+      "bytes": 2713,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "src/tools/tool.py",
+      "source_url": "https://raw.githubusercontent.com/olly-styles/WorkBench/49c7dfd00c03d384ec59ea57374f50b766aa5613/src/tools/tool.py",
+      "revision": "49c7dfd00c03d384ec59ea57374f50b766aa5613",
+      "sha256": "3893a051570418f43dce6608284a68073f96e74a318d195d092e62e6aa894474",
+      "bytes": 3379,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "src/tools/toolkits.py",
+      "source_url": "https://raw.githubusercontent.com/olly-styles/WorkBench/49c7dfd00c03d384ec59ea57374f50b766aa5613/src/tools/toolkits.py",
+      "revision": "49c7dfd00c03d384ec59ea57374f50b766aa5613",
+      "sha256": "1a850c9a09f32f32e9b928bd64df56027188794b272cd5480b5df5bb283561a9",
+      "bytes": 1784,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "tests/data_generation/processed/test_logic.py",
+      "source_url": "https://raw.githubusercontent.com/olly-styles/WorkBench/49c7dfd00c03d384ec59ea57374f50b766aa5613/tests/data_generation/processed/test_logic.py",
+      "revision": "49c7dfd00c03d384ec59ea57374f50b766aa5613",
+      "sha256": "3bc821d5828804eb054e47faac1538ceb8ae7c266c80eaa1d03bb9228a9ed803",
+      "bytes": 1592,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "tests/data_generation/processed/test_processed_calendar_data.py",
+      "source_url": "https://raw.githubusercontent.com/olly-styles/WorkBench/49c7dfd00c03d384ec59ea57374f50b766aa5613/tests/data_generation/processed/test_processed_calendar_data.py",
+      "revision": "49c7dfd00c03d384ec59ea57374f50b766aa5613",
+      "sha256": "e2e1d2f1a9e71600e3fd8f31f50a4738fc733bed82a0abadf67de5466446763f",
+      "bytes": 1052,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "tests/data_generation/processed/test_processed_customer_relationship_manager_data.py",
+      "source_url": "https://raw.githubusercontent.com/olly-styles/WorkBench/49c7dfd00c03d384ec59ea57374f50b766aa5613/tests/data_generation/processed/test_processed_customer_relationship_manager_data.py",
+      "revision": "49c7dfd00c03d384ec59ea57374f50b766aa5613",
+      "sha256": "eb8162f43dd2e5749da53eee06f2a46bee886fe1bca61091b573716236dd24d9",
+      "bytes": 1618,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "tests/data_generation/processed/test_processed_email_data.py",
+      "source_url": "https://raw.githubusercontent.com/olly-styles/WorkBench/49c7dfd00c03d384ec59ea57374f50b766aa5613/tests/data_generation/processed/test_processed_email_data.py",
+      "revision": "49c7dfd00c03d384ec59ea57374f50b766aa5613",
+      "sha256": "0cd21ace88e9276dd0d83d8d68e5f130d4f0aa36488cd51c86c8953a921ebe76",
+      "bytes": 1195,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "tests/data_generation/processed/test_processed_project_management_data.py",
+      "source_url": "https://raw.githubusercontent.com/olly-styles/WorkBench/49c7dfd00c03d384ec59ea57374f50b766aa5613/tests/data_generation/processed/test_processed_project_management_data.py",
+      "revision": "49c7dfd00c03d384ec59ea57374f50b766aa5613",
+      "sha256": "e55bc0d36ff7cd93b4cd965b5c0a2baa4a10d691a20594374e58519b11577c5c",
+      "bytes": 1054,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "tests/data_generation/raw/test_raw_data.py",
+      "source_url": "https://raw.githubusercontent.com/olly-styles/WorkBench/49c7dfd00c03d384ec59ea57374f50b766aa5613/tests/data_generation/raw/test_raw_data.py",
+      "revision": "49c7dfd00c03d384ec59ea57374f50b766aa5613",
+      "sha256": "c1be158b5c14cb746cfb28b4165d4e063f026a12c65cf4911131a656c6654b4d",
+      "bytes": 332,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "tests/data_generation/test_data_generation_utils.py",
+      "source_url": "https://raw.githubusercontent.com/olly-styles/WorkBench/49c7dfd00c03d384ec59ea57374f50b766aa5613/tests/data_generation/test_data_generation_utils.py",
+      "revision": "49c7dfd00c03d384ec59ea57374f50b766aa5613",
+      "sha256": "070cbd7a0b8c3c4bb9fddf1f22999f1835c1a2175aa3fd5fe7bc3d44c496fde2",
+      "bytes": 4384,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "tests/data_generation/test_email_data_seed.py",
+      "source_url": "https://raw.githubusercontent.com/olly-styles/WorkBench/49c7dfd00c03d384ec59ea57374f50b766aa5613/tests/data_generation/test_email_data_seed.py",
+      "revision": "49c7dfd00c03d384ec59ea57374f50b766aa5613",
+      "sha256": "30b659d1d3f5408ebed3f6c213cd92f45809331d0b03ffeca0deeaf9079c7b21",
+      "bytes": 1259,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "tests/data_generation/test_task_generation_bounds.py",
+      "source_url": "https://raw.githubusercontent.com/olly-styles/WorkBench/49c7dfd00c03d384ec59ea57374f50b766aa5613/tests/data_generation/test_task_generation_bounds.py",
+      "revision": "49c7dfd00c03d384ec59ea57374f50b766aa5613",
+      "sha256": "9ccc23e65a30119bd27f9ac91319345dcb90ba9192eeed684894d930ee9f4ce9",
+      "bytes": 989,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "tests/evals/test_actions.py",
+      "source_url": "https://raw.githubusercontent.com/olly-styles/WorkBench/49c7dfd00c03d384ec59ea57374f50b766aa5613/tests/evals/test_actions.py",
+      "revision": "49c7dfd00c03d384ec59ea57374f50b766aa5613",
+      "sha256": "fc6ff42184cc8c0849f6fc832f76be8bc1b95abfc453ac5738074e200e759ca9",
+      "bytes": 2728,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "tests/evals/test_context_window_classifier.py",
+      "source_url": "https://raw.githubusercontent.com/olly-styles/WorkBench/49c7dfd00c03d384ec59ea57374f50b766aa5613/tests/evals/test_context_window_classifier.py",
+      "revision": "49c7dfd00c03d384ec59ea57374f50b766aa5613",
+      "sha256": "8354d611365bc5ce6200422a60336044a1c42fd2a20dfb763cec9481e07c6df9",
+      "bytes": 986,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "tests/evals/test_evals.py",
+      "source_url": "https://raw.githubusercontent.com/olly-styles/WorkBench/49c7dfd00c03d384ec59ea57374f50b766aa5613/tests/evals/test_evals.py",
+      "revision": "49c7dfd00c03d384ec59ea57374f50b766aa5613",
+      "sha256": "5c03cdffc3d99ea16b4fe8242071c2d61c120e2912c3e48dcf24d2383271736a",
+      "bytes": 11262,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "tests/evals/test_evaluation.py",
+      "source_url": "https://raw.githubusercontent.com/olly-styles/WorkBench/49c7dfd00c03d384ec59ea57374f50b766aa5613/tests/evals/test_evaluation.py",
+      "revision": "49c7dfd00c03d384ec59ea57374f50b766aa5613",
+      "sha256": "2ec9289d44e5cede78e61c5a4e2c48cac7fe2f59937b4df03a75eb5d2718e314",
+      "bytes": 3044,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "tests/evals/test_generate_results_parallel.py",
+      "source_url": "https://raw.githubusercontent.com/olly-styles/WorkBench/49c7dfd00c03d384ec59ea57374f50b766aa5613/tests/evals/test_generate_results_parallel.py",
+      "revision": "49c7dfd00c03d384ec59ea57374f50b766aa5613",
+      "sha256": "01d8cd1fa7484fb8fbe4e02ceefc94e44f3eb404fce312e33154c2ff3c299b04",
+      "bytes": 1759,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "tests/evals/test_generate_results_resume.py",
+      "source_url": "https://raw.githubusercontent.com/olly-styles/WorkBench/49c7dfd00c03d384ec59ea57374f50b766aa5613/tests/evals/test_generate_results_resume.py",
+      "revision": "49c7dfd00c03d384ec59ea57374f50b766aa5613",
+      "sha256": "928cd8d53db1ab8ae3e712328f97197db4fe6378ed8fdc7b46e47a35fe5cbfcd",
+      "bytes": 3412,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "tests/evals/test_ground_truth_versioning.py",
+      "source_url": "https://raw.githubusercontent.com/olly-styles/WorkBench/49c7dfd00c03d384ec59ea57374f50b766aa5613/tests/evals/test_ground_truth_versioning.py",
+      "revision": "49c7dfd00c03d384ec59ea57374f50b766aa5613",
+      "sha256": "3e4205ee4196d68bcd740b81ed5270930f2a9ee65fbd4c6dd2fbdb8db2d45e6d",
+      "bytes": 3600,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "tests/evals/test_item_level_results.py",
+      "source_url": "https://raw.githubusercontent.com/olly-styles/WorkBench/49c7dfd00c03d384ec59ea57374f50b766aa5613/tests/evals/test_item_level_results.py",
+      "revision": "49c7dfd00c03d384ec59ea57374f50b766aa5613",
+      "sha256": "a09b2be3a79abbf43ced7b6d12fef1ec6df91a5971918f3f6fcfd38286a28d40",
+      "bytes": 3996,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "tests/evals/test_metrics.py",
+      "source_url": "https://raw.githubusercontent.com/olly-styles/WorkBench/49c7dfd00c03d384ec59ea57374f50b766aa5613/tests/evals/test_metrics.py",
+      "revision": "49c7dfd00c03d384ec59ea57374f50b766aa5613",
+      "sha256": "11e1a63002ab6a1d34127c420c1883c040669aa2d1a44329deb76998a8892f98",
+      "bytes": 3138,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "tests/evals/test_parse_action.py",
+      "source_url": "https://raw.githubusercontent.com/olly-styles/WorkBench/49c7dfd00c03d384ec59ea57374f50b766aa5613/tests/evals/test_parse_action.py",
+      "revision": "49c7dfd00c03d384ec59ea57374f50b766aa5613",
+      "sha256": "e28fb8b5238b465b9c1915615e2a6dd60e196f9a6ec68cada09a2f1d9c7beba5",
+      "bytes": 2374,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "tests/evals/test_results_artifact.py",
+      "source_url": "https://raw.githubusercontent.com/olly-styles/WorkBench/49c7dfd00c03d384ec59ea57374f50b766aa5613/tests/evals/test_results_artifact.py",
+      "revision": "49c7dfd00c03d384ec59ea57374f50b766aa5613",
+      "sha256": "f6d712ac67adb745ace8f0bbb10057eccb0792ef145502b983ae79921bdf869a",
+      "bytes": 2879,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "tests/evals/test_results_path.py",
+      "source_url": "https://raw.githubusercontent.com/olly-styles/WorkBench/49c7dfd00c03d384ec59ea57374f50b766aa5613/tests/evals/test_results_path.py",
+      "revision": "49c7dfd00c03d384ec59ea57374f50b766aa5613",
+      "sha256": "9c70cc146f9d4ec220e9a570e6d608c2a433e9619dd0d86a4d365593a3200f24",
+      "bytes": 2623,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "tests/evals/test_retry_classifier.py",
+      "source_url": "https://raw.githubusercontent.com/olly-styles/WorkBench/49c7dfd00c03d384ec59ea57374f50b766aa5613/tests/evals/test_retry_classifier.py",
+      "revision": "49c7dfd00c03d384ec59ea57374f50b766aa5613",
+      "sha256": "290e24fdefdab300b3b9f66a81f7a460e6908dfbaa99cb0f8dfda69fe0547f91",
+      "bytes": 1448,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "tests/evals/test_routing.py",
+      "source_url": "https://raw.githubusercontent.com/olly-styles/WorkBench/49c7dfd00c03d384ec59ea57374f50b766aa5613/tests/evals/test_routing.py",
+      "revision": "49c7dfd00c03d384ec59ea57374f50b766aa5613",
+      "sha256": "efbf401555f04d3badf26ee201cea30ac93cbcb91051a622f7248f8dab564fb0",
+      "bytes": 4793,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "tests/test_cli.py",
+      "source_url": "https://raw.githubusercontent.com/olly-styles/WorkBench/49c7dfd00c03d384ec59ea57374f50b766aa5613/tests/test_cli.py",
+      "revision": "49c7dfd00c03d384ec59ea57374f50b766aa5613",
+      "sha256": "4bbf1ea80d21b7a0e795774dfe671f8fabd876783c4f241062f72fa841034886",
+      "bytes": 750,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "tests/tools/conftest.py",
+      "source_url": "https://raw.githubusercontent.com/olly-styles/WorkBench/49c7dfd00c03d384ec59ea57374f50b766aa5613/tests/tools/conftest.py",
+      "revision": "49c7dfd00c03d384ec59ea57374f50b766aa5613",
+      "sha256": "f1558ee53a0138f88d7a2f624e53c64f4df6d1c43fcba2ec8732c1e626baf62d",
+      "bytes": 157,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "tests/tools/test_analytics_tools.py",
+      "source_url": "https://raw.githubusercontent.com/olly-styles/WorkBench/49c7dfd00c03d384ec59ea57374f50b766aa5613/tests/tools/test_analytics_tools.py",
+      "revision": "49c7dfd00c03d384ec59ea57374f50b766aa5613",
+      "sha256": "365b29683e4baee9b58348a1d9456f8d6a299c08229026efc0580e17cbb6dda0",
+      "bytes": 6468,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "tests/tools/test_calendar_tools.py",
+      "source_url": "https://raw.githubusercontent.com/olly-styles/WorkBench/49c7dfd00c03d384ec59ea57374f50b766aa5613/tests/tools/test_calendar_tools.py",
+      "revision": "49c7dfd00c03d384ec59ea57374f50b766aa5613",
+      "sha256": "95fa7ba8c47bdb34705c4f3549864c8426a48649fd6a9a4aacf250fc59b9a188",
+      "bytes": 7921,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "tests/tools/test_company_directory_tools.py",
+      "source_url": "https://raw.githubusercontent.com/olly-styles/WorkBench/49c7dfd00c03d384ec59ea57374f50b766aa5613/tests/tools/test_company_directory_tools.py",
+      "revision": "49c7dfd00c03d384ec59ea57374f50b766aa5613",
+      "sha256": "dc3de22a17c01818ab38fcf7ab0d4c85b4585a692c4d897859db1821dac5a282",
+      "bytes": 1706,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "tests/tools/test_customer_relationship_manager_tools.py",
+      "source_url": "https://raw.githubusercontent.com/olly-styles/WorkBench/49c7dfd00c03d384ec59ea57374f50b766aa5613/tests/tools/test_customer_relationship_manager_tools.py",
+      "revision": "49c7dfd00c03d384ec59ea57374f50b766aa5613",
+      "sha256": "47e36ad9eeebc693666c96c18b650590593aca8e5d6c56cb65a185f7a5e6caec",
+      "bytes": 5719,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "tests/tools/test_email_tools.py",
+      "source_url": "https://raw.githubusercontent.com/olly-styles/WorkBench/49c7dfd00c03d384ec59ea57374f50b766aa5613/tests/tools/test_email_tools.py",
+      "revision": "49c7dfd00c03d384ec59ea57374f50b766aa5613",
+      "sha256": "9f0566c4a95c4c54226caab6aad29275742f48f23f117109093513d339f007c1",
+      "bytes": 8296,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "tests/tools/test_project_management_tools.py",
+      "source_url": "https://raw.githubusercontent.com/olly-styles/WorkBench/49c7dfd00c03d384ec59ea57374f50b766aa5613/tests/tools/test_project_management_tools.py",
+      "revision": "49c7dfd00c03d384ec59ea57374f50b766aa5613",
+      "sha256": "a238d7dccba548276da0fd1d333a8baf2b3552e5a07618f77d1cc6babb3a6cdb",
+      "bytes": 5815,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "tests/tools/test_search_regex_safety.py",
+      "source_url": "https://raw.githubusercontent.com/olly-styles/WorkBench/49c7dfd00c03d384ec59ea57374f50b766aa5613/tests/tools/test_search_regex_safety.py",
+      "revision": "49c7dfd00c03d384ec59ea57374f50b766aa5613",
+      "sha256": "ba21279321c574a7d51439862b988b9224171c069a782ad3009bfb92db8700b3",
+      "bytes": 2572,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "tests/tools/test_state_isolation.py",
+      "source_url": "https://raw.githubusercontent.com/olly-styles/WorkBench/49c7dfd00c03d384ec59ea57374f50b766aa5613/tests/tools/test_state_isolation.py",
+      "revision": "49c7dfd00c03d384ec59ea57374f50b766aa5613",
+      "sha256": "495fef8fa1c1417b58f9213beca8acb64533fcc2adae170fd9566aced62a69cf",
+      "bytes": 481,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "tests/tools/test_thread_safety.py",
+      "source_url": "https://raw.githubusercontent.com/olly-styles/WorkBench/49c7dfd00c03d384ec59ea57374f50b766aa5613/tests/tools/test_thread_safety.py",
+      "revision": "49c7dfd00c03d384ec59ea57374f50b766aa5613",
+      "sha256": "e8191ce4c6cd5a157da18e7e0e64fec63acea2d8eda4f36f610175e794f14e87",
+      "bytes": 1993,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "tests/tools/test_utils.py",
+      "source_url": "https://raw.githubusercontent.com/olly-styles/WorkBench/49c7dfd00c03d384ec59ea57374f50b766aa5613/tests/tools/test_utils.py",
+      "revision": "49c7dfd00c03d384ec59ea57374f50b766aa5613",
+      "sha256": "7405137234e3804aa284bf98b811f536456af5c236566353fd89fdfe0fe906b7",
+      "bytes": 405,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "uv.lock",
+      "source_url": "https://raw.githubusercontent.com/olly-styles/WorkBench/49c7dfd00c03d384ec59ea57374f50b766aa5613/uv.lock",
+      "revision": "49c7dfd00c03d384ec59ea57374f50b766aa5613",
+      "sha256": "ef9a825a3faafc891deb31576f3b75d3ae2739abe4d8b81a025e11a1c413b8db",
+      "bytes": 207469,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    }
+  ],
+  "download_completed_at_utc": "2026-10-30T21:56:11.906406+00:00",
+  "download_scope": "All processed task/outcome versions, all five database files, raw seed data, source, scripts, tests, and root metadata; excludes historical model results, figures, plots, and retro reports.",
+  "task_code_executed": false
+}

@@ -1,0 +1,16 @@
+{
+  "benchmark": "WorkBench",
+  "verified_files": 120,
+  "original_files_preserved": 7,
+  "download_scope": "All processed task/outcome versions, all five database files, raw seed data, source, scripts, tests, and root metadata; excludes historical model results, figures, plots, and retro reports.",
+  "task_code_executed": false,
+  "task_counts": {
+    "data/processed/tasks_and_outcomes/analytics_tasks_and_outcomes.csv": 120,
+    "data/processed/tasks_and_outcomes/calendar_tasks_and_outcomes.csv": 110,
+    "data/processed/tasks_and_outcomes/customer_relationship_manager_tasks_and_outcomes.csv": 80,
+    "data/processed/tasks_and_outcomes/email_tasks_and_outcomes.csv": 90,
+    "data/processed/tasks_and_outcomes/multi_domain_tasks_and_outcomes.csv": 210,
+    "data/processed/tasks_and_outcomes/project_management_tasks_and_outcomes.csv": 80
+  },
+  "total_tasks": 690
+}

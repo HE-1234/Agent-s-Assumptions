@@ -1,0 +1,361 @@
+{
+  "task_id": "BigCodeBench/743",
+  "full_instruction": "Read all JSON files from the specified directory, count the occurrence of keys starting with certain prefixes (defined in the PREFIXES constant), and return a dictionary of statistics.\nThe function should output with:\n    dict: A dictionary with keys as prefixes (from PREFIXES) and values as their counts in the JSON files.\nYou should write self-contained code starting with:\n```\nimport json\nimport os\n# Constants\nPREFIXES = [\"is_\", \"has_\", \"can_\", \"should_\"]\ndef task_func(directory):\n```",
+  "llm_calls": [
+    {
+      "tag": "builder.BigCodeBench_743",
+      "content_hash": "d20e244ebd106661dfd5602bb1f6624c280874da4369d0b0b7e8c18955ad3464",
+      "requested_model": "gpt-6.1-sol",
+      "configured_model": "gpt-6.1-sol",
+      "served_model": null,
+      "reasoning_effort": "high",
+      "source": "codex_subagent",
+      "usage": {},
+      "usage_available": false,
+      "request": {
+        "model": "gpt-6.1-sol",
+        "reasoning_effort": "high",
+        "fork_turns": "none",
+        "system": "You are a fast, surgical dataset builder for an AI agent ambiguity benchmark.\nYou will receive a seed task containing:\n1. `full_instruction`\n2. `gold_solution` (reference code that implements the instruction)\n\nYour job is to select AT MOST 3 maskable subparts—OR immediately reject the seed task if it has no clean maskable parameters.\n\nSTRICT SELECTION RULES:\n1. Target-First Filtering (Do NOT decompose the whole prompt):\n   Only select parameters that pass ALL FOUR questions:\n   - Still the Same Task: If removed, the core goal remains intact.\n   - Short List of Values: Has 2–5 realistic values (e.g., drop vs. fill NaN, round down vs. round to nearest, absolute vs. signed correlation, sample with vs. without replacement). Never pick arbitrary invented names.\n   - Visible in the Work: Code written for `alternative_value` would look visibly different from code written for `original_value`, or would give a visibly different result.\n   - Stakes: A user who wanted `original_value` would get a WRONG ANSWER if the agent used `alternative_value`: different rows, records, numbers, selections, or meaning in the result. The same result in a different container, format, name, or look does NOT count.\n   Never select these, even if they pass the other questions:\n   - return or container types (tuple vs. list vs. dict; Axes vs. Figure);\n   - exception class names or HTTP status codes;\n   - file or serialization formats (CSV vs. JSON vs. Pickle);\n   - plot styling (fonts, colors, labels, titles, bin counts);\n   - display or string formats (decimal places shown, timestamp layout);\n   - names of files, columns, keys, or variables;\n   - tool or command choices that give the same result.\n   Prefer these: which data is selected, kept, or matched; how missing values, ties, duplicates, empty input, or bad input are handled; which statistic or method computes the answer; inclusive vs. exclusive boundaries; rounding or units that change the returned numbers; whether existing data is changed, overwritten, or deleted.\n   Also: `gold_solution` must implement `original_value` as the instruction states it. If the instruction and `gold_solution` disagree about a parameter, do not select it.\n   If NO parameter in `full_instruction` meets these criteria, return `\"status\": \"skip_seed_task\"` with a `skip_reason` immediately. Skipping is a good outcome. Do not select a weak parameter to avoid a skip.\n\n2. Surgical Span Extraction (Do NOT rewrite the prompt):\n   - List every exact substring in `full_instruction` (`spans_removed`) that states or hints at this parameter, and the neutral replacement string (`replaced_with`, which may be `\"\"` or a neutral phrase like `\"in a file\"` or `\"convert it to an integer\"`).\n   - Ensure `spans_removed` matches `full_instruction` character-for-character so a Python script can run `str.replace()` without touching any other word.\n   - The function signature at the end of `full_instruction` is part of the instruction. If a default argument or type hint states or hints at the selected value, include that substring in `spans_removed` too.\n\n3. One Alternative Value:\n   - Give exactly one realistic alternative value in `alternative_values`.",
+        "user": "Task ID: \"BigCodeBench/743\"\nFull Instruction:\n\"\"\"\nRead all JSON files from the specified directory, count the occurrence of keys starting with certain prefixes (defined in the PREFIXES constant), and return a dictionary of statistics.\nThe function should output with:\n    dict: A dictionary with keys as prefixes (from PREFIXES) and values as their counts in the JSON files.\nYou should write self-contained code starting with:\n```\nimport json\nimport os\n# Constants\nPREFIXES = [\"is_\", \"has_\", \"can_\", \"should_\"]\ndef task_func(directory):\n```\n\"\"\"\nGold Solution:\n\"\"\"\n    stats = {prefix: 0 for prefix in PREFIXES}\n\n    for filename in os.listdir(directory):\n        if filename.endswith('.json'):\n            with open(f'{directory}/{filename}', 'r') as f:\n                data = json.load(f)\n\n            for key in data.keys():\n                for prefix in PREFIXES:\n                    if key.startswith(prefix):\n                        stats[prefix] += 1\n\n    return stats\n\"\"\"\n\nReturn JSON only using this exact schema:\n{\n  \"status\": \"ok\" | \"skip_seed_task\",\n  \"skip_reason\": \"\",\n  \"candidate_subparts\": [\n    {\n      \"subpart_id\": \"gap_1\",\n      \"variable\": \"short_snake_case_name\",\n      \"original_value\": \"exact value in full instruction\",\n      \"alternative_values\": [\"one realistic alternative value\"],\n      \"stakes\": \"one sentence: how the user's result would be wrong if the agent used the alternative value\",\n      \"spans_removed\": [\"exact substring 1 from full_instruction\"],\n      \"replaced_with\": [\"neutral replacement 1 or empty string\"]\n    }\n  ]\n}\n`skip_reason` is an empty string when `status` is \"ok\".",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "status",
+            "skip_reason",
+            "candidate_subparts"
+          ],
+          "properties": {
+            "status": {
+              "type": "string",
+              "enum": [
+                "ok",
+                "skip_seed_task"
+              ]
+            },
+            "skip_reason": {
+              "type": "string"
+            },
+            "candidate_subparts": {
+              "type": "array",
+              "maxItems": 3,
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "subpart_id",
+                  "variable",
+                  "original_value",
+                  "alternative_values",
+                  "stakes",
+                  "spans_removed",
+                  "replaced_with"
+                ],
+                "properties": {
+                  "subpart_id": {
+                    "type": "string"
+                  },
+                  "variable": {
+                    "type": "string"
+                  },
+                  "original_value": {
+                    "type": "string"
+                  },
+                  "alternative_values": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    },
+                    "minItems": 1,
+                    "maxItems": 1
+                  },
+                  "stakes": {
+                    "type": "string"
+                  },
+                  "spans_removed": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "replaced_with": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "transport": "codex_subagent",
+        "tools_allowed": false
+      },
+      "dispatch_message": "Complete this isolated text-only evaluation. Do not use tools, read files, run code, or create agents. Return only the requested JSON.\n\nSYSTEM PROMPT:\nYou are a fast, surgical dataset builder for an AI agent ambiguity benchmark.\nYou will receive a seed task containing:\n1. `full_instruction`\n2. `gold_solution` (reference code that implements the instruction)\n\nYour job is to select AT MOST 3 maskable subparts—OR immediately reject the seed task if it has no clean maskable parameters.\n\nSTRICT SELECTION RULES:\n1. Target-First Filtering (Do NOT decompose the whole prompt):\n   Only select parameters that pass ALL FOUR questions:\n   - Still the Same Task: If removed, the core goal remains intact.\n   - Short List of Values: Has 2–5 realistic values (e.g., drop vs. fill NaN, round down vs. round to nearest, absolute vs. signed correlation, sample with vs. without replacement). Never pick arbitrary invented names.\n   - Visible in the Work: Code written for `alternative_value` would look visibly different from code written for `original_value`, or would give a visibly different result.\n   - Stakes: A user who wanted `original_value` would get a WRONG ANSWER if the agent used `alternative_value`: different rows, records, numbers, selections, or meaning in the result. The same result in a different container, format, name, or look does NOT count.\n   Never select these, even if they pass the other questions:\n   - return or container types (tuple vs. list vs. dict; Axes vs. Figure);\n   - exception class names or HTTP status codes;\n   - file or serialization formats (CSV vs. JSON vs. Pickle);\n   - plot styling (fonts, colors, labels, titles, bin counts);\n   - display or string formats (decimal places shown, timestamp layout);\n   - names of files, columns, keys, or variables;\n   - tool or command choices that give the same result.\n   Prefer these: which data is selected, kept, or matched; how missing values, ties, duplicates, empty input, or bad input are handled; which statistic or method computes the answer; inclusive vs. exclusive boundaries; rounding or units that change the returned numbers; whether existing data is changed, overwritten, or deleted.\n   Also: `gold_solution` must implement `original_value` as the instruction states it. If the instruction and `gold_solution` disagree about a parameter, do not select it.\n   If NO parameter in `full_instruction` meets these criteria, return `\"status\": \"skip_seed_task\"` with a `skip_reason` immediately. Skipping is a good outcome. Do not select a weak parameter to avoid a skip.\n\n2. Surgical Span Extraction (Do NOT rewrite the prompt):\n   - List every exact substring in `full_instruction` (`spans_removed`) that states or hints at this parameter, and the neutral replacement string (`replaced_with`, which may be `\"\"` or a neutral phrase like `\"in a file\"` or `\"convert it to an integer\"`).\n   - Ensure `spans_removed` matches `full_instruction` character-for-character so a Python script can run `str.replace()` without touching any other word.\n   - The function signature at the end of `full_instruction` is part of the instruction. If a default argument or type hint states or hints at the selected value, include that substring in `spans_removed` too.\n\n3. One Alternative Value:\n   - Give exactly one realistic alternative value in `alternative_values`.\n\nUSER PROMPT:\nTask ID: \"BigCodeBench/743\"\nFull Instruction:\n\"\"\"\nRead all JSON files from the specified directory, count the occurrence of keys starting with certain prefixes (defined in the PREFIXES constant), and return a dictionary of statistics.\nThe function should output with:\n    dict: A dictionary with keys as prefixes (from PREFIXES) and values as their counts in the JSON files.\nYou should write self-contained code starting with:\n```\nimport json\nimport os\n# Constants\nPREFIXES = [\"is_\", \"has_\", \"can_\", \"should_\"]\ndef task_func(directory):\n```\n\"\"\"\nGold Solution:\n\"\"\"\n    stats = {prefix: 0 for prefix in PREFIXES}\n\n    for filename in os.listdir(directory):\n        if filename.endswith('.json'):\n            with open(f'{directory}/{filename}', 'r') as f:\n                data = json.load(f)\n\n            for key in data.keys():\n                for prefix in PREFIXES:\n                    if key.startswith(prefix):\n                        stats[prefix] += 1\n\n    return stats\n\"\"\"\n\nReturn JSON only using this exact schema:\n{\n  \"status\": \"ok\" | \"skip_seed_task\",\n  \"skip_reason\": \"\",\n  \"candidate_subparts\": [\n    {\n      \"subpart_id\": \"gap_1\",\n      \"variable\": \"short_snake_case_name\",\n      \"original_value\": \"exact value in full instruction\",\n      \"alternative_values\": [\"one realistic alternative value\"],\n      \"stakes\": \"one sentence: how the user's result would be wrong if the agent used the alternative value\",\n      \"spans_removed\": [\"exact substring 1 from full_instruction\"],\n      \"replaced_with\": [\"neutral replacement 1 or empty string\"]\n    }\n  ]\n}\n`skip_reason` is an empty string when `status` is \"ok\".",
+      "status": "completed",
+      "dispatch_started_at": 1793334570.7425244,
+      "response": "{\n  \"status\": \"ok\",\n  \"skip_reason\": \"\",\n  \"candidate_subparts\": [\n    {\n      \"subpart_id\": \"gap_1\",\n      \"variable\": \"key_matching_rule\",\n      \"original_value\": \"starting with\",\n      \"alternative_values\": [\"containing\"],\n      \"stakes\": \"Substring matching would also count keys with a specified string in the middle or at the end, inflating the requested prefix counts.\",\n      \"spans_removed\": [\n        \"starting with certain prefixes (defined in the PREFIXES constant)\",\n        \"keys as prefixes (from PREFIXES)\",\n        \"PREFIXES =\"\n      ],\n      \"replaced_with\": [\n        \"matching certain patterns (defined in the PATTERNS constant)\",\n        \"keys as patterns (from PATTERNS)\",\n        \"PATTERNS =\"\n      ]\n    }\n  ]\n}",
+      "latency_s": 101.27174425125122,
+      "parsed": {
+        "status": "ok",
+        "skip_reason": "",
+        "candidate_subparts": [
+          {
+            "subpart_id": "gap_1",
+            "variable": "key_matching_rule",
+            "original_value": "starting with",
+            "alternative_values": [
+              "containing"
+            ],
+            "stakes": "Substring matching would also count keys with a specified string in the middle or at the end, inflating the requested prefix counts.",
+            "spans_removed": [
+              "starting with certain prefixes (defined in the PREFIXES constant)",
+              "keys as prefixes (from PREFIXES)",
+              "PREFIXES ="
+            ],
+            "replaced_with": [
+              "matching certain patterns (defined in the PATTERNS constant)",
+              "keys as patterns (from PATTERNS)",
+              "PATTERNS ="
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "tag": "check1.BigCodeBench_743.gap_1",
+      "content_hash": "4d71b10ef8e0905c8738322d338dba6d825804ff8cc156ebc174a46bfb7521b3",
+      "requested_model": "gpt-6.1-sol",
+      "configured_model": "gpt-6.1-sol",
+      "served_model": null,
+      "reasoning_effort": "high",
+      "source": "codex_subagent",
+      "usage": {},
+      "usage_available": false,
+      "request": {
+        "model": "gpt-6.1-sol",
+        "reasoning_effort": "high",
+        "fork_turns": "none",
+        "system": "You will read a task instruction where a detail was removed. Your job is to try to guess the removed detail using ONLY the words still visible in the instruction. Look carefully for any leftover hints, pronouns, or clues in other sentences.",
+        "user": "Visible Instruction:\n\"\"\"\nRead all JSON files from the specified directory, count the occurrence of keys matching certain patterns (defined in the PATTERNS constant), and return a dictionary of statistics.\nThe function should output with:\n    dict: A dictionary with keys as patterns (from PATTERNS) and values as their counts in the JSON files.\nYou should write self-contained code starting with:\n```\nimport json\nimport os\n# Constants\nPATTERNS = [\"is_\", \"has_\", \"can_\", \"should_\"]\ndef task_func(directory):\n```\n\"\"\"\n\nQuestion: Based strictly on the visible text above, what is the value of `key_matching_rule`?\nOptions:\n1) starting with\n2) containing\n3) Completely undetermined (no hints in the text favor 1 or 2)\n\nReturn JSON only:\n{\n  \"choice\": \"1\" | \"2\" | \"3\",\n  \"confidence_0_to_1\": 0.0,\n  \"leftover_clue_spans\": [\"list the exact words in the Visible Instruction that hinted at 1 or 2, or empty list\"]\n}",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "choice",
+            "confidence_0_to_1",
+            "leftover_clue_spans"
+          ],
+          "properties": {
+            "choice": {
+              "type": "string",
+              "enum": [
+                "1",
+                "2",
+                "3"
+              ]
+            },
+            "confidence_0_to_1": {
+              "type": "number"
+            },
+            "leftover_clue_spans": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "transport": "codex_subagent",
+        "tools_allowed": false
+      },
+      "dispatch_message": "Complete this isolated text-only evaluation. Do not use tools, read files, run code, or create agents. Return only the requested JSON.\n\nSYSTEM PROMPT:\nYou will read a task instruction where a detail was removed. Your job is to try to guess the removed detail using ONLY the words still visible in the instruction. Look carefully for any leftover hints, pronouns, or clues in other sentences.\n\nUSER PROMPT:\nVisible Instruction:\n\"\"\"\nRead all JSON files from the specified directory, count the occurrence of keys matching certain patterns (defined in the PATTERNS constant), and return a dictionary of statistics.\nThe function should output with:\n    dict: A dictionary with keys as patterns (from PATTERNS) and values as their counts in the JSON files.\nYou should write self-contained code starting with:\n```\nimport json\nimport os\n# Constants\nPATTERNS = [\"is_\", \"has_\", \"can_\", \"should_\"]\ndef task_func(directory):\n```\n\"\"\"\n\nQuestion: Based strictly on the visible text above, what is the value of `key_matching_rule`?\nOptions:\n1) starting with\n2) containing\n3) Completely undetermined (no hints in the text favor 1 or 2)\n\nReturn JSON only:\n{\n  \"choice\": \"1\" | \"2\" | \"3\",\n  \"confidence_0_to_1\": 0.0,\n  \"leftover_clue_spans\": [\"list the exact words in the Visible Instruction that hinted at 1 or 2, or empty list\"]\n}",
+      "status": "completed",
+      "dispatch_started_at": 1793334677.5985677,
+      "response": "{\"choice\":\"1\",\"confidence_0_to_1\":0.82,\"leftover_clue_spans\":[\"PATTERNS = [\\\"is_\\\", \\\"has_\\\", \\\"can_\\\", \\\"should_\\\"]\"]}",
+      "latency_s": 46.86073446273804,
+      "parsed": {
+        "choice": "1",
+        "confidence_0_to_1": 0.82,
+        "leftover_clue_spans": [
+          "PATTERNS = [\"is_\", \"has_\", \"can_\", \"should_\"]"
+        ]
+      }
+    }
+  ],
+  "gates": [
+    {
+      "gate": "G1",
+      "result": "pass",
+      "evidence": {
+        "status": "ok"
+      }
+    }
+  ],
+  "subparts": [
+    {
+      "subpart": {
+        "subpart_id": "gap_1",
+        "variable": "key_matching_rule",
+        "original_value": "starting with",
+        "alternative_values": [
+          "containing"
+        ],
+        "stakes": "Substring matching would also count keys with a specified string in the middle or at the end, inflating the requested prefix counts.",
+        "spans_removed": [
+          "starting with certain prefixes (defined in the PREFIXES constant)",
+          "keys as prefixes (from PREFIXES)",
+          "PREFIXES ="
+        ],
+        "replaced_with": [
+          "matching certain patterns (defined in the PATTERNS constant)",
+          "keys as patterns (from PATTERNS)",
+          "PATTERNS ="
+        ]
+      },
+      "gates": [
+        {
+          "gate": "G2",
+          "result": "pass",
+          "evidence": {
+            "alternative_count": 1,
+            "span_count": 3,
+            "replacement_count": 3
+          }
+        },
+        {
+          "gate": "G3",
+          "result": "pass",
+          "evidence": {
+            "ok": true,
+            "issues": []
+          }
+        },
+        {
+          "gate": "G4",
+          "result": "fail",
+          "evidence": {
+            "result": "fail",
+            "reader_choice": "original_value",
+            "reader_value": "starting with",
+            "raw_choice": "1",
+            "option_order": [
+              "original_value",
+              "alternative_value"
+            ],
+            "option_values": [
+              "starting with",
+              "containing"
+            ],
+            "confidence": 0.82,
+            "leftover_clue_spans": [
+              "PATTERNS = [\"is_\", \"has_\", \"can_\", \"should_\"]"
+            ],
+            "clue_spans_checked": [
+              {
+                "span": "PATTERNS = [\"is_\", \"has_\", \"can_\", \"should_\"]",
+                "present_in_masked": true
+              }
+            ]
+          }
+        }
+      ],
+      "surface_flags": [
+        "gap_1: original_value text still visible: 'starting with'"
+      ],
+      "splice_s": 8.794013410806656e-06,
+      "splice": {
+        "ok": true,
+        "issues": []
+      },
+      "masked_single": "Read all JSON files from the specified directory, count the occurrence of keys matching certain patterns (defined in the PATTERNS constant), and return a dictionary of statistics.\nThe function should output with:\n    dict: A dictionary with keys as patterns (from PATTERNS) and values as their counts in the JSON files.\nYou should write self-contained code starting with:\n```\nimport json\nimport os\n# Constants\nPATTERNS = [\"is_\", \"has_\", \"can_\", \"should_\"]\ndef task_func(directory):\n```",
+      "check1_s": 52.47216984303668,
+      "leakage_check": {
+        "result": "fail",
+        "reader_choice": "original_value",
+        "reader_value": "starting with",
+        "raw_choice": "1",
+        "option_order": [
+          "original_value",
+          "alternative_value"
+        ],
+        "option_values": [
+          "starting with",
+          "containing"
+        ],
+        "confidence": 0.82,
+        "leftover_clue_spans": [
+          "PATTERNS = [\"is_\", \"has_\", \"can_\", \"should_\"]"
+        ],
+        "clue_spans_checked": [
+          {
+            "span": "PATTERNS = [\"is_\", \"has_\", \"can_\", \"should_\"]",
+            "present_in_masked": true
+          }
+        ]
+      },
+      "verdict": "rejected",
+      "stopped_at": "G4",
+      "reason": "leakage",
+      "evidence": {
+        "result": "fail",
+        "reader_choice": "original_value",
+        "reader_value": "starting with",
+        "raw_choice": "1",
+        "option_order": [
+          "original_value",
+          "alternative_value"
+        ],
+        "option_values": [
+          "starting with",
+          "containing"
+        ],
+        "confidence": 0.82,
+        "leftover_clue_spans": [
+          "PATTERNS = [\"is_\", \"has_\", \"can_\", \"should_\"]"
+        ],
+        "clue_spans_checked": [
+          {
+            "span": "PATTERNS = [\"is_\", \"has_\", \"can_\", \"should_\"]",
+            "present_in_masked": true
+          }
+        ]
+      }
+    }
+  ],
+  "entries": [],
+  "fixture_only": false,
+  "timings_s": {
+    "builder": 105.88999426783994,
+    "splice": 8.794013410806656e-06,
+    "check1": 52.47216984303668
+  },
+  "builder_output": {
+    "status": "ok",
+    "skip_reason": "",
+    "candidate_subparts": [
+      {
+        "subpart_id": "gap_1",
+        "variable": "key_matching_rule",
+        "original_value": "starting with",
+        "alternative_values": [
+          "containing"
+        ],
+        "stakes": "Substring matching would also count keys with a specified string in the middle or at the end, inflating the requested prefix counts.",
+        "spans_removed": [
+          "starting with certain prefixes (defined in the PREFIXES constant)",
+          "keys as prefixes (from PREFIXES)",
+          "PREFIXES ="
+        ],
+        "replaced_with": [
+          "matching certain patterns (defined in the PATTERNS constant)",
+          "keys as patterns (from PATTERNS)",
+          "PATTERNS ="
+        ]
+      }
+    ]
+  },
+  "seed_status": "rejected"
+}

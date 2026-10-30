@@ -1,0 +1,11 @@
+Verification passed.
+Protected baseline and docs: 328 file contents and modification times unchanged; no file additions or removals.
+Seed files: byte-identical copies; 20 original seeds in original order.
+Outputs: 20 audits, 5 dataset entries, 15 rejection/skip records; summary counts match.
+Model records: 20 builder + 9 Check 1 = 29 fresh subagent invocations; no reused response cache.
+All requests match current document prompts; all 29 responses validate against their schemas.
+All 9 proposed gaps retain stakes and exact splice evidence; Check 1 decisions match the recorded clue rule.
+Review: 5 owner-verdict sections and 11 skip-review sections; compare: 20 seeds in original order.
+Budget: 29/100 invocations and 934.541/3600 seconds.
+No BigCodeBench task code was executed.
+Success criteria: usable-gap count met (5/20); quality owner to judge; speed/unattended met (under 30 minutes, one resolved question, no owner input during live run); full audit records verified, owner spot check pending.

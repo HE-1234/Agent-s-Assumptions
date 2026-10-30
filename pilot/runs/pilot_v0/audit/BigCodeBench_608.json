@@ -1,0 +1,569 @@
+{
+  "task_id": "BigCodeBench/608",
+  "full_instruction": "Remove rows from a dataframe based on values of multiple columns, and then create n random pairs of two columns against each other to generate pairplots.\nThe function should output with:\n    tuple: A tuple containing:\n    DataFrame: The modified DataFrame after removing specified rows.\n    list of Axes: A list containing the generated pairplots.\nYou should write self-contained code starting with:\n```\nimport seaborn as sns\nfrom random import sample\n# Constants\nCOLUMNS = ['A', 'B', 'C', 'D', 'E']\ndef task_func(df, tuples, n_plots):\n```",
+  "llm_calls": [
+    {
+      "tag": "builder.BigCodeBench_608",
+      "content_hash": "d5d3ab586a9ff2e1fa2fc5f07c6b119621e56b5c9247129170d6501cbcce44eb",
+      "requested_model": "gpt-6.1-sol",
+      "configured_model": "gpt-6.1-sol",
+      "served_model": null,
+      "reasoning_effort": "high",
+      "source": "codex_subagent",
+      "usage": {},
+      "usage_available": false,
+      "request": {
+        "model": "gpt-6.1-sol",
+        "reasoning_effort": "high",
+        "fork_turns": "none",
+        "system": "You are a fast, surgical dataset builder for an AI agent ambiguity benchmark.\nYou will receive a seed task containing:\n1. `full_instruction`\n2. `gold_solution` (reference code that implements the instruction)\n\nYour job is to select AT MOST 3 maskable subparts—OR immediately reject the seed task if it has no clean maskable parameters.\n\nSTRICT SELECTION RULES:\n1. Target-First Filtering (Do NOT decompose the whole prompt):\n   Only select parameters that pass ALL THREE questions:\n   - Still the Same Task: If removed, the core goal remains intact.\n   - Short List of Values: Has 2–5 realistic values (e.g., CSV vs. JSON, drop vs. fill NaN, round down vs. round to nearest). Never pick arbitrary invented names.\n   - Visible in the Work: Code written for `alternative_value` would look visibly different from code written for `original_value`, or would give a visibly different result.\n   Also: `gold_solution` must implement `original_value` as the instruction states it. If the instruction and `gold_solution` disagree about a parameter, do not select it.\n   If NO parameter in `full_instruction` meets these criteria, return `\"status\": \"skip_seed_task\"` with a `skip_reason` immediately.\n\n2. Surgical Span Extraction (Do NOT rewrite the prompt):\n   - List every exact substring in `full_instruction` (`spans_removed`) that states or hints at this parameter, and the neutral replacement string (`replaced_with`, which may be `\"\"` or a neutral phrase like `\"in a file\"` or `\"convert it to an integer\"`).\n   - Ensure `spans_removed` matches `full_instruction` character-for-character so a Python script can run `str.replace()` without touching any other word.\n   - The function signature at the end of `full_instruction` is part of the instruction. If a default argument or type hint states or hints at the selected value, include that substring in `spans_removed` too.\n\n3. One Alternative Value:\n   - Give exactly one realistic alternative value in `alternative_values`.",
+        "user": "Task ID: \"BigCodeBench/608\"\nFull Instruction:\n\"\"\"\nRemove rows from a dataframe based on values of multiple columns, and then create n random pairs of two columns against each other to generate pairplots.\nThe function should output with:\n    tuple: A tuple containing:\n    DataFrame: The modified DataFrame after removing specified rows.\n    list of Axes: A list containing the generated pairplots.\nYou should write self-contained code starting with:\n```\nimport seaborn as sns\nfrom random import sample\n# Constants\nCOLUMNS = ['A', 'B', 'C', 'D', 'E']\ndef task_func(df, tuples, n_plots):\n```\n\"\"\"\nGold Solution:\n\"\"\"\n    if not df.empty:\n        df = df[~df.apply(tuple, axis=1).isin(tuples)]\n\n    plots = []\n    if n_plots > 0 and not df.empty:\n        available_columns = df.columns.tolist()\n        for _ in range(min(n_plots, len(available_columns) // 2)):  # Ensure we have enough columns\n            # Randomly select two columns for pairplot\n            selected_columns = sample(available_columns, 2)\n            plot = sns.pairplot(df, vars=selected_columns)\n            plots.append(plot)\n\n    return df, plots\n\"\"\"\n\nReturn JSON only using this exact schema:\n{\n  \"status\": \"ok\" | \"skip_seed_task\",\n  \"skip_reason\": \"\",\n  \"candidate_subparts\": [\n    {\n      \"subpart_id\": \"gap_1\",\n      \"variable\": \"short_snake_case_name\",\n      \"original_value\": \"exact value in full instruction\",\n      \"alternative_values\": [\"one realistic alternative value\"],\n      \"spans_removed\": [\"exact substring 1 from full_instruction\"],\n      \"replaced_with\": [\"neutral replacement 1 or empty string\"]\n    }\n  ]\n}\n`skip_reason` is an empty string when `status` is \"ok\".",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "status",
+            "skip_reason",
+            "candidate_subparts"
+          ],
+          "properties": {
+            "status": {
+              "type": "string",
+              "enum": [
+                "ok",
+                "skip_seed_task"
+              ]
+            },
+            "skip_reason": {
+              "type": "string"
+            },
+            "candidate_subparts": {
+              "type": "array",
+              "maxItems": 3,
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "subpart_id",
+                  "variable",
+                  "original_value",
+                  "alternative_values",
+                  "spans_removed",
+                  "replaced_with"
+                ],
+                "properties": {
+                  "subpart_id": {
+                    "type": "string"
+                  },
+                  "variable": {
+                    "type": "string"
+                  },
+                  "original_value": {
+                    "type": "string"
+                  },
+                  "alternative_values": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    },
+                    "minItems": 1,
+                    "maxItems": 1
+                  },
+                  "spans_removed": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "replaced_with": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "transport": "codex_subagent",
+        "tools_allowed": false
+      },
+      "dispatch_message": "Complete this isolated text-only evaluation. Do not use tools, read files, run code, or create agents. Return only the requested JSON.\n\nSYSTEM PROMPT:\nYou are a fast, surgical dataset builder for an AI agent ambiguity benchmark.\nYou will receive a seed task containing:\n1. `full_instruction`\n2. `gold_solution` (reference code that implements the instruction)\n\nYour job is to select AT MOST 3 maskable subparts—OR immediately reject the seed task if it has no clean maskable parameters.\n\nSTRICT SELECTION RULES:\n1. Target-First Filtering (Do NOT decompose the whole prompt):\n   Only select parameters that pass ALL THREE questions:\n   - Still the Same Task: If removed, the core goal remains intact.\n   - Short List of Values: Has 2–5 realistic values (e.g., CSV vs. JSON, drop vs. fill NaN, round down vs. round to nearest). Never pick arbitrary invented names.\n   - Visible in the Work: Code written for `alternative_value` would look visibly different from code written for `original_value`, or would give a visibly different result.\n   Also: `gold_solution` must implement `original_value` as the instruction states it. If the instruction and `gold_solution` disagree about a parameter, do not select it.\n   If NO parameter in `full_instruction` meets these criteria, return `\"status\": \"skip_seed_task\"` with a `skip_reason` immediately.\n\n2. Surgical Span Extraction (Do NOT rewrite the prompt):\n   - List every exact substring in `full_instruction` (`spans_removed`) that states or hints at this parameter, and the neutral replacement string (`replaced_with`, which may be `\"\"` or a neutral phrase like `\"in a file\"` or `\"convert it to an integer\"`).\n   - Ensure `spans_removed` matches `full_instruction` character-for-character so a Python script can run `str.replace()` without touching any other word.\n   - The function signature at the end of `full_instruction` is part of the instruction. If a default argument or type hint states or hints at the selected value, include that substring in `spans_removed` too.\n\n3. One Alternative Value:\n   - Give exactly one realistic alternative value in `alternative_values`.\n\nUSER PROMPT:\nTask ID: \"BigCodeBench/608\"\nFull Instruction:\n\"\"\"\nRemove rows from a dataframe based on values of multiple columns, and then create n random pairs of two columns against each other to generate pairplots.\nThe function should output with:\n    tuple: A tuple containing:\n    DataFrame: The modified DataFrame after removing specified rows.\n    list of Axes: A list containing the generated pairplots.\nYou should write self-contained code starting with:\n```\nimport seaborn as sns\nfrom random import sample\n# Constants\nCOLUMNS = ['A', 'B', 'C', 'D', 'E']\ndef task_func(df, tuples, n_plots):\n```\n\"\"\"\nGold Solution:\n\"\"\"\n    if not df.empty:\n        df = df[~df.apply(tuple, axis=1).isin(tuples)]\n\n    plots = []\n    if n_plots > 0 and not df.empty:\n        available_columns = df.columns.tolist()\n        for _ in range(min(n_plots, len(available_columns) // 2)):  # Ensure we have enough columns\n            # Randomly select two columns for pairplot\n            selected_columns = sample(available_columns, 2)\n            plot = sns.pairplot(df, vars=selected_columns)\n            plots.append(plot)\n\n    return df, plots\n\"\"\"\n\nReturn JSON only using this exact schema:\n{\n  \"status\": \"ok\" | \"skip_seed_task\",\n  \"skip_reason\": \"\",\n  \"candidate_subparts\": [\n    {\n      \"subpart_id\": \"gap_1\",\n      \"variable\": \"short_snake_case_name\",\n      \"original_value\": \"exact value in full instruction\",\n      \"alternative_values\": [\"one realistic alternative value\"],\n      \"spans_removed\": [\"exact substring 1 from full_instruction\"],\n      \"replaced_with\": [\"neutral replacement 1 or empty string\"]\n    }\n  ]\n}\n`skip_reason` is an empty string when `status` is \"ok\".",
+      "status": "completed",
+      "dispatch_started_at": 1793330633.9752176,
+      "response": "{\n  \"status\": \"ok\",\n  \"skip_reason\": \"\",\n  \"candidate_subparts\": [\n    {\n      \"subpart_id\": \"gap_1\",\n      \"variable\": \"column_pair_selection\",\n      \"original_value\": \"random\",\n      \"alternative_values\": [\"deterministic\"],\n      \"spans_removed\": [\n        \"random pairs\",\n        \"from random import sample\\n\"\n      ],\n      \"replaced_with\": [\n        \"pairs\",\n        \"\"\n      ]\n    },\n    {\n      \"subpart_id\": \"gap_2\",\n      \"variable\": \"return_container\",\n      \"original_value\": \"tuple\",\n      \"alternative_values\": [\"dictionary\"],\n      \"spans_removed\": [\n        \"tuple: A tuple containing:\"\n      ],\n      \"replaced_with\": [\n        \"The following:\"\n      ]\n    }\n  ]\n}",
+      "latency_s": 93.46404790878296,
+      "parsed": {
+        "status": "ok",
+        "skip_reason": "",
+        "candidate_subparts": [
+          {
+            "subpart_id": "gap_1",
+            "variable": "column_pair_selection",
+            "original_value": "random",
+            "alternative_values": [
+              "deterministic"
+            ],
+            "spans_removed": [
+              "random pairs",
+              "from random import sample\n"
+            ],
+            "replaced_with": [
+              "pairs",
+              ""
+            ]
+          },
+          {
+            "subpart_id": "gap_2",
+            "variable": "return_container",
+            "original_value": "tuple",
+            "alternative_values": [
+              "dictionary"
+            ],
+            "spans_removed": [
+              "tuple: A tuple containing:"
+            ],
+            "replaced_with": [
+              "The following:"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "tag": "check1.BigCodeBench_608.gap_1",
+      "content_hash": "f67bfcda663354f6c7473838f1db7e90155cb3d786a576f783b1d022a2470465",
+      "requested_model": "gpt-6.1-sol",
+      "configured_model": "gpt-6.1-sol",
+      "served_model": null,
+      "reasoning_effort": "high",
+      "source": "codex_subagent",
+      "usage": {},
+      "usage_available": false,
+      "request": {
+        "model": "gpt-6.1-sol",
+        "reasoning_effort": "high",
+        "fork_turns": "none",
+        "system": "You will read a task instruction where a detail was removed. Your job is to try to guess the removed detail using ONLY the words still visible in the instruction. Look carefully for any leftover hints, pronouns, or clues in other sentences.",
+        "user": "Visible Instruction:\n\"\"\"\nRemove rows from a dataframe based on values of multiple columns, and then create n pairs of two columns against each other to generate pairplots.\nThe function should output with:\n    tuple: A tuple containing:\n    DataFrame: The modified DataFrame after removing specified rows.\n    list of Axes: A list containing the generated pairplots.\nYou should write self-contained code starting with:\n```\nimport seaborn as sns\n# Constants\nCOLUMNS = ['A', 'B', 'C', 'D', 'E']\ndef task_func(df, tuples, n_plots):\n```\n\"\"\"\n\nQuestion: Based strictly on the visible text above, what is the value of `column_pair_selection`?\nOptions:\n1) deterministic\n2) random\n3) Completely undetermined (no hints in the text favor 1 or 2)\n\nReturn JSON only:\n{\n  \"choice\": \"1\" | \"2\" | \"3\",\n  \"confidence_0_to_1\": 0.0,\n  \"leftover_clue_spans\": [\"list the exact words in the Visible Instruction that hinted at 1 or 2, or empty list\"]\n}",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "choice",
+            "confidence_0_to_1",
+            "leftover_clue_spans"
+          ],
+          "properties": {
+            "choice": {
+              "type": "string",
+              "enum": [
+                "1",
+                "2",
+                "3"
+              ]
+            },
+            "confidence_0_to_1": {
+              "type": "number"
+            },
+            "leftover_clue_spans": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "transport": "codex_subagent",
+        "tools_allowed": false
+      },
+      "dispatch_message": "Complete this isolated text-only evaluation. Do not use tools, read files, run code, or create agents. Return only the requested JSON.\n\nSYSTEM PROMPT:\nYou will read a task instruction where a detail was removed. Your job is to try to guess the removed detail using ONLY the words still visible in the instruction. Look carefully for any leftover hints, pronouns, or clues in other sentences.\n\nUSER PROMPT:\nVisible Instruction:\n\"\"\"\nRemove rows from a dataframe based on values of multiple columns, and then create n pairs of two columns against each other to generate pairplots.\nThe function should output with:\n    tuple: A tuple containing:\n    DataFrame: The modified DataFrame after removing specified rows.\n    list of Axes: A list containing the generated pairplots.\nYou should write self-contained code starting with:\n```\nimport seaborn as sns\n# Constants\nCOLUMNS = ['A', 'B', 'C', 'D', 'E']\ndef task_func(df, tuples, n_plots):\n```\n\"\"\"\n\nQuestion: Based strictly on the visible text above, what is the value of `column_pair_selection`?\nOptions:\n1) deterministic\n2) random\n3) Completely undetermined (no hints in the text favor 1 or 2)\n\nReturn JSON only:\n{\n  \"choice\": \"1\" | \"2\" | \"3\",\n  \"confidence_0_to_1\": 0.0,\n  \"leftover_clue_spans\": [\"list the exact words in the Visible Instruction that hinted at 1 or 2, or empty list\"]\n}",
+      "status": "completed",
+      "dispatch_started_at": 1793330737.8198526,
+      "response": "{\"choice\":\"3\",\"confidence_0_to_1\":0.98,\"leftover_clue_spans\":[]}",
+      "latency_s": 63.79965901374817,
+      "parsed": {
+        "choice": "3",
+        "confidence_0_to_1": 0.98,
+        "leftover_clue_spans": []
+      }
+    },
+    {
+      "tag": "check1.BigCodeBench_608.gap_2",
+      "content_hash": "3b94126c86eec1e6c87e4e75d414cc094fcd151b7a5cf9f54c2f1ddaae94796f",
+      "requested_model": "gpt-6.1-sol",
+      "configured_model": "gpt-6.1-sol",
+      "served_model": null,
+      "reasoning_effort": "high",
+      "source": "codex_subagent",
+      "usage": {},
+      "usage_available": false,
+      "request": {
+        "model": "gpt-6.1-sol",
+        "reasoning_effort": "high",
+        "fork_turns": "none",
+        "system": "You will read a task instruction where a detail was removed. Your job is to try to guess the removed detail using ONLY the words still visible in the instruction. Look carefully for any leftover hints, pronouns, or clues in other sentences.",
+        "user": "Visible Instruction:\n\"\"\"\nRemove rows from a dataframe based on values of multiple columns, and then create n random pairs of two columns against each other to generate pairplots.\nThe function should output with:\n    The following:\n    DataFrame: The modified DataFrame after removing specified rows.\n    list of Axes: A list containing the generated pairplots.\nYou should write self-contained code starting with:\n```\nimport seaborn as sns\nfrom random import sample\n# Constants\nCOLUMNS = ['A', 'B', 'C', 'D', 'E']\ndef task_func(df, tuples, n_plots):\n```\n\"\"\"\n\nQuestion: Based strictly on the visible text above, what is the value of `return_container`?\nOptions:\n1) tuple\n2) dictionary\n3) Completely undetermined (no hints in the text favor 1 or 2)\n\nReturn JSON only:\n{\n  \"choice\": \"1\" | \"2\" | \"3\",\n  \"confidence_0_to_1\": 0.0,\n  \"leftover_clue_spans\": [\"list the exact words in the Visible Instruction that hinted at 1 or 2, or empty list\"]\n}",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "choice",
+            "confidence_0_to_1",
+            "leftover_clue_spans"
+          ],
+          "properties": {
+            "choice": {
+              "type": "string",
+              "enum": [
+                "1",
+                "2",
+                "3"
+              ]
+            },
+            "confidence_0_to_1": {
+              "type": "number"
+            },
+            "leftover_clue_spans": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "transport": "codex_subagent",
+        "tools_allowed": false
+      },
+      "dispatch_message": "Complete this isolated text-only evaluation. Do not use tools, read files, run code, or create agents. Return only the requested JSON.\n\nSYSTEM PROMPT:\nYou will read a task instruction where a detail was removed. Your job is to try to guess the removed detail using ONLY the words still visible in the instruction. Look carefully for any leftover hints, pronouns, or clues in other sentences.\n\nUSER PROMPT:\nVisible Instruction:\n\"\"\"\nRemove rows from a dataframe based on values of multiple columns, and then create n random pairs of two columns against each other to generate pairplots.\nThe function should output with:\n    The following:\n    DataFrame: The modified DataFrame after removing specified rows.\n    list of Axes: A list containing the generated pairplots.\nYou should write self-contained code starting with:\n```\nimport seaborn as sns\nfrom random import sample\n# Constants\nCOLUMNS = ['A', 'B', 'C', 'D', 'E']\ndef task_func(df, tuples, n_plots):\n```\n\"\"\"\n\nQuestion: Based strictly on the visible text above, what is the value of `return_container`?\nOptions:\n1) tuple\n2) dictionary\n3) Completely undetermined (no hints in the text favor 1 or 2)\n\nReturn JSON only:\n{\n  \"choice\": \"1\" | \"2\" | \"3\",\n  \"confidence_0_to_1\": 0.0,\n  \"leftover_clue_spans\": [\"list the exact words in the Visible Instruction that hinted at 1 or 2, or empty list\"]\n}",
+      "status": "completed",
+      "dispatch_started_at": 1793330807.525441,
+      "response": "{\"choice\":\"3\",\"confidence_0_to_1\":0.97,\"leftover_clue_spans\":[]}",
+      "latency_s": 52.82445240020752,
+      "parsed": {
+        "choice": "3",
+        "confidence_0_to_1": 0.97,
+        "leftover_clue_spans": []
+      }
+    }
+  ],
+  "gates": [
+    {
+      "gate": "G1",
+      "result": "pass",
+      "evidence": {
+        "status": "ok"
+      }
+    }
+  ],
+  "subparts": [
+    {
+      "subpart": {
+        "subpart_id": "gap_1",
+        "variable": "column_pair_selection",
+        "original_value": "random",
+        "alternative_values": [
+          "deterministic"
+        ],
+        "spans_removed": [
+          "random pairs",
+          "from random import sample\n"
+        ],
+        "replaced_with": [
+          "pairs",
+          ""
+        ]
+      },
+      "gates": [
+        {
+          "gate": "G2",
+          "result": "pass",
+          "evidence": {
+            "alternative_count": 1,
+            "span_count": 2,
+            "replacement_count": 2
+          }
+        },
+        {
+          "gate": "G3",
+          "result": "pass",
+          "evidence": {
+            "ok": true,
+            "issues": []
+          }
+        },
+        {
+          "gate": "G4",
+          "result": "pass",
+          "evidence": {
+            "result": "pass",
+            "reader_choice": "undetermined",
+            "reader_value": null,
+            "raw_choice": "3",
+            "option_order": [
+              "alternative_value",
+              "original_value"
+            ],
+            "option_values": [
+              "deterministic",
+              "random"
+            ],
+            "confidence": 0.98,
+            "leftover_clue_spans": [],
+            "clue_spans_checked": []
+          }
+        }
+      ],
+      "surface_flags": [],
+      "splice_s": 2.1541956812143326e-05,
+      "splice": {
+        "ok": true,
+        "issues": []
+      },
+      "masked_single": "Remove rows from a dataframe based on values of multiple columns, and then create n pairs of two columns against each other to generate pairplots.\nThe function should output with:\n    tuple: A tuple containing:\n    DataFrame: The modified DataFrame after removing specified rows.\n    list of Axes: A list containing the generated pairplots.\nYou should write self-contained code starting with:\n```\nimport seaborn as sns\n# Constants\nCOLUMNS = ['A', 'B', 'C', 'D', 'E']\ndef task_func(df, tuples, n_plots):\n```",
+      "check1_s": 74.22081470303237,
+      "leakage_check": {
+        "result": "pass",
+        "reader_choice": "undetermined",
+        "reader_value": null,
+        "raw_choice": "3",
+        "option_order": [
+          "alternative_value",
+          "original_value"
+        ],
+        "option_values": [
+          "deterministic",
+          "random"
+        ],
+        "confidence": 0.98,
+        "leftover_clue_spans": [],
+        "clue_spans_checked": []
+      },
+      "verdict": "accepted",
+      "stopped_at": null,
+      "reason": "passed"
+    },
+    {
+      "subpart": {
+        "subpart_id": "gap_2",
+        "variable": "return_container",
+        "original_value": "tuple",
+        "alternative_values": [
+          "dictionary"
+        ],
+        "spans_removed": [
+          "tuple: A tuple containing:"
+        ],
+        "replaced_with": [
+          "The following:"
+        ]
+      },
+      "gates": [
+        {
+          "gate": "G2",
+          "result": "pass",
+          "evidence": {
+            "alternative_count": 1,
+            "span_count": 1,
+            "replacement_count": 1
+          }
+        },
+        {
+          "gate": "G3",
+          "result": "pass",
+          "evidence": {
+            "ok": true,
+            "issues": []
+          }
+        },
+        {
+          "gate": "G4",
+          "result": "pass",
+          "evidence": {
+            "result": "pass",
+            "reader_choice": "undetermined",
+            "reader_value": null,
+            "raw_choice": "3",
+            "option_order": [
+              "original_value",
+              "alternative_value"
+            ],
+            "option_values": [
+              "tuple",
+              "dictionary"
+            ],
+            "confidence": 0.97,
+            "leftover_clue_spans": [],
+            "clue_spans_checked": []
+          }
+        }
+      ],
+      "surface_flags": [
+        "gap_2: original_value text still visible: 'tuple'"
+      ],
+      "splice_s": 2.9424205422401428e-05,
+      "splice": {
+        "ok": true,
+        "issues": []
+      },
+      "masked_single": "Remove rows from a dataframe based on values of multiple columns, and then create n random pairs of two columns against each other to generate pairplots.\nThe function should output with:\n    The following:\n    DataFrame: The modified DataFrame after removing specified rows.\n    list of Axes: A list containing the generated pairplots.\nYou should write self-contained code starting with:\n```\nimport seaborn as sns\nfrom random import sample\n# Constants\nCOLUMNS = ['A', 'B', 'C', 'D', 'E']\ndef task_func(df, tuples, n_plots):\n```",
+      "check1_s": 58.695546459872276,
+      "leakage_check": {
+        "result": "pass",
+        "reader_choice": "undetermined",
+        "reader_value": null,
+        "raw_choice": "3",
+        "option_order": [
+          "original_value",
+          "alternative_value"
+        ],
+        "option_values": [
+          "tuple",
+          "dictionary"
+        ],
+        "confidence": 0.97,
+        "leftover_clue_spans": [],
+        "clue_spans_checked": []
+      },
+      "verdict": "accepted",
+      "stopped_at": null,
+      "reason": "passed"
+    }
+  ],
+  "entries": [
+    {
+      "task_id": "BigCodeBench/608::single::column_pair_selection",
+      "seed_task_id": "BigCodeBench/608",
+      "source": {
+        "benchmark": "BigCodeBench",
+        "version": "v0.1.4",
+        "instruction_sha256": "b7d5c1f40e9ebd7a5cd0e4a6f40401bd4137189d1ea0f548317a2d44cc353db9"
+      },
+      "full_instruction": "Remove rows from a dataframe based on values of multiple columns, and then create n random pairs of two columns against each other to generate pairplots.\nThe function should output with:\n    tuple: A tuple containing:\n    DataFrame: The modified DataFrame after removing specified rows.\n    list of Axes: A list containing the generated pairplots.\nYou should write self-contained code starting with:\n```\nimport seaborn as sns\nfrom random import sample\n# Constants\nCOLUMNS = ['A', 'B', 'C', 'D', 'E']\ndef task_func(df, tuples, n_plots):\n```",
+      "masked_instruction": "Remove rows from a dataframe based on values of multiple columns, and then create n pairs of two columns against each other to generate pairplots.\nThe function should output with:\n    tuple: A tuple containing:\n    DataFrame: The modified DataFrame after removing specified rows.\n    list of Axes: A list containing the generated pairplots.\nYou should write self-contained code starting with:\n```\nimport seaborn as sns\n# Constants\nCOLUMNS = ['A', 'B', 'C', 'D', 'E']\ndef task_func(df, tuples, n_plots):\n```",
+      "masking_mode": "single_gap",
+      "reference_ambiguities": [
+        {
+          "subpart_id": "gap_1",
+          "variable": "column_pair_selection",
+          "spans_removed": [
+            "random pairs",
+            "from random import sample\n"
+          ],
+          "replaced_with": [
+            "pairs",
+            ""
+          ],
+          "original_value": "random",
+          "alternative_values": [
+            "deterministic"
+          ],
+          "answer_source": "User",
+          "is_crucial": true,
+          "leakage_check": {
+            "result": "pass",
+            "reader_choice": "undetermined",
+            "option_order": [
+              "alternative_value",
+              "original_value"
+            ],
+            "leftover_clue_spans": []
+          }
+        }
+      ],
+      "extra_gaps": [],
+      "review": {
+        "owner_verdict": null,
+        "owner_note": null
+      }
+    },
+    {
+      "task_id": "BigCodeBench/608::single::return_container",
+      "seed_task_id": "BigCodeBench/608",
+      "source": {
+        "benchmark": "BigCodeBench",
+        "version": "v0.1.4",
+        "instruction_sha256": "b7d5c1f40e9ebd7a5cd0e4a6f40401bd4137189d1ea0f548317a2d44cc353db9"
+      },
+      "full_instruction": "Remove rows from a dataframe based on values of multiple columns, and then create n random pairs of two columns against each other to generate pairplots.\nThe function should output with:\n    tuple: A tuple containing:\n    DataFrame: The modified DataFrame after removing specified rows.\n    list of Axes: A list containing the generated pairplots.\nYou should write self-contained code starting with:\n```\nimport seaborn as sns\nfrom random import sample\n# Constants\nCOLUMNS = ['A', 'B', 'C', 'D', 'E']\ndef task_func(df, tuples, n_plots):\n```",
+      "masked_instruction": "Remove rows from a dataframe based on values of multiple columns, and then create n random pairs of two columns against each other to generate pairplots.\nThe function should output with:\n    The following:\n    DataFrame: The modified DataFrame after removing specified rows.\n    list of Axes: A list containing the generated pairplots.\nYou should write self-contained code starting with:\n```\nimport seaborn as sns\nfrom random import sample\n# Constants\nCOLUMNS = ['A', 'B', 'C', 'D', 'E']\ndef task_func(df, tuples, n_plots):\n```",
+      "masking_mode": "single_gap",
+      "reference_ambiguities": [
+        {
+          "subpart_id": "gap_2",
+          "variable": "return_container",
+          "spans_removed": [
+            "tuple: A tuple containing:"
+          ],
+          "replaced_with": [
+            "The following:"
+          ],
+          "original_value": "tuple",
+          "alternative_values": [
+            "dictionary"
+          ],
+          "answer_source": "User",
+          "is_crucial": true,
+          "leakage_check": {
+            "result": "pass",
+            "reader_choice": "undetermined",
+            "option_order": [
+              "original_value",
+              "alternative_value"
+            ],
+            "leftover_clue_spans": []
+          }
+        }
+      ],
+      "extra_gaps": [],
+      "review": {
+        "owner_verdict": null,
+        "owner_note": null
+      }
+    }
+  ],
+  "fixture_only": false,
+  "timings_s": {
+    "builder": 96.63761589070782,
+    "splice": 5.0966162234544754e-05,
+    "check1": 132.91636116290465
+  },
+  "builder_output": {
+    "status": "ok",
+    "skip_reason": "",
+    "candidate_subparts": [
+      {
+        "subpart_id": "gap_1",
+        "variable": "column_pair_selection",
+        "original_value": "random",
+        "alternative_values": [
+          "deterministic"
+        ],
+        "spans_removed": [
+          "random pairs",
+          "from random import sample\n"
+        ],
+        "replaced_with": [
+          "pairs",
+          ""
+        ]
+      },
+      {
+        "subpart_id": "gap_2",
+        "variable": "return_container",
+        "original_value": "tuple",
+        "alternative_values": [
+          "dictionary"
+        ],
+        "spans_removed": [
+          "tuple: A tuple containing:"
+        ],
+        "replaced_with": [
+          "The following:"
+        ]
+      }
+    ]
+  },
+  "seed_status": "accepted"
+}

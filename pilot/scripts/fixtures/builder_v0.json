@@ -1,0 +1,16 @@
+{
+  "BigCodeBench/985": {
+    "status": "ok",
+    "skip_reason": "",
+    "candidate_subparts": [
+      {
+        "subpart_id": "gap_1",
+        "variable": "population_rounding",
+        "original_value": "round down",
+        "alternative_values": ["round to the nearest integer"],
+        "spans_removed": ["round it down to the nearest integer"],
+        "replaced_with": ["convert it to an integer"]
+      }
+    ]
+  }
+}

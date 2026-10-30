@@ -1,0 +1,375 @@
+{
+  "task_id": "BigCodeBench/145",
+  "full_instruction": "Generates a CSV file listing all IP addresses in the specified IP range. Each IP address is written as a row in the CSV file.\nThe function should output with:\n    str: The path to the generated CSV file.\nYou should write self-contained code starting with:\n```\nimport csv\nfrom ipaddress import IPv4Network\ndef task_func(ip_range, csv_path):\n```",
+  "llm_calls": [
+    {
+      "tag": "builder.BigCodeBench_145",
+      "content_hash": "89683f42abb4609e36c47ab4e99999d84e5eb11c70144f740606ca3144d63737",
+      "requested_model": "gpt-6.1-sol",
+      "configured_model": "gpt-6.1-sol",
+      "served_model": null,
+      "reasoning_effort": "high",
+      "source": "codex_subagent",
+      "usage": {},
+      "usage_available": false,
+      "request": {
+        "model": "gpt-6.1-sol",
+        "reasoning_effort": "high",
+        "fork_turns": "none",
+        "system": "You are a fast, surgical dataset builder for an AI agent ambiguity benchmark.\nYou will receive a seed task containing:\n1. `full_instruction`\n2. `gold_solution` (reference code that implements the instruction)\n\nYour job is to select AT MOST 3 maskable subparts—OR immediately reject the seed task if it has no clean maskable parameters.\n\nSTRICT SELECTION RULES:\n1. Target-First Filtering (Do NOT decompose the whole prompt):\n   Only select parameters that pass ALL THREE questions:\n   - Still the Same Task: If removed, the core goal remains intact.\n   - Short List of Values: Has 2–5 realistic values (e.g., CSV vs. JSON, drop vs. fill NaN, round down vs. round to nearest). Never pick arbitrary invented names.\n   - Visible in the Work: Code written for `alternative_value` would look visibly different from code written for `original_value`, or would give a visibly different result.\n   Also: `gold_solution` must implement `original_value` as the instruction states it. If the instruction and `gold_solution` disagree about a parameter, do not select it.\n   If NO parameter in `full_instruction` meets these criteria, return `\"status\": \"skip_seed_task\"` with a `skip_reason` immediately.\n\n2. Surgical Span Extraction (Do NOT rewrite the prompt):\n   - List every exact substring in `full_instruction` (`spans_removed`) that states or hints at this parameter, and the neutral replacement string (`replaced_with`, which may be `\"\"` or a neutral phrase like `\"in a file\"` or `\"convert it to an integer\"`).\n   - Ensure `spans_removed` matches `full_instruction` character-for-character so a Python script can run `str.replace()` without touching any other word.\n   - The function signature at the end of `full_instruction` is part of the instruction. If a default argument or type hint states or hints at the selected value, include that substring in `spans_removed` too.\n\n3. One Alternative Value:\n   - Give exactly one realistic alternative value in `alternative_values`.",
+        "user": "Task ID: \"BigCodeBench/145\"\nFull Instruction:\n\"\"\"\nGenerates a CSV file listing all IP addresses in the specified IP range. Each IP address is written as a row in the CSV file.\nThe function should output with:\n    str: The path to the generated CSV file.\nYou should write self-contained code starting with:\n```\nimport csv\nfrom ipaddress import IPv4Network\ndef task_func(ip_range, csv_path):\n```\n\"\"\"\nGold Solution:\n\"\"\"\n    with open(csv_path, 'w', newline='') as csvfile:\n        fieldnames = ['IP Address']\n        writer = csv.DictWriter(csvfile, fieldnames=fieldnames)\n\n        writer.writeheader()\n\n        for ip in IPv4Network(ip_range):\n            writer.writerow({'IP Address': str(ip)})\n\n    return csv_path\n\"\"\"\n\nReturn JSON only using this exact schema:\n{\n  \"status\": \"ok\" | \"skip_seed_task\",\n  \"skip_reason\": \"\",\n  \"candidate_subparts\": [\n    {\n      \"subpart_id\": \"gap_1\",\n      \"variable\": \"short_snake_case_name\",\n      \"original_value\": \"exact value in full instruction\",\n      \"alternative_values\": [\"one realistic alternative value\"],\n      \"spans_removed\": [\"exact substring 1 from full_instruction\"],\n      \"replaced_with\": [\"neutral replacement 1 or empty string\"]\n    }\n  ]\n}\n`skip_reason` is an empty string when `status` is \"ok\".",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "status",
+            "skip_reason",
+            "candidate_subparts"
+          ],
+          "properties": {
+            "status": {
+              "type": "string",
+              "enum": [
+                "ok",
+                "skip_seed_task"
+              ]
+            },
+            "skip_reason": {
+              "type": "string"
+            },
+            "candidate_subparts": {
+              "type": "array",
+              "maxItems": 3,
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "subpart_id",
+                  "variable",
+                  "original_value",
+                  "alternative_values",
+                  "spans_removed",
+                  "replaced_with"
+                ],
+                "properties": {
+                  "subpart_id": {
+                    "type": "string"
+                  },
+                  "variable": {
+                    "type": "string"
+                  },
+                  "original_value": {
+                    "type": "string"
+                  },
+                  "alternative_values": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    },
+                    "minItems": 1,
+                    "maxItems": 1
+                  },
+                  "spans_removed": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "replaced_with": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "transport": "codex_subagent",
+        "tools_allowed": false
+      },
+      "dispatch_message": "Complete this isolated text-only evaluation. Do not use tools, read files, run code, or create agents. Return only the requested JSON.\n\nSYSTEM PROMPT:\nYou are a fast, surgical dataset builder for an AI agent ambiguity benchmark.\nYou will receive a seed task containing:\n1. `full_instruction`\n2. `gold_solution` (reference code that implements the instruction)\n\nYour job is to select AT MOST 3 maskable subparts—OR immediately reject the seed task if it has no clean maskable parameters.\n\nSTRICT SELECTION RULES:\n1. Target-First Filtering (Do NOT decompose the whole prompt):\n   Only select parameters that pass ALL THREE questions:\n   - Still the Same Task: If removed, the core goal remains intact.\n   - Short List of Values: Has 2–5 realistic values (e.g., CSV vs. JSON, drop vs. fill NaN, round down vs. round to nearest). Never pick arbitrary invented names.\n   - Visible in the Work: Code written for `alternative_value` would look visibly different from code written for `original_value`, or would give a visibly different result.\n   Also: `gold_solution` must implement `original_value` as the instruction states it. If the instruction and `gold_solution` disagree about a parameter, do not select it.\n   If NO parameter in `full_instruction` meets these criteria, return `\"status\": \"skip_seed_task\"` with a `skip_reason` immediately.\n\n2. Surgical Span Extraction (Do NOT rewrite the prompt):\n   - List every exact substring in `full_instruction` (`spans_removed`) that states or hints at this parameter, and the neutral replacement string (`replaced_with`, which may be `\"\"` or a neutral phrase like `\"in a file\"` or `\"convert it to an integer\"`).\n   - Ensure `spans_removed` matches `full_instruction` character-for-character so a Python script can run `str.replace()` without touching any other word.\n   - The function signature at the end of `full_instruction` is part of the instruction. If a default argument or type hint states or hints at the selected value, include that substring in `spans_removed` too.\n\n3. One Alternative Value:\n   - Give exactly one realistic alternative value in `alternative_values`.\n\nUSER PROMPT:\nTask ID: \"BigCodeBench/145\"\nFull Instruction:\n\"\"\"\nGenerates a CSV file listing all IP addresses in the specified IP range. Each IP address is written as a row in the CSV file.\nThe function should output with:\n    str: The path to the generated CSV file.\nYou should write self-contained code starting with:\n```\nimport csv\nfrom ipaddress import IPv4Network\ndef task_func(ip_range, csv_path):\n```\n\"\"\"\nGold Solution:\n\"\"\"\n    with open(csv_path, 'w', newline='') as csvfile:\n        fieldnames = ['IP Address']\n        writer = csv.DictWriter(csvfile, fieldnames=fieldnames)\n\n        writer.writeheader()\n\n        for ip in IPv4Network(ip_range):\n            writer.writerow({'IP Address': str(ip)})\n\n    return csv_path\n\"\"\"\n\nReturn JSON only using this exact schema:\n{\n  \"status\": \"ok\" | \"skip_seed_task\",\n  \"skip_reason\": \"\",\n  \"candidate_subparts\": [\n    {\n      \"subpart_id\": \"gap_1\",\n      \"variable\": \"short_snake_case_name\",\n      \"original_value\": \"exact value in full instruction\",\n      \"alternative_values\": [\"one realistic alternative value\"],\n      \"spans_removed\": [\"exact substring 1 from full_instruction\"],\n      \"replaced_with\": [\"neutral replacement 1 or empty string\"]\n    }\n  ]\n}\n`skip_reason` is an empty string when `status` is \"ok\".",
+      "status": "completed",
+      "dispatch_started_at": 1793330423.5731924,
+      "response": "{\n  \"status\": \"ok\",\n  \"skip_reason\": \"\",\n  \"candidate_subparts\": [\n    {\n      \"subpart_id\": \"gap_1\",\n      \"variable\": \"output_format\",\n      \"original_value\": \"CSV\",\n      \"alternative_values\": [\"JSON\"],\n      \"spans_removed\": [\"CSV file\", \"as a row\", \"import csv\\n\", \"csv_path\"],\n      \"replaced_with\": [\"file\", \"as an entry\", \"\", \"output_path\"]\n    }\n  ]\n}",
+      "latency_s": 77.94140839576721,
+      "parsed": {
+        "status": "ok",
+        "skip_reason": "",
+        "candidate_subparts": [
+          {
+            "subpart_id": "gap_1",
+            "variable": "output_format",
+            "original_value": "CSV",
+            "alternative_values": [
+              "JSON"
+            ],
+            "spans_removed": [
+              "CSV file",
+              "as a row",
+              "import csv\n",
+              "csv_path"
+            ],
+            "replaced_with": [
+              "file",
+              "as an entry",
+              "",
+              "output_path"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "tag": "check1.BigCodeBench_145.gap_1",
+      "content_hash": "178a270760bc83afca03b855c03350ce79120a807c24209d6a17241d1eb4ec9c",
+      "requested_model": "gpt-6.1-sol",
+      "configured_model": "gpt-6.1-sol",
+      "served_model": null,
+      "reasoning_effort": "high",
+      "source": "codex_subagent",
+      "usage": {},
+      "usage_available": false,
+      "request": {
+        "model": "gpt-6.1-sol",
+        "reasoning_effort": "high",
+        "fork_turns": "none",
+        "system": "You will read a task instruction where a detail was removed. Your job is to try to guess the removed detail using ONLY the words still visible in the instruction. Look carefully for any leftover hints, pronouns, or clues in other sentences.",
+        "user": "Visible Instruction:\n\"\"\"\nGenerates a file listing all IP addresses in the specified IP range. Each IP address is written as an entry in the file.\nThe function should output with:\n    str: The path to the generated file.\nYou should write self-contained code starting with:\n```\nfrom ipaddress import IPv4Network\ndef task_func(ip_range, output_path):\n```\n\"\"\"\n\nQuestion: Based strictly on the visible text above, what is the value of `output_format`?\nOptions:\n1) CSV\n2) JSON\n3) Completely undetermined (no hints in the text favor 1 or 2)\n\nReturn JSON only:\n{\n  \"choice\": \"1\" | \"2\" | \"3\",\n  \"confidence_0_to_1\": 0.0,\n  \"leftover_clue_spans\": [\"list the exact words in the Visible Instruction that hinted at 1 or 2, or empty list\"]\n}",
+        "schema": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "choice",
+            "confidence_0_to_1",
+            "leftover_clue_spans"
+          ],
+          "properties": {
+            "choice": {
+              "type": "string",
+              "enum": [
+                "1",
+                "2",
+                "3"
+              ]
+            },
+            "confidence_0_to_1": {
+              "type": "number"
+            },
+            "leftover_clue_spans": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "transport": "codex_subagent",
+        "tools_allowed": false
+      },
+      "dispatch_message": "Complete this isolated text-only evaluation. Do not use tools, read files, run code, or create agents. Return only the requested JSON.\n\nSYSTEM PROMPT:\nYou will read a task instruction where a detail was removed. Your job is to try to guess the removed detail using ONLY the words still visible in the instruction. Look carefully for any leftover hints, pronouns, or clues in other sentences.\n\nUSER PROMPT:\nVisible Instruction:\n\"\"\"\nGenerates a file listing all IP addresses in the specified IP range. Each IP address is written as an entry in the file.\nThe function should output with:\n    str: The path to the generated file.\nYou should write self-contained code starting with:\n```\nfrom ipaddress import IPv4Network\ndef task_func(ip_range, output_path):\n```\n\"\"\"\n\nQuestion: Based strictly on the visible text above, what is the value of `output_format`?\nOptions:\n1) CSV\n2) JSON\n3) Completely undetermined (no hints in the text favor 1 or 2)\n\nReturn JSON only:\n{\n  \"choice\": \"1\" | \"2\" | \"3\",\n  \"confidence_0_to_1\": 0.0,\n  \"leftover_clue_spans\": [\"list the exact words in the Visible Instruction that hinted at 1 or 2, or empty list\"]\n}",
+      "status": "completed",
+      "dispatch_started_at": 1793330506.9637225,
+      "response": "{\"choice\":\"3\",\"confidence_0_to_1\":0.99,\"leftover_clue_spans\":[]}",
+      "latency_s": 71.02912330627441,
+      "parsed": {
+        "choice": "3",
+        "confidence_0_to_1": 0.99,
+        "leftover_clue_spans": []
+      }
+    }
+  ],
+  "gates": [
+    {
+      "gate": "G1",
+      "result": "pass",
+      "evidence": {
+        "status": "ok"
+      }
+    }
+  ],
+  "subparts": [
+    {
+      "subpart": {
+        "subpart_id": "gap_1",
+        "variable": "output_format",
+        "original_value": "CSV",
+        "alternative_values": [
+          "JSON"
+        ],
+        "spans_removed": [
+          "CSV file",
+          "as a row",
+          "import csv\n",
+          "csv_path"
+        ],
+        "replaced_with": [
+          "file",
+          "as an entry",
+          "",
+          "output_path"
+        ]
+      },
+      "gates": [
+        {
+          "gate": "G2",
+          "result": "pass",
+          "evidence": {
+            "alternative_count": 1,
+            "span_count": 4,
+            "replacement_count": 4
+          }
+        },
+        {
+          "gate": "G3",
+          "result": "pass",
+          "evidence": {
+            "ok": true,
+            "issues": [
+              "gap_1: span occurs 3x, all replaced: 'CSV file'"
+            ]
+          }
+        },
+        {
+          "gate": "G4",
+          "result": "pass",
+          "evidence": {
+            "result": "pass",
+            "reader_choice": "undetermined",
+            "reader_value": null,
+            "raw_choice": "3",
+            "option_order": [
+              "original_value",
+              "alternative_value"
+            ],
+            "option_values": [
+              "CSV",
+              "JSON"
+            ],
+            "confidence": 0.99,
+            "leftover_clue_spans": [],
+            "clue_spans_checked": []
+          }
+        }
+      ],
+      "surface_flags": [
+        "gap_1: span occurs 3x, all replaced: 'CSV file'"
+      ],
+      "splice_s": 2.4337321519851685e-05,
+      "splice": {
+        "ok": true,
+        "issues": [
+          "gap_1: span occurs 3x, all replaced: 'CSV file'"
+        ]
+      },
+      "masked_single": "Generates a file listing all IP addresses in the specified IP range. Each IP address is written as an entry in the file.\nThe function should output with:\n    str: The path to the generated file.\nYou should write self-contained code starting with:\n```\nfrom ipaddress import IPv4Network\ndef task_func(ip_range, output_path):\n```",
+      "check1_s": 76.36637519812211,
+      "leakage_check": {
+        "result": "pass",
+        "reader_choice": "undetermined",
+        "reader_value": null,
+        "raw_choice": "3",
+        "option_order": [
+          "original_value",
+          "alternative_value"
+        ],
+        "option_values": [
+          "CSV",
+          "JSON"
+        ],
+        "confidence": 0.99,
+        "leftover_clue_spans": [],
+        "clue_spans_checked": []
+      },
+      "verdict": "accepted",
+      "stopped_at": null,
+      "reason": "passed"
+    }
+  ],
+  "entries": [
+    {
+      "task_id": "BigCodeBench/145::single::output_format",
+      "seed_task_id": "BigCodeBench/145",
+      "source": {
+        "benchmark": "BigCodeBench",
+        "version": "v0.1.4",
+        "instruction_sha256": "816e072cf18e3e1b46816636905f7584dea60f610abd31e61a74a3b3dadc6ce3"
+      },
+      "full_instruction": "Generates a CSV file listing all IP addresses in the specified IP range. Each IP address is written as a row in the CSV file.\nThe function should output with:\n    str: The path to the generated CSV file.\nYou should write self-contained code starting with:\n```\nimport csv\nfrom ipaddress import IPv4Network\ndef task_func(ip_range, csv_path):\n```",
+      "masked_instruction": "Generates a file listing all IP addresses in the specified IP range. Each IP address is written as an entry in the file.\nThe function should output with:\n    str: The path to the generated file.\nYou should write self-contained code starting with:\n```\nfrom ipaddress import IPv4Network\ndef task_func(ip_range, output_path):\n```",
+      "masking_mode": "single_gap",
+      "reference_ambiguities": [
+        {
+          "subpart_id": "gap_1",
+          "variable": "output_format",
+          "spans_removed": [
+            "CSV file",
+            "as a row",
+            "import csv\n",
+            "csv_path"
+          ],
+          "replaced_with": [
+            "file",
+            "as an entry",
+            "",
+            "output_path"
+          ],
+          "original_value": "CSV",
+          "alternative_values": [
+            "JSON"
+          ],
+          "answer_source": "User",
+          "is_crucial": true,
+          "leakage_check": {
+            "result": "pass",
+            "reader_choice": "undetermined",
+            "option_order": [
+              "original_value",
+              "alternative_value"
+            ],
+            "leftover_clue_spans": []
+          }
+        }
+      ],
+      "extra_gaps": [],
+      "review": {
+        "owner_verdict": null,
+        "owner_note": null
+      }
+    }
+  ],
+  "fixture_only": false,
+  "timings_s": {
+    "builder": 86.83546356111765,
+    "splice": 2.4337321519851685e-05,
+    "check1": 76.36637519812211
+  },
+  "builder_output": {
+    "status": "ok",
+    "skip_reason": "",
+    "candidate_subparts": [
+      {
+        "subpart_id": "gap_1",
+        "variable": "output_format",
+        "original_value": "CSV",
+        "alternative_values": [
+          "JSON"
+        ],
+        "spans_removed": [
+          "CSV file",
+          "as a row",
+          "import csv\n",
+          "csv_path"
+        ],
+        "replaced_with": [
+          "file",
+          "as an entry",
+          "",
+          "output_path"
+        ]
+      }
+    ]
+  },
+  "seed_status": "accepted"
+}

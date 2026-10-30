@@ -1,0 +1,17 @@
+[project]
+name = "agents-assumption"
+version = "0.1.0"
+description = "Ambiguous-instruction benchmark: Stage 1 dataset construction pilot"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+    "anthropic>=2.3",
+    # BigCodeBench solutions/tests target pandas 2.x; pandas 3.0 copy-on-write and
+    # string dtype break gold solutions (e.g. BigCodeBench/889).
+    "pandas==2.2.3",
+    "numpy<2",
+    "pyarrow<18",
+    "pytz",
+    "python-dateutil",
+    "openai>=3.41.0",
+    "jsonschema>=4.26.0",
+]

@@ -1,0 +1,637 @@
+{
+  "task_id": "BigCodeBench/232",
+  "llm_calls": [
+    {
+      "tag": "builder",
+      "model": null,
+      "usage": null,
+      "cost_usd": 0,
+      "latency_s": null,
+      "retries": null,
+      "source": "fixture"
+    }
+  ],
+  "builder_output": {
+    "status": "ok",
+    "skip_reason": "",
+    "candidate_subparts": [
+      {
+        "subpart_id": "oracle_dedup",
+        "variable": "oracle_dedup",
+        "category": "Task",
+        "answer_source": "User",
+        "is_crucial": true,
+        "original_value": "orig oracle_dedup",
+        "alternative_values": [
+          "alt oracle_dedup"
+        ],
+        "spans_removed": [
+          ", excluding duplicate customer names"
+        ],
+        "replaced_with": [
+          ""
+        ],
+        "linked_decisions": [],
+        "gold_solution_mutation": {
+          "find_in_gold": "    df = df.drop_duplicates(subset='Customer')\n",
+          "replace_in_gold": "",
+          "target_assertion": ""
+        },
+        "target_tests": [
+          "test_case_with_duplicates"
+        ],
+        "test_mutation": {
+          "find_in_tests": "expected_output = {'Total Sales': 1200, 'Most Popular Category': 'Electronics'}",
+          "replace_in_tests": "expected_output = {'Total Sales': 1400, 'Most Popular Category': 'Electronics'}"
+        }
+      },
+      {
+        "subpart_id": "null_noop",
+        "variable": "null_noop",
+        "category": "Task",
+        "answer_source": "User",
+        "is_crucial": true,
+        "original_value": "orig null_noop",
+        "alternative_values": [
+          "alt null_noop"
+        ],
+        "spans_removed": [
+          "total sales"
+        ],
+        "replaced_with": [
+          "sales"
+        ],
+        "linked_decisions": [],
+        "gold_solution_mutation": {
+          "find_in_gold": "total_sales = df",
+          "replace_in_gold": "total_sales = df",
+          "target_assertion": ""
+        },
+        "target_tests": [],
+        "test_mutation": {
+          "find_in_tests": "",
+          "replace_in_tests": ""
+        }
+      },
+      {
+        "subpart_id": "null_missing_span",
+        "variable": "null_missing_span",
+        "category": "Task",
+        "answer_source": "User",
+        "is_crucial": true,
+        "original_value": "orig null_missing_span",
+        "alternative_values": [
+          "alt null_missing_span"
+        ],
+        "spans_removed": [
+          "excluding duplicate customers"
+        ],
+        "replaced_with": [
+          ""
+        ],
+        "linked_decisions": [],
+        "gold_solution_mutation": {
+          "find_in_gold": "    df = df.drop_duplicates(subset='Customer')\n",
+          "replace_in_gold": "",
+          "target_assertion": ""
+        },
+        "target_tests": [
+          "test_case_with_duplicates"
+        ],
+        "test_mutation": {
+          "find_in_tests": "",
+          "replace_in_tests": ""
+        }
+      },
+      {
+        "subpart_id": "null_unrelated",
+        "variable": "null_unrelated",
+        "category": "Task",
+        "answer_source": "User",
+        "is_crucial": true,
+        "original_value": "orig null_unrelated",
+        "alternative_values": [
+          "alt null_unrelated"
+        ],
+        "spans_removed": [
+          "The report includes total sales"
+        ],
+        "replaced_with": [
+          "The report includes sales"
+        ],
+        "linked_decisions": [],
+        "gold_solution_mutation": {
+          "find_in_gold": "raise ValueError(\"The input df",
+          "replace_in_gold": "raise TypeError(\"The input df",
+          "target_assertion": ""
+        },
+        "target_tests": [
+          "test_case_regular"
+        ],
+        "test_mutation": {
+          "find_in_tests": "",
+          "replace_in_tests": ""
+        }
+      },
+      {
+        "subpart_id": "distractor_msg",
+        "variable": "distractor_msg",
+        "category": "Task",
+        "answer_source": "User",
+        "is_crucial": true,
+        "original_value": "orig distractor_msg",
+        "alternative_values": [
+          "alt distractor_msg"
+        ],
+        "spans_removed": [
+          "The function will raise a ValueError is input df is not a DataFrame"
+        ],
+        "replaced_with": [
+          "The function will raise a ValueError on bad input"
+        ],
+        "linked_decisions": [],
+        "gold_solution_mutation": {
+          "find_in_gold": "The input df is not a DataFrame",
+          "replace_in_gold": "Bad input",
+          "target_assertion": ""
+        },
+        "target_tests": [],
+        "test_mutation": {
+          "find_in_tests": "",
+          "replace_in_tests": ""
+        }
+      },
+      {
+        "subpart_id": "oracle_bad_testmut",
+        "variable": "oracle_bad_testmut",
+        "category": "Task",
+        "answer_source": "User",
+        "is_crucial": true,
+        "original_value": "orig oracle_bad_testmut",
+        "alternative_values": [
+          "alt oracle_bad_testmut"
+        ],
+        "spans_removed": [
+          ", excluding duplicate customer names"
+        ],
+        "replaced_with": [
+          ""
+        ],
+        "linked_decisions": [],
+        "gold_solution_mutation": {
+          "find_in_gold": "    df = df.drop_duplicates(subset='Customer')\n",
+          "replace_in_gold": "",
+          "target_assertion": ""
+        },
+        "target_tests": [
+          "test_case_with_duplicates"
+        ],
+        "test_mutation": {
+          "find_in_tests": "this string is not in the tests",
+          "replace_in_tests": "x"
+        }
+      }
+    ]
+  },
+  "subparts": [
+    {
+      "subpart": {
+        "subpart_id": "oracle_dedup",
+        "variable": "oracle_dedup",
+        "category": "Task",
+        "answer_source": "User",
+        "is_crucial": true,
+        "original_value": "orig oracle_dedup",
+        "alternative_values": [
+          "alt oracle_dedup"
+        ],
+        "spans_removed": [
+          ", excluding duplicate customer names"
+        ],
+        "replaced_with": [
+          ""
+        ],
+        "linked_decisions": [],
+        "gold_solution_mutation": {
+          "find_in_gold": "    df = df.drop_duplicates(subset='Customer')\n",
+          "replace_in_gold": "",
+          "target_assertion": ""
+        },
+        "target_tests": [
+          "test_case_with_duplicates"
+        ],
+        "test_mutation": {
+          "find_in_tests": "expected_output = {'Total Sales': 1200, 'Most Popular Category': 'Electronics'}",
+          "replace_in_tests": "expected_output = {'Total Sales': 1400, 'Most Popular Category': 'Electronics'}"
+        }
+      },
+      "splice": {
+        "ok": true,
+        "issues": []
+      },
+      "masked_single": "Generate a sales report from a DataFrame. The report includes total sales and the most popular sales category.\nNote that: The function would return the first category in alphabetical order for \"Most Popular Category' in the case of tie\nThe function should raise the exception for: The function will raise a ValueError is input df is not a DataFrame.\nThe function should output with:\n    dict: A dictionary with keys 'Total Sales' (sum of sales) and 'Most Popular Category' (most frequent category).\nYou should write self-contained code starting with:\n```\nimport pandas as pd\nimport collections\ndef task_func(df):\n```",
+      "surface_flags": [],
+      "test_run": {
+        "builder_said_crucial": true,
+        "mutated_gold_vs_original_tests": {
+          "status": "fail",
+          "tests": {
+            "test_case_6": "pass",
+            "test_case_empty": "pass",
+            "test_case_regular": "pass",
+            "test_case_tie_categories": "pass",
+            "test_case_unique_customers": "pass",
+            "test_case_with_duplicates": "fail"
+          }
+        },
+        "failing_tests": [
+          "test_case_with_duplicates"
+        ],
+        "unrelated_failures": [],
+        "mutated_gold_vs_mutated_tests": {
+          "status": "pass",
+          "tests": {
+            "test_case_6": "pass",
+            "test_case_empty": "pass",
+            "test_case_regular": "pass",
+            "test_case_tie_categories": "pass",
+            "test_case_unique_customers": "pass",
+            "test_case_with_duplicates": "pass"
+          }
+        },
+        "gold_vs_mutated_tests": {
+          "status": "fail",
+          "tests": {
+            "test_case_6": "pass",
+            "test_case_empty": "pass",
+            "test_case_regular": "pass",
+            "test_case_tie_categories": "pass",
+            "test_case_unique_customers": "pass",
+            "test_case_with_duplicates": "fail"
+          }
+        },
+        "verdict": "accepted",
+        "is_crucial": true,
+        "crucial_evidence": "test_run",
+        "reason": "flips ['test_case_with_duplicates']; alt solution passes alt tests; gold fails alt tests"
+      },
+      "verdict": "accepted",
+      "reason": "flips ['test_case_with_duplicates']; alt solution passes alt tests; gold fails alt tests"
+    },
+    {
+      "subpart": {
+        "subpart_id": "null_noop",
+        "variable": "null_noop",
+        "category": "Task",
+        "answer_source": "User",
+        "is_crucial": true,
+        "original_value": "orig null_noop",
+        "alternative_values": [
+          "alt null_noop"
+        ],
+        "spans_removed": [
+          "total sales"
+        ],
+        "replaced_with": [
+          "sales"
+        ],
+        "linked_decisions": [],
+        "gold_solution_mutation": {
+          "find_in_gold": "total_sales = df",
+          "replace_in_gold": "total_sales = df",
+          "target_assertion": ""
+        },
+        "target_tests": [],
+        "test_mutation": {
+          "find_in_tests": "",
+          "replace_in_tests": ""
+        }
+      },
+      "splice": {
+        "ok": true,
+        "issues": []
+      },
+      "masked_single": "Generate a sales report from a DataFrame, excluding duplicate customer names. The report includes sales and the most popular sales category.\nNote that: The function would return the first category in alphabetical order for \"Most Popular Category' in the case of tie\nThe function should raise the exception for: The function will raise a ValueError is input df is not a DataFrame.\nThe function should output with:\n    dict: A dictionary with keys 'Total Sales' (sum of sales) and 'Most Popular Category' (most frequent category).\nYou should write self-contained code starting with:\n```\nimport pandas as pd\nimport collections\ndef task_func(df):\n```",
+      "surface_flags": [],
+      "test_run": {
+        "builder_said_crucial": true,
+        "verdict": "rejected",
+        "reason": "gold mutation is a no-op"
+      },
+      "verdict": "rejected",
+      "reason": "gold mutation is a no-op"
+    },
+    {
+      "subpart": {
+        "subpart_id": "null_missing_span",
+        "variable": "null_missing_span",
+        "category": "Task",
+        "answer_source": "User",
+        "is_crucial": true,
+        "original_value": "orig null_missing_span",
+        "alternative_values": [
+          "alt null_missing_span"
+        ],
+        "spans_removed": [
+          "excluding duplicate customers"
+        ],
+        "replaced_with": [
+          ""
+        ],
+        "linked_decisions": [],
+        "gold_solution_mutation": {
+          "find_in_gold": "    df = df.drop_duplicates(subset='Customer')\n",
+          "replace_in_gold": "",
+          "target_assertion": ""
+        },
+        "target_tests": [
+          "test_case_with_duplicates"
+        ],
+        "test_mutation": {
+          "find_in_tests": "",
+          "replace_in_tests": ""
+        }
+      },
+      "splice": {
+        "ok": false,
+        "issues": [
+          "null_missing_span: span not found (not in full_instruction): 'excluding duplicate customers'"
+        ]
+      },
+      "verdict": "rejected",
+      "reason": "splice: null_missing_span: span not found (not in full_instruction): 'excluding duplicate customers'"
+    },
+    {
+      "subpart": {
+        "subpart_id": "null_unrelated",
+        "variable": "null_unrelated",
+        "category": "Task",
+        "answer_source": "User",
+        "is_crucial": true,
+        "original_value": "orig null_unrelated",
+        "alternative_values": [
+          "alt null_unrelated"
+        ],
+        "spans_removed": [
+          "The report includes total sales"
+        ],
+        "replaced_with": [
+          "The report includes sales"
+        ],
+        "linked_decisions": [],
+        "gold_solution_mutation": {
+          "find_in_gold": "raise ValueError(\"The input df",
+          "replace_in_gold": "raise TypeError(\"The input df",
+          "target_assertion": ""
+        },
+        "target_tests": [
+          "test_case_regular"
+        ],
+        "test_mutation": {
+          "find_in_tests": "",
+          "replace_in_tests": ""
+        }
+      },
+      "splice": {
+        "ok": true,
+        "issues": []
+      },
+      "masked_single": "Generate a sales report from a DataFrame, excluding duplicate customer names. The report includes sales and the most popular sales category.\nNote that: The function would return the first category in alphabetical order for \"Most Popular Category' in the case of tie\nThe function should raise the exception for: The function will raise a ValueError is input df is not a DataFrame.\nThe function should output with:\n    dict: A dictionary with keys 'Total Sales' (sum of sales) and 'Most Popular Category' (most frequent category).\nYou should write self-contained code starting with:\n```\nimport pandas as pd\nimport collections\ndef task_func(df):\n```",
+      "surface_flags": [],
+      "test_run": {
+        "builder_said_crucial": true,
+        "mutated_gold_vs_original_tests": {
+          "status": "fail",
+          "tests": {
+            "test_case_6": "error",
+            "test_case_empty": "pass",
+            "test_case_regular": "pass",
+            "test_case_tie_categories": "pass",
+            "test_case_unique_customers": "pass",
+            "test_case_with_duplicates": "pass"
+          }
+        },
+        "failing_tests": [
+          "test_case_6"
+        ],
+        "unrelated_failures": [
+          "test_case_6"
+        ],
+        "verdict": "rejected",
+        "reason": "mutation also breaks tests outside target_tests: ['test_case_6']"
+      },
+      "verdict": "rejected",
+      "reason": "mutation also breaks tests outside target_tests: ['test_case_6']"
+    },
+    {
+      "subpart": {
+        "subpart_id": "distractor_msg",
+        "variable": "distractor_msg",
+        "category": "Task",
+        "answer_source": "User",
+        "is_crucial": true,
+        "original_value": "orig distractor_msg",
+        "alternative_values": [
+          "alt distractor_msg"
+        ],
+        "spans_removed": [
+          "The function will raise a ValueError is input df is not a DataFrame"
+        ],
+        "replaced_with": [
+          "The function will raise a ValueError on bad input"
+        ],
+        "linked_decisions": [],
+        "gold_solution_mutation": {
+          "find_in_gold": "The input df is not a DataFrame",
+          "replace_in_gold": "Bad input",
+          "target_assertion": ""
+        },
+        "target_tests": [],
+        "test_mutation": {
+          "find_in_tests": "",
+          "replace_in_tests": ""
+        }
+      },
+      "splice": {
+        "ok": true,
+        "issues": []
+      },
+      "masked_single": "Generate a sales report from a DataFrame, excluding duplicate customer names. The report includes total sales and the most popular sales category.\nNote that: The function would return the first category in alphabetical order for \"Most Popular Category' in the case of tie\nThe function should raise the exception for: The function will raise a ValueError on bad input.\nThe function should output with:\n    dict: A dictionary with keys 'Total Sales' (sum of sales) and 'Most Popular Category' (most frequent category).\nYou should write self-contained code starting with:\n```\nimport pandas as pd\nimport collections\ndef task_func(df):\n```",
+      "surface_flags": [],
+      "test_run": {
+        "builder_said_crucial": true,
+        "mutated_gold_vs_original_tests": {
+          "status": "pass",
+          "tests": {
+            "test_case_6": "pass",
+            "test_case_empty": "pass",
+            "test_case_regular": "pass",
+            "test_case_tie_categories": "pass",
+            "test_case_unique_customers": "pass",
+            "test_case_with_duplicates": "pass"
+          }
+        },
+        "failing_tests": [],
+        "verdict": "accepted",
+        "reason": "no test flips -> Non-Crucial (test_run); builder claimed Crucial, overridden",
+        "is_crucial": false,
+        "crucial_evidence": "test_run"
+      },
+      "verdict": "accepted",
+      "reason": "no test flips -> Non-Crucial (test_run); builder claimed Crucial, overridden"
+    },
+    {
+      "subpart": {
+        "subpart_id": "oracle_bad_testmut",
+        "variable": "oracle_bad_testmut",
+        "category": "Task",
+        "answer_source": "User",
+        "is_crucial": true,
+        "original_value": "orig oracle_bad_testmut",
+        "alternative_values": [
+          "alt oracle_bad_testmut"
+        ],
+        "spans_removed": [
+          ", excluding duplicate customer names"
+        ],
+        "replaced_with": [
+          ""
+        ],
+        "linked_decisions": [],
+        "gold_solution_mutation": {
+          "find_in_gold": "    df = df.drop_duplicates(subset='Customer')\n",
+          "replace_in_gold": "",
+          "target_assertion": ""
+        },
+        "target_tests": [
+          "test_case_with_duplicates"
+        ],
+        "test_mutation": {
+          "find_in_tests": "this string is not in the tests",
+          "replace_in_tests": "x"
+        }
+      },
+      "splice": {
+        "ok": true,
+        "issues": []
+      },
+      "masked_single": "Generate a sales report from a DataFrame. The report includes total sales and the most popular sales category.\nNote that: The function would return the first category in alphabetical order for \"Most Popular Category' in the case of tie\nThe function should raise the exception for: The function will raise a ValueError is input df is not a DataFrame.\nThe function should output with:\n    dict: A dictionary with keys 'Total Sales' (sum of sales) and 'Most Popular Category' (most frequent category).\nYou should write self-contained code starting with:\n```\nimport pandas as pd\nimport collections\ndef task_func(df):\n```",
+      "surface_flags": [],
+      "test_run": {
+        "builder_said_crucial": true,
+        "mutated_gold_vs_original_tests": {
+          "status": "fail",
+          "tests": {
+            "test_case_6": "pass",
+            "test_case_empty": "pass",
+            "test_case_regular": "pass",
+            "test_case_tie_categories": "pass",
+            "test_case_unique_customers": "pass",
+            "test_case_with_duplicates": "fail"
+          }
+        },
+        "failing_tests": [
+          "test_case_with_duplicates"
+        ],
+        "unrelated_failures": [],
+        "verdict": "needs_review",
+        "is_crucial": true,
+        "crucial_evidence": "test_run",
+        "reason": "flip verified, but find_in_tests occurs 0x (need 1); alt not verified"
+      },
+      "verdict": "needs_review",
+      "reason": "flip verified, but find_in_tests occurs 0x (need 1); alt not verified"
+    }
+  ],
+  "entries": [
+    {
+      "task_id": "BigCodeBench/232::single::oracle_dedup",
+      "seed_task_id": "BigCodeBench/232",
+      "full_instruction": "Generate a sales report from a DataFrame, excluding duplicate customer names. The report includes total sales and the most popular sales category.\nNote that: The function would return the first category in alphabetical order for \"Most Popular Category' in the case of tie\nThe function should raise the exception for: The function will raise a ValueError is input df is not a DataFrame.\nThe function should output with:\n    dict: A dictionary with keys 'Total Sales' (sum of sales) and 'Most Popular Category' (most frequent category).\nYou should write self-contained code starting with:\n```\nimport pandas as pd\nimport collections\ndef task_func(df):\n```",
+      "masked_instruction": "Generate a sales report from a DataFrame. The report includes total sales and the most popular sales category.\nNote that: The function would return the first category in alphabetical order for \"Most Popular Category' in the case of tie\nThe function should raise the exception for: The function will raise a ValueError is input df is not a DataFrame.\nThe function should output with:\n    dict: A dictionary with keys 'Total Sales' (sum of sales) and 'Most Popular Category' (most frequent category).\nYou should write self-contained code starting with:\n```\nimport pandas as pd\nimport collections\ndef task_func(df):\n```",
+      "masking_mode": "single_gap",
+      "primary_for_category": true,
+      "reference_ambiguities": [
+        {
+          "subpart_id": "oracle_dedup",
+          "variable": "oracle_dedup",
+          "spans_removed": [
+            ", excluding duplicate customer names"
+          ],
+          "replaced_with": [
+            ""
+          ],
+          "category": "Task",
+          "answer_source": "User",
+          "original_value": "orig oracle_dedup",
+          "alternative_values": [
+            "alt oracle_dedup"
+          ],
+          "linked_decisions": [],
+          "is_crucial": true,
+          "crucial_evidence": "test_run",
+          "leakage_check": {
+            "result": "not_run"
+          }
+        }
+      ],
+      "extra_gaps": []
+    },
+    {
+      "task_id": "BigCodeBench/232::multi",
+      "seed_task_id": "BigCodeBench/232",
+      "full_instruction": "Generate a sales report from a DataFrame, excluding duplicate customer names. The report includes total sales and the most popular sales category.\nNote that: The function would return the first category in alphabetical order for \"Most Popular Category' in the case of tie\nThe function should raise the exception for: The function will raise a ValueError is input df is not a DataFrame.\nThe function should output with:\n    dict: A dictionary with keys 'Total Sales' (sum of sales) and 'Most Popular Category' (most frequent category).\nYou should write self-contained code starting with:\n```\nimport pandas as pd\nimport collections\ndef task_func(df):\n```",
+      "masked_instruction": "Generate a sales report from a DataFrame. The report includes total sales and the most popular sales category.\nNote that: The function would return the first category in alphabetical order for \"Most Popular Category' in the case of tie\nThe function should raise the exception for: The function will raise a ValueError on bad input.\nThe function should output with:\n    dict: A dictionary with keys 'Total Sales' (sum of sales) and 'Most Popular Category' (most frequent category).\nYou should write self-contained code starting with:\n```\nimport pandas as pd\nimport collections\ndef task_func(df):\n```",
+      "masking_mode": "multi_gap",
+      "splice_issues": [],
+      "reference_ambiguities": [
+        {
+          "subpart_id": "oracle_dedup",
+          "variable": "oracle_dedup",
+          "spans_removed": [
+            ", excluding duplicate customer names"
+          ],
+          "replaced_with": [
+            ""
+          ],
+          "category": "Task",
+          "answer_source": "User",
+          "original_value": "orig oracle_dedup",
+          "alternative_values": [
+            "alt oracle_dedup"
+          ],
+          "linked_decisions": [],
+          "is_crucial": true,
+          "crucial_evidence": "test_run",
+          "leakage_check": {
+            "result": "not_run"
+          }
+        },
+        {
+          "subpart_id": "distractor_msg",
+          "variable": "distractor_msg",
+          "spans_removed": [
+            "The function will raise a ValueError is input df is not a DataFrame"
+          ],
+          "replaced_with": [
+            "The function will raise a ValueError on bad input"
+          ],
+          "category": "Task",
+          "answer_source": "User",
+          "original_value": "orig distractor_msg",
+          "alternative_values": [
+            "alt distractor_msg"
+          ],
+          "linked_decisions": [],
+          "is_crucial": false,
+          "crucial_evidence": "test_run",
+          "leakage_check": {
+            "result": "not_run"
+          }
+        }
+      ],
+      "extra_gaps": []
+    }
+  ],
+  "seed_status": "accepted"
+}

@@ -1,0 +1,80 @@
+{
+  "BigCodeBench/889": {
+    "status": "ok",
+    "skip_reason": "",
+    "candidate_subparts": [
+      {
+        "subpart_id": "missing_values",
+        "variable": "numeric_missing_value_policy",
+        "category": "Task",
+        "answer_source": "User",
+        "is_crucial": true,
+        "original_value": "column mean",
+        "alternative_values": [
+          "zero for partially observed columns"
+        ],
+        "spans_removed": [
+          "with the mean of the corresponding column"
+        ],
+        "replaced_with": [
+          "using a fill policy"
+        ],
+        "linked_decisions": [
+          "test_numeric_columns_nan_replacement",
+          "test_mixed_columns"
+        ],
+        "gold_solution_mutation": {
+          "find_in_gold": "df[column].mean()",
+          "replace_in_gold": "(0 if df[column].notna().any() else np.nan)",
+          "target_assertion": "test_numeric_columns_nan_replacement, test_mixed_columns"
+        },
+        "test_mutation": {
+          "find_in_tests": "27.5, 30.0],  # Ensure all ages are floats\n            'Salary': [50000.0, 60000.0, 55000.0]  # Ensure all salaries are floats\n        })\n        result = task_func(self.test_dir, filename)\n        pd.testing.assert_frame_equal(result, expected)\n    def test_mixed_columns(self):\n        data = pd.DataFrame({\n            'Name': ['Alice', 'Bob', 'Charlie'],\n            'Score': [np.nan, 88, 92]\n        })\n        filename = self.create_csv('mixed.csv', data)\n        expected = pd.DataFrame({\n            'Name': ['Alice', 'Bob', 'Charlie'],\n            'Score': [9",
+          "replace_in_tests": "0.0, 30.0],  # Ensure all ages are floats\n            'Salary': [50000.0, 60000.0, 0.0]  # Ensure all salaries are floats\n        })\n        result = task_func(self.test_dir, filename)\n        pd.testing.assert_frame_equal(result, expected)\n    def test_mixed_columns(self):\n        data = pd.DataFrame({\n            'Name': ['Alice', 'Bob', 'Charlie'],\n            'Score': [np.nan, 88, 92]\n        })\n        filename = self.create_csv('mixed.csv', data)\n        expected = pd.DataFrame({\n            'Name': ['Alice', 'Bob', 'Charlie'],\n            'Score': ["
+        },
+        "target_tests": [
+          "test_numeric_columns_nan_replacement",
+          "test_mixed_columns"
+        ]
+      }
+    ]
+  },
+  "BigCodeBench/985": {
+    "status": "ok",
+    "skip_reason": "",
+    "candidate_subparts": [
+      {
+        "subpart_id": "rounding",
+        "variable": "population_rounding",
+        "category": "Task",
+        "answer_source": "User",
+        "is_crucial": true,
+        "original_value": "floor",
+        "alternative_values": [
+          "nearest integer"
+        ],
+        "spans_removed": [
+          "it will round it down to the nearest integer"
+        ],
+        "replaced_with": [
+          "it will convert it to an integer"
+        ],
+        "linked_decisions": [
+          "test_case_9"
+        ],
+        "gold_solution_mutation": {
+          "find_in_gold": "math.floor(population)",
+          "replace_in_gold": "round(population)",
+          "target_assertion": "test_case_9"
+        },
+        "test_mutation": {
+          "find_in_tests": ", 1234567",
+          "replace_in_tests": ", 1234568"
+        },
+        "target_tests": [
+          "test_case_9"
+        ]
+      }
+    ]
+  }
+}

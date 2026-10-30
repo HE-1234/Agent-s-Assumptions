@@ -1,0 +1,9 @@
+PASS: 20 exact seeds; all 100 seed/stage views render; search and keyboard navigation; no fixture in dataset; zero model attempts; all downloads and resource links verified; active hosting directory is dist-v0.
+PASS: Firefox desktop (1440 × 1200) and mobile (390 × 1000) screenshots reviewed; current v0 content renders at both sizes.
+PASS: docs/current checksums and the saved Phase 1 offline_tests.txt are unchanged.
+Publication pending: earlier no-commit/no-push instruction requires the owner's website-only exception.
+UPDATE: Owner authorized website-only publication. The hosting directory was changed to supported out; all rendering/data/resource checks passed again.
+PUBLISHED: https://assumption-lab-pilot-review.eric-h4312.chatgpt.site
+Source commit: 4acb4365c94acc98371597422a381e06ef8f5d1d
+Deployment: appgdep_6ae4087ba1e081919217cdabff4fe0f1 (succeeded; owner-private).
+Step 7 was not run; no pipeline model calls or benchmark task code were executed.

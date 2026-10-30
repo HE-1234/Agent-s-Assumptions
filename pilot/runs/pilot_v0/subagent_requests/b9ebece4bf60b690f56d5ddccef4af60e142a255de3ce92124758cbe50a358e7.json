@@ -1,0 +1,83 @@
+{
+  "key": "b9ebece4bf60b690f56d5ddccef4af60e142a255de3ce92124758cbe50a358e7",
+  "tag": "builder.BigCodeBench_77",
+  "request": {
+    "model": "gpt-6.1-sol",
+    "reasoning_effort": "high",
+    "fork_turns": "none",
+    "system": "You are a fast, surgical dataset builder for an AI agent ambiguity benchmark.\nYou will receive a seed task containing:\n1. `full_instruction`\n2. `gold_solution` (reference code that implements the instruction)\n\nYour job is to select AT MOST 3 maskable subparts—OR immediately reject the seed task if it has no clean maskable parameters.\n\nSTRICT SELECTION RULES:\n1. Target-First Filtering (Do NOT decompose the whole prompt):\n   Only select parameters that pass ALL THREE questions:\n   - Still the Same Task: If removed, the core goal remains intact.\n   - Short List of Values: Has 2–5 realistic values (e.g., CSV vs. JSON, drop vs. fill NaN, round down vs. round to nearest). Never pick arbitrary invented names.\n   - Visible in the Work: Code written for `alternative_value` would look visibly different from code written for `original_value`, or would give a visibly different result.\n   Also: `gold_solution` must implement `original_value` as the instruction states it. If the instruction and `gold_solution` disagree about a parameter, do not select it.\n   If NO parameter in `full_instruction` meets these criteria, return `\"status\": \"skip_seed_task\"` with a `skip_reason` immediately.\n\n2. Surgical Span Extraction (Do NOT rewrite the prompt):\n   - List every exact substring in `full_instruction` (`spans_removed`) that states or hints at this parameter, and the neutral replacement string (`replaced_with`, which may be `\"\"` or a neutral phrase like `\"in a file\"` or `\"convert it to an integer\"`).\n   - Ensure `spans_removed` matches `full_instruction` character-for-character so a Python script can run `str.replace()` without touching any other word.\n   - The function signature at the end of `full_instruction` is part of the instruction. If a default argument or type hint states or hints at the selected value, include that substring in `spans_removed` too.\n\n3. One Alternative Value:\n   - Give exactly one realistic alternative value in `alternative_values`.",
+    "user": "Task ID: \"BigCodeBench/77\"\nFull Instruction:\n\"\"\"\nThis method is designed to handle the authentication process in a web application context. It expects input in the form of a dictionary with 'username' and 'password' keys. The password is expected to be a base64-encoded SHA-256 hash. The method decodes and authenticates these credentials against predefined values (for demonstration purposes, it checks if the username is 'admin' and the password hash matches the hash of 'password'). Based on the authentication result, it returns an appropriate HTTP response. >>> data = {'username': 'admin', 'password': base64.b64encode(hashlib.sha256('wrongpassword'.encode()).digest()).decode()} >>> response = task_func(data) >>> response.status_code == 401 and 'Login failed.' in response.content.decode() False\nNote that: Notes: If the authentication success, the returned HttpResponse should contain 'Login successful.' with status 400. If the authentication fails, the returned HttpResponse should contain 'Login failed.' with status 401. If the input data is invalid (i.e., password is a non-base64, missing keys), the function return HttpResponseBadRequest and it contains 'Bad Request.'\nThe function should raise the exception for: KeyError, UnicodeDecodeError, binascii.Error, ValueError if the input dictionary is invalid.\nThe function should output with:\n    django.http.HttpResponse: An HttpResponse indicating the login result.\n    HttpResponseBadRequest if the data is invalid.\nYou should write self-contained code starting with:\n```\nimport hashlib\nimport base64\nimport binascii\nfrom django.http import HttpResponseBadRequest, HttpResponse\ndef task_func(data):\n```\n\"\"\"\nGold Solution:\n\"\"\"\n    try:\n        username = data['username']\n        password = base64.b64decode(data['password']).decode()\n    except (KeyError, UnicodeDecodeError, binascii.Error, ValueError):\n        return HttpResponseBadRequest('Bad Request')\n\n    hashed_password = hashlib.sha256(password.encode()).digest()\n\n    # Dummy authentication logic\n    if username == 'admin' and hashed_password == hashlib.sha256('password'.encode()).digest():\n        return HttpResponse('Login successful.')\n    else:\n        return HttpResponse('Login failed.', status=401)\n\"\"\"\n\nReturn JSON only using this exact schema:\n{\n  \"status\": \"ok\" | \"skip_seed_task\",\n  \"skip_reason\": \"\",\n  \"candidate_subparts\": [\n    {\n      \"subpart_id\": \"gap_1\",\n      \"variable\": \"short_snake_case_name\",\n      \"original_value\": \"exact value in full instruction\",\n      \"alternative_values\": [\"one realistic alternative value\"],\n      \"spans_removed\": [\"exact substring 1 from full_instruction\"],\n      \"replaced_with\": [\"neutral replacement 1 or empty string\"]\n    }\n  ]\n}\n`skip_reason` is an empty string when `status` is \"ok\".",
+    "schema": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "skip_reason",
+        "candidate_subparts"
+      ],
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": [
+            "ok",
+            "skip_seed_task"
+          ]
+        },
+        "skip_reason": {
+          "type": "string"
+        },
+        "candidate_subparts": {
+          "type": "array",
+          "maxItems": 3,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "subpart_id",
+              "variable",
+              "original_value",
+              "alternative_values",
+              "spans_removed",
+              "replaced_with"
+            ],
+            "properties": {
+              "subpart_id": {
+                "type": "string"
+              },
+              "variable": {
+                "type": "string"
+              },
+              "original_value": {
+                "type": "string"
+              },
+              "alternative_values": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "minItems": 1,
+                "maxItems": 1
+              },
+              "spans_removed": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "replaced_with": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "transport": "codex_subagent",
+    "tools_allowed": false
+  },
+  "queued_at": 1793330578.0157645,
+  "deadline": 1793331178.0157645
+}

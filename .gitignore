@@ -1,0 +1,23 @@
+# Secrets and local environment
+.env
+.env.*
+.venv/
+__pycache__/
+*.pyc
+
+# Downloaded benchmark data: re-download from the pinned revisions in each source_index.json
+data/raw/*/*
+!data/raw/*/source_index.json
+!data/raw/*/download_summary.json
+
+# Browser profile and archives from the review-site checks
+**/firefox-profile/
+*.tar.gz
+
+# Built review site
+sites/*/dist/
+sites/*/out/
+node_modules/
+
+# Has its own git history (site build commits); kept out of this repo
+sites/assumption-review/

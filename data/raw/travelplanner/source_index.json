@@ -1,0 +1,453 @@
+{
+  "benchmark": "TravelPlanner",
+  "dataset_revision": "8736504ecfc31b7f8b7e40122873c337e83fff7c",
+  "code_revision": "e52c87f4ac348a3410c46dc3553c519db5ec5e23",
+  "data_license": "CC-BY-4.0",
+  "code_license": "MIT",
+  "files": [
+    {
+      "path": ".gitattributes",
+      "source_url": "https://huggingface.co/datasets/osunlp/TravelPlanner/resolve/8736504ecfc31b7f8b7e40122873c337e83fff7c/.gitattributes",
+      "revision": "8736504ecfc31b7f8b7e40122873c337e83fff7c",
+      "sha256": "4bbe87778f10412f758d3e70ce815f257b0cc8333154f9665609cfe2153dc28e",
+      "bytes": 2408,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "README.md",
+      "source_url": "https://huggingface.co/datasets/osunlp/TravelPlanner/resolve/8736504ecfc31b7f8b7e40122873c337e83fff7c/README.md",
+      "revision": "8736504ecfc31b7f8b7e40122873c337e83fff7c",
+      "sha256": "3806ccbb99dea3c8d36fc14255ca2796616b3976adf4e230e7268e0579541287",
+      "bytes": 2807,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "code/.gitignore",
+      "source_url": "https://raw.githubusercontent.com/OSU-NLP-Group/TravelPlanner/e52c87f4ac348a3410c46dc3553c519db5ec5e23/.gitignore",
+      "revision": "e52c87f4ac348a3410c46dc3553c519db5ec5e23",
+      "sha256": "565f6f634bed3599cfa8115215273b3e6532ff3e8e7dca3750188b6451d7f052",
+      "bytes": 172,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "code/LICENSE",
+      "source_url": "https://raw.githubusercontent.com/OSU-NLP-Group/TravelPlanner/e52c87f4ac348a3410c46dc3553c519db5ec5e23/LICENSE",
+      "revision": "e52c87f4ac348a3410c46dc3553c519db5ec5e23",
+      "sha256": "05b8ae666b03e1a86252324c5207b872b37272c3c47cbc3f27b19debd35597cf",
+      "bytes": 1088,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "code/README.md",
+      "source_url": "https://raw.githubusercontent.com/OSU-NLP-Group/TravelPlanner/e52c87f4ac348a3410c46dc3553c519db5ec5e23/README.md",
+      "revision": "e52c87f4ac348a3410c46dc3553c519db5ec5e23",
+      "sha256": "1c7bd60fbbddf843384d549998b64068a76ce86e9436f9284b5e91b00ef5becd",
+      "bytes": 10233,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "code/agents/greedy_search.py",
+      "source_url": "https://raw.githubusercontent.com/OSU-NLP-Group/TravelPlanner/e52c87f4ac348a3410c46dc3553c519db5ec5e23/agents/greedy_search.py",
+      "revision": "e52c87f4ac348a3410c46dc3553c519db5ec5e23",
+      "sha256": "01ee02ad167fd4bc8db3b16c5f166ca117f0c90b9cf407b67aa2149a30d51cb2",
+      "bytes": 10994,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "code/agents/prompts.py",
+      "source_url": "https://raw.githubusercontent.com/OSU-NLP-Group/TravelPlanner/e52c87f4ac348a3410c46dc3553c519db5ec5e23/agents/prompts.py",
+      "revision": "e52c87f4ac348a3410c46dc3553c519db5ec5e23",
+      "sha256": "2fca45d972b41a58f1fbb89511777eafa825fe8084e69830f7a92f8ce80282c1",
+      "bytes": 16348,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "code/agents/tool_agents.py",
+      "source_url": "https://raw.githubusercontent.com/OSU-NLP-Group/TravelPlanner/e52c87f4ac348a3410c46dc3553c519db5ec5e23/agents/tool_agents.py",
+      "revision": "e52c87f4ac348a3410c46dc3553c519db5ec5e23",
+      "sha256": "baaca0dbb677bea15fa8bfd48eea33708869b9321d712ba15bd5707ad1547aae",
+      "bytes": 30732,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "code/database/README.md",
+      "source_url": "https://raw.githubusercontent.com/OSU-NLP-Group/TravelPlanner/e52c87f4ac348a3410c46dc3553c519db5ec5e23/database/README.md",
+      "revision": "e52c87f4ac348a3410c46dc3553c519db5ec5e23",
+      "sha256": "21386a8c65e80ad625660502e3970a34d94690f80ff285393c35238e1e4624e6",
+      "bytes": 2688,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "code/database/test_ref_info.jsonl",
+      "source_url": "https://raw.githubusercontent.com/OSU-NLP-Group/TravelPlanner/e52c87f4ac348a3410c46dc3553c519db5ec5e23/database/test_ref_info.jsonl",
+      "revision": "e52c87f4ac348a3410c46dc3553c519db5ec5e23",
+      "sha256": "3f9e1c6b41be66831835778dd16d52a6bbde8fd1bf893a1b60f3a72712938d01",
+      "bytes": 28065532,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "code/database/train_ref_info.jsonl",
+      "source_url": "https://raw.githubusercontent.com/OSU-NLP-Group/TravelPlanner/e52c87f4ac348a3410c46dc3553c519db5ec5e23/database/train_ref_info.jsonl",
+      "revision": "e52c87f4ac348a3410c46dc3553c519db5ec5e23",
+      "sha256": "f9eff8c9e3056c726c4bc46b8183a51efdf63760755b0183fa36f1c9f14b6e83",
+      "bytes": 1197800,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "code/database/validation_ref_info.jsonl",
+      "source_url": "https://raw.githubusercontent.com/OSU-NLP-Group/TravelPlanner/e52c87f4ac348a3410c46dc3553c519db5ec5e23/database/validation_ref_info.jsonl",
+      "revision": "e52c87f4ac348a3410c46dc3553c519db5ec5e23",
+      "sha256": "0555348b457226a7cff866a7ec1962b60105fd90bb9e5c030b9e9ec3f2aff1d0",
+      "bytes": 5052714,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "code/evaluation/commonsense_constraint.py",
+      "source_url": "https://raw.githubusercontent.com/OSU-NLP-Group/TravelPlanner/e52c87f4ac348a3410c46dc3553c519db5ec5e23/evaluation/commonsense_constraint.py",
+      "revision": "e52c87f4ac348a3410c46dc3553c519db5ec5e23",
+      "sha256": "13cfda27b03d3c638a3a597a8a5f9cbb21ab49fe482745f13db435c9b0c88a6d",
+      "bytes": 22324,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "code/evaluation/eval.py",
+      "source_url": "https://raw.githubusercontent.com/OSU-NLP-Group/TravelPlanner/e52c87f4ac348a3410c46dc3553c519db5ec5e23/evaluation/eval.py",
+      "revision": "e52c87f4ac348a3410c46dc3553c519db5ec5e23",
+      "sha256": "89dbb9e51c951e700f0a4a39798315f9c8fb4658b30f5bdb72727498c4676fb2",
+      "bytes": 13374,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "code/evaluation/hard_constraint.py",
+      "source_url": "https://raw.githubusercontent.com/OSU-NLP-Group/TravelPlanner/e52c87f4ac348a3410c46dc3553c519db5ec5e23/evaluation/hard_constraint.py",
+      "revision": "e52c87f4ac348a3410c46dc3553c519db5ec5e23",
+      "sha256": "18ffc300e9b61b87bcaf27fd54c5aa09c1319a4f403f308b53df3b696e5185b5",
+      "bytes": 13367,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "code/finetuning_data/std_travelplanner.jsonl",
+      "source_url": "https://raw.githubusercontent.com/OSU-NLP-Group/TravelPlanner/e52c87f4ac348a3410c46dc3553c519db5ec5e23/finetuning_data/std_travelplanner.jsonl",
+      "revision": "e52c87f4ac348a3410c46dc3553c519db5ec5e23",
+      "sha256": "1af188193644055ae95717dd4c6e4c92b6a4ca1b5a3833635b8ba9e54a26cf3c",
+      "bytes": 1425968,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "code/postprocess/combination.py",
+      "source_url": "https://raw.githubusercontent.com/OSU-NLP-Group/TravelPlanner/e52c87f4ac348a3410c46dc3553c519db5ec5e23/postprocess/combination.py",
+      "revision": "e52c87f4ac348a3410c46dc3553c519db5ec5e23",
+      "sha256": "ee73d615e62a26f9d6fa4c75fb9c77a868ab985d72fb41d302087490d5f40ea4",
+      "bytes": 1797,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "code/postprocess/element_extraction.py",
+      "source_url": "https://raw.githubusercontent.com/OSU-NLP-Group/TravelPlanner/e52c87f4ac348a3410c46dc3553c519db5ec5e23/postprocess/element_extraction.py",
+      "revision": "e52c87f4ac348a3410c46dc3553c519db5ec5e23",
+      "sha256": "a2885d4ebd5d671b9389b42fd25a70db0be049750840a0b33ec2b782be9d527e",
+      "bytes": 2807,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "code/postprocess/example_evaluation.jsonl",
+      "source_url": "https://raw.githubusercontent.com/OSU-NLP-Group/TravelPlanner/e52c87f4ac348a3410c46dc3553c519db5ec5e23/postprocess/example_evaluation.jsonl",
+      "revision": "e52c87f4ac348a3410c46dc3553c519db5ec5e23",
+      "sha256": "50af8a77602f23b6e8365c264bc5feddb1e39c8703d4d9d91cc95c4f860961dd",
+      "bytes": 336987,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "code/postprocess/format_check.py",
+      "source_url": "https://raw.githubusercontent.com/OSU-NLP-Group/TravelPlanner/e52c87f4ac348a3410c46dc3553c519db5ec5e23/postprocess/format_check.py",
+      "revision": "e52c87f4ac348a3410c46dc3553c519db5ec5e23",
+      "sha256": "e5ffcab2f4d2289e6fd9425aca5d4f00b9dfb2df5e72eecdc865a4909d01628e",
+      "bytes": 2101,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "code/postprocess/openai_request.py",
+      "source_url": "https://raw.githubusercontent.com/OSU-NLP-Group/TravelPlanner/e52c87f4ac348a3410c46dc3553c519db5ec5e23/postprocess/openai_request.py",
+      "revision": "e52c87f4ac348a3410c46dc3553c519db5ec5e23",
+      "sha256": "97b1658a4ab2f8a54dd727f954a3f6d75039210d1f028854184e5508d23aba13",
+      "bytes": 13204,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "code/postprocess/parsing.py",
+      "source_url": "https://raw.githubusercontent.com/OSU-NLP-Group/TravelPlanner/e52c87f4ac348a3410c46dc3553c519db5ec5e23/postprocess/parsing.py",
+      "revision": "e52c87f4ac348a3410c46dc3553c519db5ec5e23",
+      "sha256": "9354585d9007cb8ccd0272567b1c05e26fb160e21db130df19ed7cfec297f77f",
+      "bytes": 1586,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "code/requirements.txt",
+      "source_url": "https://raw.githubusercontent.com/OSU-NLP-Group/TravelPlanner/e52c87f4ac348a3410c46dc3553c519db5ec5e23/requirements.txt",
+      "revision": "e52c87f4ac348a3410c46dc3553c519db5ec5e23",
+      "sha256": "4c41de32bbba90536008b5957631895383bf2fcde59c71a3686e47be3330e4b6",
+      "bytes": 183,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "code/tools/__init__.py",
+      "source_url": "https://raw.githubusercontent.com/OSU-NLP-Group/TravelPlanner/e52c87f4ac348a3410c46dc3553c519db5ec5e23/tools/__init__.py",
+      "revision": "e52c87f4ac348a3410c46dc3553c519db5ec5e23",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "code/tools/accommodations/__init__.py",
+      "source_url": "https://raw.githubusercontent.com/OSU-NLP-Group/TravelPlanner/e52c87f4ac348a3410c46dc3553c519db5ec5e23/tools/accommodations/__init__.py",
+      "revision": "e52c87f4ac348a3410c46dc3553c519db5ec5e23",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "code/tools/accommodations/apis.py",
+      "source_url": "https://raw.githubusercontent.com/OSU-NLP-Group/TravelPlanner/e52c87f4ac348a3410c46dc3553c519db5ec5e23/tools/accommodations/apis.py",
+      "revision": "e52c87f4ac348a3410c46dc3553c519db5ec5e23",
+      "sha256": "8f3d4c28e569c5cb227acf4a256cf02c0298c125035fcdfc0cd1242386466f86",
+      "bytes": 1084,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "code/tools/attractions/apis.py",
+      "source_url": "https://raw.githubusercontent.com/OSU-NLP-Group/TravelPlanner/e52c87f4ac348a3410c46dc3553c519db5ec5e23/tools/attractions/apis.py",
+      "revision": "e52c87f4ac348a3410c46dc3553c519db5ec5e23",
+      "sha256": "d4b1c0d5341728de28372fdacd89ff3356cf02e427b1d18cb3bd5ba58bf1698a",
+      "bytes": 1205,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "code/tools/cities/apis.py",
+      "source_url": "https://raw.githubusercontent.com/OSU-NLP-Group/TravelPlanner/e52c87f4ac348a3410c46dc3553c519db5ec5e23/tools/cities/apis.py",
+      "revision": "e52c87f4ac348a3410c46dc3553c519db5ec5e23",
+      "sha256": "007bc063ac04adfa0a1385eceba6ddfb29dad08c94094e567cbbbd69c455d3c9",
+      "bytes": 733,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "code/tools/flights/__init__.py",
+      "source_url": "https://raw.githubusercontent.com/OSU-NLP-Group/TravelPlanner/e52c87f4ac348a3410c46dc3553c519db5ec5e23/tools/flights/__init__.py",
+      "revision": "e52c87f4ac348a3410c46dc3553c519db5ec5e23",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "code/tools/flights/apis.py",
+      "source_url": "https://raw.githubusercontent.com/OSU-NLP-Group/TravelPlanner/e52c87f4ac348a3410c46dc3553c519db5ec5e23/tools/flights/apis.py",
+      "revision": "e52c87f4ac348a3410c46dc3553c519db5ec5e23",
+      "sha256": "33cffd6273c3936dcdc9e872558da50417810ea77d461536bba75ebdaa9e1180",
+      "bytes": 3233,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "code/tools/googleDistanceMatrix/apis.py",
+      "source_url": "https://raw.githubusercontent.com/OSU-NLP-Group/TravelPlanner/e52c87f4ac348a3410c46dc3553c519db5ec5e23/tools/googleDistanceMatrix/apis.py",
+      "revision": "e52c87f4ac348a3410c46dc3553c519db5ec5e23",
+      "sha256": "66db2399128fa4f20c04c5977c6104cd23c8964d10b2a16faf1cc4b60acc7820",
+      "bytes": 6129,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "code/tools/notebook/apis.py",
+      "source_url": "https://raw.githubusercontent.com/OSU-NLP-Group/TravelPlanner/e52c87f4ac348a3410c46dc3553c519db5ec5e23/tools/notebook/apis.py",
+      "revision": "e52c87f4ac348a3410c46dc3553c519db5ec5e23",
+      "sha256": "bd58fae62e6a198735539f8e1388a65c97a914333c0bfe29ea32cc466d6fe16c",
+      "bytes": 1420,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "code/tools/notebook/test.py",
+      "source_url": "https://raw.githubusercontent.com/OSU-NLP-Group/TravelPlanner/e52c87f4ac348a3410c46dc3553c519db5ec5e23/tools/notebook/test.py",
+      "revision": "e52c87f4ac348a3410c46dc3553c519db5ec5e23",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "code/tools/planner/apis.py",
+      "source_url": "https://raw.githubusercontent.com/OSU-NLP-Group/TravelPlanner/e52c87f4ac348a3410c46dc3553c519db5ec5e23/tools/planner/apis.py",
+      "revision": "e52c87f4ac348a3410c46dc3553c519db5ec5e23",
+      "sha256": "d381b0cd1e99bcbb870d11cb7825ef653629eaffc9f96e7c5204b1f295da4826",
+      "bytes": 16312,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "code/tools/planner/env.py",
+      "source_url": "https://raw.githubusercontent.com/OSU-NLP-Group/TravelPlanner/e52c87f4ac348a3410c46dc3553c519db5ec5e23/tools/planner/env.py",
+      "revision": "e52c87f4ac348a3410c46dc3553c519db5ec5e23",
+      "sha256": "144a3fcd4c0abc880490433fe0b5e8dd1e018b0f77b2cc7abc6d44146673a395",
+      "bytes": 10893,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "code/tools/planner/sole_planning.py",
+      "source_url": "https://raw.githubusercontent.com/OSU-NLP-Group/TravelPlanner/e52c87f4ac348a3410c46dc3553c519db5ec5e23/tools/planner/sole_planning.py",
+      "revision": "e52c87f4ac348a3410c46dc3553c519db5ec5e23",
+      "sha256": "b9639ef6b844d2db07b78e268fb68a6c51cb53aef0661508abd3ecd5b98b2a33",
+      "bytes": 4945,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "code/tools/planner/test.py",
+      "source_url": "https://raw.githubusercontent.com/OSU-NLP-Group/TravelPlanner/e52c87f4ac348a3410c46dc3553c519db5ec5e23/tools/planner/test.py",
+      "revision": "e52c87f4ac348a3410c46dc3553c519db5ec5e23",
+      "sha256": "c17b7a7de042220c5ab4847500c1342ce7221c5f14ba8640b803232b8dab2593",
+      "bytes": 19,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "code/tools/restaurants/__init__.py",
+      "source_url": "https://raw.githubusercontent.com/OSU-NLP-Group/TravelPlanner/e52c87f4ac348a3410c46dc3553c519db5ec5e23/tools/restaurants/__init__.py",
+      "revision": "e52c87f4ac348a3410c46dc3553c519db5ec5e23",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "code/tools/restaurants/apis.py",
+      "source_url": "https://raw.githubusercontent.com/OSU-NLP-Group/TravelPlanner/e52c87f4ac348a3410c46dc3553c519db5ec5e23/tools/restaurants/apis.py",
+      "revision": "e52c87f4ac348a3410c46dc3553c519db5ec5e23",
+      "sha256": "31e1fc907860512fad9bb6ab41487089da87854390f8a988880d509089d078b3",
+      "bytes": 2057,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "code/utils/budget_estimation.py",
+      "source_url": "https://raw.githubusercontent.com/OSU-NLP-Group/TravelPlanner/e52c87f4ac348a3410c46dc3553c519db5ec5e23/utils/budget_estimation.py",
+      "revision": "e52c87f4ac348a3410c46dc3553c519db5ec5e23",
+      "sha256": "c85335f16e314829d558adf84d56c6fe87ad15d9ea7eb70c8f3b9534287f7371",
+      "bytes": 8487,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "code/utils/func.py",
+      "source_url": "https://raw.githubusercontent.com/OSU-NLP-Group/TravelPlanner/e52c87f4ac348a3410c46dc3553c519db5ec5e23/utils/func.py",
+      "revision": "e52c87f4ac348a3410c46dc3553c519db5ec5e23",
+      "sha256": "7f3f0ff0558fae1a2d1ad714d9d6503048ca1d4bc1c9e1dcada18f73b02dbf3c",
+      "bytes": 8549,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "code/utils/query_element_selection.py",
+      "source_url": "https://raw.githubusercontent.com/OSU-NLP-Group/TravelPlanner/e52c87f4ac348a3410c46dc3553c519db5ec5e23/utils/query_element_selection.py",
+      "revision": "e52c87f4ac348a3410c46dc3553c519db5ec5e23",
+      "sha256": "c0cee2cf60506bb84a16e3b354bd01e4fc3359bf903791946272bc89e51990f6",
+      "bytes": 10413,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "example_submission.jsonl",
+      "source_url": "https://huggingface.co/datasets/osunlp/TravelPlanner/resolve/8736504ecfc31b7f8b7e40122873c337e83fff7c/example_submission.jsonl",
+      "revision": "8736504ecfc31b7f8b7e40122873c337e83fff7c",
+      "sha256": "50af8a77602f23b6e8365c264bc5feddb1e39c8703d4d9d91cc95c4f860961dd",
+      "bytes": 336987,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "test.csv",
+      "source_url": "https://huggingface.co/datasets/osunlp/TravelPlanner/resolve/8736504ecfc31b7f8b7e40122873c337e83fff7c/test.csv",
+      "revision": "8736504ecfc31b7f8b7e40122873c337e83fff7c",
+      "sha256": "d1c8918683455ee9986e2e61a1aa31cf8f7a493a775b6d7ff59f26a421b89cc1",
+      "bytes": 26743834,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "test_ref_info.jsonl",
+      "source_url": "https://huggingface.co/datasets/osunlp/TravelPlanner/resolve/8736504ecfc31b7f8b7e40122873c337e83fff7c/test_ref_info.jsonl",
+      "revision": "8736504ecfc31b7f8b7e40122873c337e83fff7c",
+      "sha256": "3f9e1c6b41be66831835778dd16d52a6bbde8fd1bf893a1b60f3a72712938d01",
+      "bytes": 28065532,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "train.csv",
+      "source_url": "https://huggingface.co/datasets/osunlp/TravelPlanner/resolve/8736504ecfc31b7f8b7e40122873c337e83fff7c/train.csv",
+      "revision": "8736504ecfc31b7f8b7e40122873c337e83fff7c",
+      "sha256": "2c02c4a31bf08599ea84013565a05d9a1a0a1b0c7613ded0ca932fb964780da1",
+      "bytes": 1306372,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "train_ref_info.jsonl",
+      "source_url": "https://huggingface.co/datasets/osunlp/TravelPlanner/resolve/8736504ecfc31b7f8b7e40122873c337e83fff7c/train_ref_info.jsonl",
+      "revision": "8736504ecfc31b7f8b7e40122873c337e83fff7c",
+      "sha256": "f9eff8c9e3056c726c4bc46b8183a51efdf63760755b0183fa36f1c9f14b6e83",
+      "bytes": 1197800,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "validation.csv",
+      "source_url": "https://huggingface.co/datasets/osunlp/TravelPlanner/resolve/8736504ecfc31b7f8b7e40122873c337e83fff7c/validation.csv",
+      "revision": "8736504ecfc31b7f8b7e40122873c337e83fff7c",
+      "sha256": "0e54b26b13c0b6d50e8683765e930bffca949488c44634e530da899914d40e80",
+      "bytes": 4833771,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    },
+    {
+      "path": "validation_ref_info.jsonl",
+      "source_url": "https://huggingface.co/datasets/osunlp/TravelPlanner/resolve/8736504ecfc31b7f8b7e40122873c337e83fff7c/validation_ref_info.jsonl",
+      "revision": "8736504ecfc31b7f8b7e40122873c337e83fff7c",
+      "sha256": "0555348b457226a7cff866a7ec1962b60105fd90bb9e5c030b9e9ec3f2aff1d0",
+      "bytes": 5052714,
+      "status": "downloaded",
+      "upstream_hash_verified": true
+    }
+  ],
+  "download_completed_at_utc": "2026-10-30T21:56:11.906406+00:00",
+  "download_scope": "All files in the pinned Hugging Face dataset and all repository files except images and compiled bytecode. The separate Google Drive environment database archive is not included.",
+  "task_code_executed": false
+}

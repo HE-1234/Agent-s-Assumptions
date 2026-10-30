@@ -1,0 +1,14 @@
+{
+  "online": true,
+  "user_view": "Load a CSV file into a pandas DataFrame and replace the NaN values in numeric columns with the mean of the corresponding column. The resulting DataFrame is returned. If an empty csv is passed, an empty DataFrame is returned.\nThe function should raise the exception for: FileNotFoundError: If csv_file does not exist.\nThe function should output with:\n    pd.DataFrame: A pandas DataFrame with the processed data.\nYou should write self-contained code starting with:\n```\nimport os\nimport pandas as pd\nimport numpy as np\ndef task_func(data_dir: str, csv_file: str) -> pd.DataFrame:\n```",
+  "facts": {
+    "numeric_missing_value_policy": "column mean"
+  },
+  "rules": {
+    "specific_question": "Answer only the topic asked, using the user view. Never reveal unrelated facts.",
+    "broad_question": "Nothing specific comes to mind.",
+    "unknown": "I'm not sure—I haven't thought about that.",
+    "offline": "The user is currently offline and cannot reply.",
+    "confirmation": "Confirm only if the proposed action matches the user view; otherwise correct only the asked detail."
+  }
+}
