@@ -34,14 +34,14 @@ One task row: `task` (the instruction), `outcome` (the list of correct tool call
 
 No builder model. A gap is a **template slot** (or a fixed template phrase, such as "half-hour") listed in `workbench_slots.csv`. The owner fills that table once per (template, slot).
 
-Slot kinds, with examples:
+Which slots become gaps, with examples:
 
-| Kind | Examples | Notes |
+| Slot | Examples | Use |
 |---|---|---|
-| `key`: a tool argument with realistic options | `{duration}` in "Create a {duration} event…" and "Push back … by {duration}"; "half-hour" in multi-domain tasks | The tool requires the argument, so the choice is visible to the agent |
-| `key`: a scope limit | `{before_or_after} {natural_language_time}`; "from the last {days} days"; "interested in {natural_language_product_interest}"; "overdue" | Often destructive. Must use visible masking wording (Section 4) |
-| `must_ask` | `{name}` (who), `{new_event_name}`, `{threshold}`, `{recipient_name}` | Only the user knows. A reference group for RQ2 |
-| `negative_control` | `{plot_type}` (line vs. bar) in analytics tasks | Same data in a different form, so Test B fails |
+| A tool argument with realistic options | `{duration}` in "Create a {duration} event…" and "Push back … by {duration}"; "half-hour" in multi-domain tasks | The tool requires the argument, so the choice is visible to the agent |
+| A scope limit | `{before_or_after} {natural_language_time}`; "from the last {days} days"; "interested in {natural_language_product_interest}"; "overdue" | Often destructive. Must use visible masking wording (Section 4) |
+| A detail only the user knows | `{name}` (who), `{new_event_name}`, `{threshold}`, `{recipient_name}` | Allowed. It blocks the task, so the agent must ask or assume |
+| Form only | `{plot_type}` (line vs. bar) in analytics tasks | **Not a gap.** Same data in a different form, so Test B fails |
 
 **Recovering slot values.** The task CSVs store the instruction text, not the slot values. Slot values are recovered by matching the task text against its `chosen_template` (each `{slot}` becomes a named capture group). Rendering the full template with the recovered values must reproduce the task text exactly; if it does not, the seed is rejected.
 
@@ -55,9 +55,9 @@ Slot kinds, with examples:
 - Each `chosen_template` wording variant needs its own masked template.
 - Check 1 runs on every rendered item.
 
-## 5. How Test A and Test B are decided
+## 5. How Test B is decided
 
-1. **`owner_rule`, per slot:** the kind column in `workbench_slots.csv`.
+1. **`owner_rule`, per slot:** whether the slot is listed in `workbench_slots.csv`.
 2. **`outcome_comparison`, per item (if D8 allows):** compute the correct outcome with the original value and with the alternative value, using WorkBench's own outcome logic over the sandbox databases. Keep the item only if the two outcomes differ and neither is empty. Example: "cancel before 2" vs. "cancel after 2" on a Friday with meetings only in the morning gives one empty outcome, so the item is dropped.
 
 The generator's logic functions pick slot values at random internally, so `outcome_comparison` needs a small wrapper that takes the slot value as input.

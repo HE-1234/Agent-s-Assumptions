@@ -22,11 +22,11 @@ No builder model. A gap is one **constraint field** that the query states. The f
 
 | Field | Values in the data | Use |
 |---|---|---|
-| `room type` | entire room, private room, shared room, not shared room | **`key`**, distinct values. The core gap for RQ3 |
+| `room type` | entire room, private room, shared room, not shared room | **Gap**, distinct values. The core gap for RQ3 |
 | `house rule` | pets, smoking, parties, children under 10, visitors | One-way (see below) |
 | `transportation` | no flight, no self-driving | One-way |
 | `cuisine` | a list of 2–4 cuisines | Later. A list is messy to mask and score |
-| `budget` | a dollar amount | **Excluded.** One plan can fit two budgets |
+| `budget` | a dollar amount | **Excluded** ("choice you cannot see"): one plan can fit two budgets |
 | `people_number` | 1–8 | Not used in v1 |
 
 **Distinct vs. one-way.** Room type has distinct values: a plan's accommodation is one type, so the plan shows which value the agent used. House rule and transportation are **filters**: a plan that meets "pets allowed" also fits "no requirement", so only a violation shows anything. Compliance can happen by chance.
@@ -46,10 +46,10 @@ Queries are free text written from the structured fields, so the span that state
 
 > **Open item.** The owner approves the neutral phrase for each field before the build.
 
-## 5. How Test A and Test B are decided
+## 5. How Test B is decided
 
-- **Test B:** `owner_rule` per field (table above). Room type passes; budget fails.
-- **Test A, per item:** a **database check**. The alternative must be feasible: the destination's accommodations in `reference_information` must include at least one listing with the alternative room type (and the other stated house rules, and enough maximum occupancy for `people_number`). This reads the query's data; it runs no agent code.
+- **Test B:** `owner_rule` per field (table above). Room type passes.
+- **Alternative availability, per item:** a **database check**, so that the alternative can actually show up in a plan: the destination's accommodations in `reference_information` must include at least one listing with the alternative room type (and the other stated house rules, and enough maximum occupancy for `people_number`). This reads the query's data; it runs no agent code.
 
 `answer_source`: `user`. Preferences are stated by the user, and the database does not store them.
 

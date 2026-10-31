@@ -17,7 +17,7 @@ One task. Seeds are drawn at random with a fixed random seed. Nobody picks them 
 ## 3. How gaps are found
 
 1. **Builder** (one model call per seed): reads the full instruction and the reference code, and proposes up to 3 gaps, or skips the seed. The builder prompt is the v0 prompt (`../prompts_v0.md`), unchanged.
-2. **Key check** (one model call per gap, `verifier` method): a model from a **different family** than the builder answers Test A and Test B, each yes / no with a reason. It also sorts the gap into `key`, `must_ask`, or `negative_control`.
+2. **Key check** (one model call per gap, `verifier` method): a model from a **different family** than the builder answers Test B (content vs. form) and the fail rules, yes / no with a reason.
 
 The builder proposes; the verifier judges. They are kept separate because one model that both proposes and judges tends to find a way to pass its own rules.
 
@@ -34,7 +34,7 @@ Evidence for this design, from the same 20 seeds:
 
 Unchanged from v0: Python `str.replace` with the builder's exact spans and replacement text. The function signature is part of the instruction, and default arguments that state the value must be removed too.
 
-## 5. How Test A and Test B are decided
+## 5. How Test B is decided
 
 - Method: `verifier`.
 - The owner reviews a sample of verifier decisions, and agreement is reported.

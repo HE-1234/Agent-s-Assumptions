@@ -13,7 +13,8 @@ The documents in this folder are the source of truth. If anything in `docs/archi
 
 | File | What it is | Who changes it |
 |---|---|---|
-| `stage1_method.md` | The general Stage 1 method for every source: gap criteria (Test A, Test B), gap kinds, visibility, masking, Check 1, and the record each item must have. | Owner only |
+| `stage1_method.md` | The general Stage 1 method for every source: gap criteria (Test B and fail rules), visibility, masking, Check 1, and the record each item must have. | Owner only |
+| `stage3_taxonomy.md` | The decision-type taxonomy (built on LHAW), applied after the data is built to describe gaps and break down results. Never given to builders. | Owner only |
 | `sources/bigcodebench.md` | How BigCodeBench meets the general method: a builder proposes gaps and a separate verifier judges them. | Owner only |
 | `sources/workbench.md` | How WorkBench meets it: gaps are template slots. | Owner only |
 | `sources/workbench_slots.csv` | The slot table: each (template, slot), its gap kind, and its masked wording. The pipeline reads it. | Owner only |

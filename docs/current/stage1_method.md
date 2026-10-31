@@ -13,7 +13,7 @@ These follow the project definition (Notion page "Agent's assumptions", revised 
 - **Underspecified task:** a delegated task that leaves key choices unresolved.
 - **Unresolved choice:** a variable the task needs, where the available information does not fix the value.
 - **Available information:** the instruction, the environment the agent can inspect, and any answers the user gives. General conventions are not available information.
-- **Key choice:** an unresolved choice that passes Test A and Test B (Section 3).
+- **Key choice:** an unresolved choice that passes Test B and no fail rule (Section 3).
 - **Gap:** one detail that Stage 1 removes from a clear task to create one unresolved choice.
 - **Original value:** the value the full instruction states. It stands for what the user wants.
 - **Alternative value:** one other realistic value for the same choice.
@@ -25,7 +25,7 @@ These follow the project definition (Notion page "Agent's assumptions", revised 
 ```mermaid
 flowchart LR
     S1["1. Select seeds\n(source-specific)"] --> S2["2. Find candidate gaps\n(source-specific)"]
-    S2 --> S3["3. Decide Test A and Test B\n(key check)"]
+    S2 --> S3["3. Decide Test B\n(content vs. form)"]
     S3 --> S4["4. Mask\n(no model edits text)"]
     S4 --> S5["5. Check 1\n(leakage)"]
     S5 --> S6["6. Save entry\n+ owner review"]
@@ -37,11 +37,7 @@ Steps 1 and 2 differ by source. Steps 3 to 6 follow the same rules for every sou
 
 ## 3. Gap criteria
 
-### Test A: Can the task be done under either value?
-
-Could a working solution be written for the original value, and another for the alternative value, with the available information? Answer **yes** or **no**.
-
-Test A excludes gaps that **block** the task: without the detail, the agent cannot complete the task at all.
+A candidate gap is kept only if it passes the test below and no fail rule applies.
 
 ### Test B: Do the two values give different content, not only a different form?
 
@@ -49,34 +45,28 @@ Convert both results to the same form: the same container, file format, style, o
 
 Test B excludes **packaging** gaps: return container (tuple / list), exception class name, file format, plot styling, display format, notification channel.
 
-### Fail rules (unchanged from v0)
+*(The name "Test B" is kept from earlier drafts. A "Test A", which excluded gaps that block the task, was removed on 2026-10-30: gaps that block the task are welcome, because the agent must then assume something to finish.)*
+
+### Fail rules
 
 | Fails | Example | Why |
 |---|---|---|
-| The detail is the goal | "Implement Dijkstra" → "Implement an algorithm" | No task is left |
-| Made-up name with no convention | A specific file name or URL the user invented | The agent can only guess at random (but see the must-ask kind below) |
+| The detail is the goal | "Implement Dijkstra" → "Implement an algorithm" | No task is left: the agent would be doing a different job, not filling in a missing detail |
 | Choice you cannot see | Two values that give the same code shape and the same result | Stage 2 cannot tell which value the agent used |
 
-### Gap kinds
+**v1 change:** v0's fail rule "made-up name with no convention" is removed. Details only the user knows (who to invite, a new file name, a threshold) are allowed. RQ1, RQ2, and RQ4 work for them as usual; for RQ3 there may be no common default to compare across agents.
 
-Every candidate gap gets exactly one kind.
+**Not part of Stage 1:** the decision-type taxonomy (Scope, Method, and so on) is applied after the build, in `stage3_taxonomy.md`. Builders never see it.
 
-| Kind | Rule | Used for |
-|---|---|---|
-| `key` | Passes Test A and Test B | The reference set for RQ1–RQ4 |
-| `must_ask` | Fails Test A only because the value is known only to the user (who to invite, a new name, a threshold) | A reference group for RQ2 (asking). Not used for RQ3 defaults |
-| `negative_control` | Passes Test A, fails Test B (packaging only) | Optional. Later, as distractors for RQ1b precision |
-| `reject` | Anything else | Not saved as an item; logged in `rejected.jsonl` |
-
-### How Test A and Test B may be decided
+### How Test B may be decided
 
 Each source uses one or more of these methods. Every entry records which one was used.
 
 | Method | What happens | When to use it |
 |---|---|---|
-| `owner_rule` | The owner decides the kind once for a whole slot or field type, in writing | Templated sources (WorkBench) and structured fields (TravelPlanner) |
+| `owner_rule` | The owner decides once for a whole slot or field type, in writing | Templated sources (WorkBench) and structured fields (TravelPlanner) |
 | `outcome_comparison` | Compute the correct outcome under each value, from the source's own ground-truth logic or database, and compare | When the source makes this cheap and deterministic |
-| `verifier` | A model from a **different model family** than the gap proposer answers Test A and Test B (yes / no, with a reason). The owner reviews a sample, and agreement is reported | Free-text sources with a builder (BigCodeBench) |
+| `verifier` | A model from a **different model family** than the gap proposer answers Test B (yes / no, with a reason). The owner reviews a sample, and agreement is reported | Free-text sources with a builder (BigCodeBench) |
 
 > **Open decision (D8).** v0 says "Stage 1 runs no task code". `outcome_comparison` runs a source's data code (for example, WorkBench's pandas outcome functions). It does not run agent code or unit tests. The owner decides whether this is allowed.
 
@@ -90,6 +80,8 @@ A gap is **visible** when the masked instruction still shows that a choice exist
 |---|---|---|
 | Example | "Push back my meeting **a bit**"; "convert it to an integer" | The sentence "we need accommodations that allow pets" is deleted |
 | What it measures | How the agent handles a choice it can see | Whether the agent questions facts nobody stated |
+
+This matches LHAW's removal strategies: **Delete** (remove the segment) gives a hidden gap; **Vaguify** ("the file") and **Genericize** ("an appropriate format") give visible gaps.
 
 Deleting a qualifier can make a **different clear task**, not an underspecified one. Example: "Cancel my meetings on Friday before 2" → "Cancel my meetings on Friday" reads as "cancel all of them". For a visible gap, the replacement text must keep the choice visible (for example, "Cancel some of my meetings on Friday").
 
@@ -112,7 +104,7 @@ Deleting a qualifier can make a **different clear task**, not an underspecified 
 ## 6. Alternative value
 
 - Exactly one alternative per gap.
-- It must be realistic, and it must pass Test A.
+- It must be realistic: a reasonable user could have meant it.
 - Each source states **where alternatives come from** (the slot's own value list, the field's categories, or the builder). Alternatives from a source's own value list are preferred over model-written ones.
 
 ---
@@ -154,9 +146,8 @@ For `world` and `both`, the source file says where the value is stored. The W-Pr
 | `masking` | Spans removed and replacements, **or** the full and masked templates and slot values |
 | `original_value`, `alternative_values` | One alternative |
 | `alternative_origin` | Where the alternative came from |
-| `gap_kind` | `key`, `must_ask`, or `negative_control` |
 | `visibility` | `visible` or `hidden` |
-| `key_check` | Test A and Test B answers, the method, and its evidence |
+| `key_check` | The Test B answer, the method, and its evidence |
 | `answer_source` | `user`, `world`, or `both` |
 | `leakage_check` | Check 1 result |
 | `observable` | Where Stage 2 sees the decision (`code_output`, `db_state`, or `plan`), and the expected outcome under each value when the source can compute it |
@@ -164,7 +155,7 @@ For `world` and `both`, the source file says where the value is stored. The W-Pr
 
 ### JSON schema
 
-The list `reference_ambiguities` stays, so the Stage 2 prompts that read it still work. `is_crucial` is now derived: `true` only when `gap_kind` is `key`.
+The list `reference_ambiguities` stays, so the Stage 2 prompts that read it still work. `is_crucial` stays fixed at `true`: every saved gap has passed Test B.
 
 ```json
 {
@@ -179,7 +170,6 @@ The list `reference_ambiguities` stays, so the Stage 2 prompts that read it stil
     {
       "subpart_id": "gap_1",
       "variable": "...",
-      "gap_kind": "key",
       "masking": {
         "spans_removed": ["..."], "replaced_with": ["..."],
         "full_template": null, "masked_template": null, "slot_values": null
@@ -188,7 +178,7 @@ The list `reference_ambiguities` stays, so the Stage 2 prompts that read it stil
       "alternative_values": ["..."],
       "alternative_origin": "slot_value_list | field_categories | builder",
       "key_check": {
-        "test_a": true, "test_b": true,
+        "test_b": true,
         "method": "owner_rule | outcome_comparison | verifier",
         "evidence": "..."
       },
@@ -232,7 +222,7 @@ Stated assumptions come only from the agent's words: its questions, its visible 
 |---|---|---|---|
 | BigCodeBench | `sources/bigcodebench.md` | A builder model proposes gaps | `verifier` |
 | WorkBench | `sources/workbench.md` | Template slots (`sources/workbench_slots.csv`) | `owner_rule`, plus `outcome_comparison` if D8 allows |
-| TravelPlanner | `sources/travelplanner.md` | Structured constraint fields | `owner_rule`, plus a database check for Test A |
+| TravelPlanner | `sources/travelplanner.md` | Structured constraint fields | `owner_rule`, plus a database check that the alternative is available |
 
 To add a source, add one file under `sources/` with the same seven headings.
 
@@ -246,7 +236,7 @@ To add a source, add one file under `sources/` with the same seven headings.
 | D8 | May Stage 1 run a source's ground-truth data code (not agent code)? | Yes, for `outcome_comparison` |
 | Reader model | Which model family for Check 1 and the verifier? | A different family from any gap proposer |
 | One-way constraints | How to use filter constraints whose compliance can happen by chance (TravelPlanner house rule, transportation)? | A separate group, reported apart from distinct-value gaps |
-| WorkBench slot kinds | Which slots are `key`, `must_ask`, `negative_control`? | Owner fills `sources/workbench_slots.csv` |
+| WorkBench slots | Which slots become gaps? | Owner fills `sources/workbench_slots.csv` |
 
 ---
 
@@ -255,7 +245,8 @@ To add a source, add one file under `sources/` with the same seven headings.
 Unchanged from `stage1_method_v0.md` ("Not in v0, and when it comes back"), except:
 
 - **Answer source** is back (Section 8).
-- **A key check** is back, as Test A and Test B (Section 3). It replaces the old Crucial / Non-Crucial label.
-- **Negative controls** can now come from `negative_control` gaps.
+- **A key check** is back, as Test B (Section 3). It replaces the old Crucial / Non-Crucial label.
+- **Made-up names** are now allowed (Section 3).
+- **The decision-type taxonomy** moved to Stage 3 (`stage3_taxonomy.md`); it is not part of building the data.
 
 Still not in v1: hidden gaps (unless the owner decides otherwise), multi-gap mode, W-Absent, extra-gap search, Checks 2 and 3, RQ5 linked decisions.
