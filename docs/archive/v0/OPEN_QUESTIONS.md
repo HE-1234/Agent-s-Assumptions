@@ -1,5 +1,7 @@
 # Stage 1: open questions
 
+> **Archived on 2026-10-31.** Replaced by Stage 1 v1 in `docs/current/`. Do not act on this file.
+
 > **Status (2026-10-29):** For pilot v0, the recommendation for each item below is in effect. `PILOT_V0_PLAN.md`, Section 1, records the decisions. If this document and the plan are different, the plan is correct. Keep this document as the explanation of each decision and as the glossary.
 >
 > **Superseded later the same day:** the owner decided not to use the unit tests to check gaps. Items A4, A5, A6, A8 and D3, Part 4 item 5 ("the test run stays, as a filter"), and all of Part 6 (the test-run procedure) no longer apply. Item C6 (seed filter) is also superseded: v0 draws 20 seeds at random from all BigCodeBench tasks, with no filter, and Stage 1 runs no task code. In Stage 2, a judge reads the agent's code and output to see which value it used. See `stage1_method_v0.md`.

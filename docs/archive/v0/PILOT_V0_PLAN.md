@@ -1,5 +1,7 @@
 # Stage 1 pilot v0: plan
 
+> **Archived on 2026-10-31.** Replaced by Stage 1 v1 in `docs/current/`. Do not act on this file.
+
 ## Summary for the project owner
 
 This pilot tests one thing: whether the Stage 1 pipeline can turn benchmark tasks into usable masked instructions quickly, without supervision, and with a full record of what it did.

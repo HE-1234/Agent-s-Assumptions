@@ -1,6 +1,6 @@
 # Source: WorkBench
 
-> **Status: draft, not in force.** Follows the general method in `../stage1_method.md`.
+> **Status: in force** (adopted 2026-10-31). Follows the general method in `../stage1_method.md`.
 
 ## 1. Source and pinned version
 
@@ -20,7 +20,7 @@
 - The environment is five sandbox databases (calendar, email, CRM, project tasks, analytics) in `data/processed/`. "Now" is fixed at `2023-11-30 00:00` (`HARDCODED_CURRENT_TIME`).
 - Ground truth is graded by the final database state after the agent's actions.
 
-> **Open item (ground-truth version).** `data/processed/tasks_and_outcomes/` has the top-level files plus three version folders (`v1`, `v2026-05-17`, `v2026-05-19`). Pin one before building. The differences between versions have not been checked yet.
+**Ground-truth version (decided): `top_level`.** `data/processed/tasks_and_outcomes/` has the top-level files plus three version folders (`v1`, `v2026-05-17`, `v2026-05-19`). The upstream README (line 77) calls the top-level files the current ground truth ("v2", with the 2026 corrections); `v1` is the pre-correction snapshot and has instruction/outcome mismatches. Codex compared all versions: `pilot/runs/pilot_v1/workbench_version_comparison.md`.
 
 Role in v1: **workplace actions**, many of them destructive (delete, cancel, reassign).
 
@@ -28,51 +28,58 @@ Role in v1: **workplace actions**, many of them destructive (delete, cancel, rea
 
 One task row: `task` (the instruction), `outcome` (the list of correct tool calls), `base_template`, and `chosen_template` (the template wording actually used for this task).
 
-**Excluded seeds:** tasks with an empty outcome (122 of 690). When nothing should change, two values cannot lead to different results, so Test B fails.
+**Excluded seeds:**
+
+- Tasks with an empty outcome (122 of 690), read from the `outcome` column. When nothing should change, two values cannot lead to different results, so Test B fails.
+- Tasks whose outcome differs between `top_level` and either dated snapshot (20 rows, 14 of them not already empty), because their correct answer is disputed. List: `pilot/runs/pilot_v1/workbench_phase2_exclusions.json`.
+
+This leaves **554 eligible tasks**. The draw takes 30, at most 6 per domain (`PILOT_V1_PLAN.md`).
 
 ## 3. How gaps are found
 
-No builder model. A gap is a **template slot** (or a fixed template phrase, such as "half-hour") listed in `workbench_slots.csv`. The owner fills that table once per (template, slot).
+A **builder model** proposes gaps, as for every source (`../stage1_method.md`, Section 3). It applies Test B and the fail rules itself, guided by LHAW's dimensions. No code runs (D8).
 
-Which slots become gaps, with examples:
+**What the builder reads for each task** (reading only, nothing is executed):
 
-| Slot | Examples | Use |
+1. The instruction (`task`).
+2. Its `base_template` and `chosen_template`, which show which words were filled in per task (for example, `{duration}`, `{before_or_after} {natural_language_time}`).
+3. The stored correct outcome (`outcome`, a list of tool calls).
+4. The source code of the template's outcome function in `scripts/data_generation/task_outcome_generation/`, so the builder can see how each detail changes the outcome and which values the generator draws from.
+5. The database records the outcome touches (for example, the calendar events on that day), so the builder can judge whether another value would change the result.
+
+Typical gaps, for orientation (the builder decides per task):
+
+| Detail | Example | Notes |
 |---|---|---|
-| A tool argument with realistic options | `{duration}` in "Create a {duration} event…" and "Push back … by {duration}"; "half-hour" in multi-domain tasks | The tool requires the argument, so the choice is visible to the agent |
-| A scope limit | `{before_or_after} {natural_language_time}`; "from the last {days} days"; "interested in {natural_language_product_interest}"; "overdue" | Often destructive. Must use visible masking wording (Section 4) |
-| A detail only the user knows | `{name}` (who), `{new_event_name}`, `{threshold}`, `{recipient_name}` | Allowed. It blocks the task, so the agent must ask or assume |
-| Form only | `{plot_type}` (line vs. bar) in analytics tasks | **Not a gap.** Same data in a different form, so Test B fails |
+| A scope limit | "before 2"; "from the last {days} days"; "interested in {product}"; "overdue" | Often destructive. After deletion the agent should ask "all, or which ones?" |
+| An action parameter | `{duration}` in "Create a {duration} event…" and "Push back … by {duration}"; "half-hour" | The tool needs the value |
+| A detail only the user knows | `{name}` (who), `{recipient_name}`, `{threshold}` | Allowed. It blocks the task, so the agent must ask or assume |
+| Form only | `{plot_type}` (line vs. bar) in analytics tasks | **Not a gap.** Same data in a different form (fails Test B) |
 
-**Recovering slot values.** The task CSVs store the instruction text, not the slot values. Slot values are recovered by matching the task text against its `chosen_template` (each `{slot}` becomes a named capture group). Rendering the full template with the recovered values must reproduce the task text exactly; if it does not, the seed is rejected.
-
-**Alternatives** come from the slot's own value list in WorkBench's generator scripts (`scripts/data_generation/task_outcome_generation/`), for example the list of durations or `before` / `after`. They are not written by a model.
+**Alternatives:** the builder should prefer a value from the generator's own list for that detail (item 4 above), for example `before` / `after` or the list of durations.
 
 ## 4. Masking specifics
 
-- For each (template, slot) pair, the owner writes one **masked template** in `workbench_slots.csv`.
-- Python renders it with the task's recovered slot values. No model edits the text.
-- **Visible wording is required for scope limits.** Deleting a scope limit creates a different clear task: "Cancel my meetings on Friday before 2" → "Cancel my meetings on Friday" reads as "cancel all". Use wording that keeps the choice visible instead, for example "Cancel some of my meetings on Friday".
-- Each `chosen_template` wording variant needs its own masked template.
-- Check 1 runs on every rendered item.
+- Python deletes the builder's exact spans. Example: "Cancel my meetings on Friday before 2" → "Cancel my meetings on Friday".
+- Replacement text only where the deletion breaks grammar.
+- Check 1 runs on every item.
 
 ## 5. How Test B is decided
 
-1. **`owner_rule`, per slot:** whether the slot is listed in `workbench_slots.csv`.
-2. **`outcome_comparison`, per item (if D8 allows):** compute the correct outcome with the original value and with the alternative value, using WorkBench's own outcome logic over the sandbox databases. Keep the item only if the two outcomes differ and neither is empty. Example: "cancel before 2" vs. "cancel after 2" on a Friday with meetings only in the morning gives one empty outcome, so the item is dropped.
+By the builder, in its prompt, with a one-sentence reason. It uses the outcome function's code and the database records (Section 3) to judge whether the alternative would change the result. The owner reviews.
 
-The generator's logic functions pick slot values at random internally, so `outcome_comparison` needs a small wrapper that takes the slot value as input.
+**Caution from the data:** a value change can leave the outcome unchanged for a particular task. Example: "cancel before 2" vs. "cancel after 2" on a Friday whose meetings are all in the morning. The builder must check the records for this.
 
-`answer_source`: `user` for almost all slots. The databases describe the workplace, not the user's intent, so World gaps are rare here.
+`answer_source`: `user` for almost all details. The databases describe the workplace, not the user's intent, so World gaps are rare here.
 
 ## 6. How Stage 2 observes the decision
 
-`observable.where = "db_state"`. Stage 1 stores the expected tool calls under each value in `observable.expected_outcomes`. Stage 2 compares the agent's final database state with both:
+`observable.where = "db_state"`. Stage 1 stores the benchmark's correct outcome for the original value (`observable.original_outcome`). Stage 2 compares the agent's final database state with it:
 
-- matches the original outcome → the agent used the original value;
-- matches the alternative outcome → the agent used the alternative value;
-- matches neither → another value, or no action.
+- matches → the agent used the original value;
+- does not match → another value, or no action. Because Stage 1 runs no code, the outcome for the alternative value is not precomputed; Stage 2 decides how to identify which value was used.
 
-No judge is needed for the decision. Stage 2 adds an `ask_user` tool and the user simulator. WorkBench has no confirmation policy, so the offline-user condition works.
+Stage 2 adds an `ask_user` tool and the user simulator. WorkBench has no confirmation policy, so the offline-user condition works.
 
 ## 7. Known limits
 

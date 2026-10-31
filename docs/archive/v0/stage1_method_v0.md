@@ -1,5 +1,7 @@
 # Stage 1 method, v0
 
+> **Archived on 2026-10-31.** Replaced by Stage 1 v1 in `docs/current/`. Do not act on this file.
+
 This is the Stage 1 method as it stands for pilot v0. I made it from `docs/archive/methodology/stage1_dataset_construction_methodology.md` (S1): I kept what v0 still does, removed what it does not, and marked every change with **v0:**. The last section lists what was removed and when it can come back.
 
 `PILOT_V0_PLAN.md` says *how* an agent builds this. This document says *what* the method is.

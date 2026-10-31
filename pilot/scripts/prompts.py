@@ -3,7 +3,7 @@ from pathlib import Path
 import re
 
 ROOT = Path(__file__).resolve().parents[2]
-PROMPT_SOURCE = ROOT / 'docs/current/prompts_v0.md'
+PROMPT_SOURCE = ROOT / 'docs/archive/v0/prompts_v0.md'
 
 
 def _text_block_after(heading):

@@ -1,0 +1,41 @@
+{
+  "benchmark": "Gaia2",
+  "repository": "https://huggingface.co/datasets/meta-agents-research-environments/gaia2",
+  "revision": "78ea3bdbdeec2bdcd6afa5420915d8a22f23ed99",
+  "configuration": "execution",
+  "split": "validation",
+  "license": {
+    "data": "CC-BY-4.0",
+    "source": "README.md",
+    "additional_terms": "Dataset card also states Llama 3.3 / Llama 4 terms for synthetic outputs and third-party content terms; retain the complete card."
+  },
+  "files": [
+    {
+      "path": "README.md",
+      "source_url": "https://huggingface.co/datasets/meta-agents-research-environments/gaia2/resolve/78ea3bdbdeec2bdcd6afa5420915d8a22f23ed99/README.md",
+      "revision": "78ea3bdbdeec2bdcd6afa5420915d8a22f23ed99",
+      "sha256": "8e50e6808d44deb771159596ea7b77e8b61cfcde02f94bee9b459d52a95bfea2",
+      "bytes": 24054,
+      "status": "downloaded"
+    },
+    {
+      "path": "execution/validation-00000-of-00001.parquet",
+      "source_url": "https://huggingface.co/datasets/meta-agents-research-environments/gaia2/resolve/78ea3bdbdeec2bdcd6afa5420915d8a22f23ed99/execution/validation-00000-of-00001.parquet",
+      "revision": "78ea3bdbdeec2bdcd6afa5420915d8a22f23ed99",
+      "sha256": "d6ded47be84b740866ca7617e45d4409f7ecf36f9b94b7beb3f1af6da99d0198",
+      "bytes": 161828579,
+      "status": "downloaded"
+    },
+    {
+      "path": "repository_metadata.json",
+      "source_url": "https://huggingface.co/api/datasets/meta-agents-research-environments/gaia2",
+      "revision": "78ea3bdbdeec2bdcd6afa5420915d8a22f23ed99",
+      "sha256": "c9b95266e40db700f835df0eaaedf73aa03e2abf130c7571a9caf99ef678b9ac",
+      "bytes": 8855,
+      "status": "downloaded"
+    }
+  ],
+  "download_completed_at_utc": "2026-10-31T04:34:17.652069+00:00",
+  "task_code_executed": false,
+  "row_count": 160
+}

@@ -1,6 +1,6 @@
-# Stage 1 method (v1, draft)
+# Stage 1 method (v1)
 
-> **Status: draft, not in force.** The active plan is still `PILOT_V0_PLAN.md` with `stage1_method_v0.md`. This file becomes active only when the owner adopts a v1 plan. Items marked **Open decision** are not decided yet.
+> **Status: in force** (adopted 2026-10-31). The build plan is `PILOT_V1_PLAN.md` and the prompts are in `prompts_v1.md`. Items marked **Open decision** are not decided yet. The v0 method is archived in `../archive/v0/stage1_method_v0.md`.
 
 This is the general Stage 1 method. It applies to every source benchmark. It says **what** each dataset item must be and **what** must be recorded. How each benchmark meets these rules is in `sources/<benchmark>.md`. How an agent builds the data is in the pilot plan.
 
@@ -14,7 +14,7 @@ These follow the project definition (Notion page "Agent's assumptions", revised 
 - **Unresolved choice:** a variable the task needs, where the available information does not fix the value.
 - **Available information:** the instruction, the environment the agent can inspect, and any answers the user gives. General conventions are not available information.
 - **Key choice:** an unresolved choice that passes Test B and no fail rule (Section 3).
-- **Gap:** one detail that Stage 1 removes from a clear task to create one unresolved choice.
+- **Gap:** one detail that Stage 1 deletes from a clear task to create one unresolved choice.
 - **Original value:** the value the full instruction states. It stands for what the user wants.
 - **Alternative value:** one other realistic value for the same choice.
 
@@ -24,20 +24,21 @@ These follow the project definition (Notion page "Agent's assumptions", revised 
 
 ```mermaid
 flowchart LR
-    S1["1. Select seeds\n(source-specific)"] --> S2["2. Find candidate gaps\n(source-specific)"]
-    S2 --> S3["3. Decide Test B\n(content vs. form)"]
-    S3 --> S4["4. Mask\n(no model edits text)"]
-    S4 --> S5["5. Check 1\n(leakage)"]
-    S5 --> S6["6. Save entry\n+ owner review"]
+    S1["1. Select seeds\n(source-specific)"] --> S2["2. Builder proposes gaps\n(applies Test B and fail rules,\nguided by LHAW dimensions)"]
+    S2 --> S3["3. Delete spans\n(Python, no model edits text)"]
+    S3 --> S4["4. Check 1\n(leakage)"]
+    S4 --> S5["5. Save entry\n+ owner review"]
 ```
 
-Steps 1 and 2 differ by source. Steps 3 to 6 follow the same rules for every source.
+Step 1 differs by source. The builder (step 2) reads source-specific inputs, listed in each source file. Steps 3 to 5 are the same for every source.
+
+**No task code runs in Stage 1** (decision D8, kept on 2026-10-30). The builder reads the task, its reference solution or stored outcome, and its data. Nothing executes them.
 
 ---
 
-## 3. Gap criteria
+## 3. Gap criteria (part of the builder prompt)
 
-A candidate gap is kept only if it passes the test below and no fail rule applies.
+The builder applies these rules itself when it proposes gaps. There is no separate verifier step (decided 2026-10-30). The owner reviews the result.
 
 ### Test B: Do the two values give different content, not only a different form?
 
@@ -45,7 +46,7 @@ Convert both results to the same form: the same container, file format, style, o
 
 Test B excludes **packaging** gaps: return container (tuple / list), exception class name, file format, plot styling, display format, notification channel.
 
-*(The name "Test B" is kept from earlier drafts. A "Test A", which excluded gaps that block the task, was removed on 2026-10-30: gaps that block the task are welcome, because the agent must then assume something to finish.)*
+*(The name "Test B" is kept from earlier drafts. A "Test A", which excluded gaps that block the task, was removed on 2026-10-30: gaps that block the task are welcome, because the agent must then ask or assume something to finish.)*
 
 ### Fail rules
 
@@ -54,62 +55,48 @@ Test B excludes **packaging** gaps: return container (tuple / list), exception c
 | The detail is the goal | "Implement Dijkstra" → "Implement an algorithm" | No task is left: the agent would be doing a different job, not filling in a missing detail |
 | Choice you cannot see | Two values that give the same code shape and the same result | Stage 2 cannot tell which value the agent used |
 
-**v1 change:** v0's fail rule "made-up name with no convention" is removed. Details only the user knows (who to invite, a new file name, a threshold) are allowed. RQ1, RQ2, and RQ4 work for them as usual; for RQ3 there may be no common default to compare across agents.
+Details only the user knows (who to invite, a new file name, a threshold) are allowed. RQ1, RQ2, and RQ4 work for them as usual; for RQ3 there may be no common default to compare across agents.
 
-**Not part of Stage 1:** the decision-type taxonomy (Scope, Method, and so on) is applied after the build, in `stage3_taxonomy.md`. Builders never see it.
+### Guidance for the builder: LHAW's dimensions
 
-### How Test B may be decided
+To point the builder at the details worth deleting, the builder prompt includes the four dimensions of missing information from LHAW ([arXiv 2602.10525](https://arxiv.org/abs/2602.10525), ICLR 2026):
 
-Each source uses one or more of these methods. Every entry records which one was used.
-
-| Method | What happens | When to use it |
+| LHAW dimension | LHAW definition | Builder rule |
 |---|---|---|
-| `owner_rule` | The owner decides once for a whole slot or field type, in writing | Templated sources (WorkBench) and structured fields (TravelPlanner) |
-| `outcome_comparison` | Compute the correct outcome under each value, from the source's own ground-truth logic or database, and compare | When the source makes this cheap and deterministic |
-| `verifier` | A model from a **different model family** than the gap proposer answers Test B (yes / no, with a reason). The owner reviews a sample, and agreement is reported | Free-text sources with a builder (BigCodeBench) |
+| Goal | The deliverable or success criteria are unclear | **Never delete.** This is the "detail is the goal" fail rule |
+| Constraint | The rules, thresholds, or methods are unclear: the agent knows what to do but not the parameters | **Look here first.** Most good gaps are constraints |
+| Input | The data source, file, system, or tool is unclear | Allowed |
+| Context | Domain knowledge, jargon, or implicit requirements are unclear | Allowed when it changes content (Test B) |
 
-> **Open decision (D8).** v0 says "Stage 1 runs no task code". `outcome_comparison` runs a source's data code (for example, WorkBench's pandas outcome functions). It does not run agent code or unit tests. The owner decides whether this is allowed.
+The builder records the dimension of each gap (`lhaw_dimension`). The finer decision-type taxonomy (Scope, Method, and so on) is **not** given to the builder; it is applied after the build (`stage3_taxonomy.md`).
 
 ---
 
-## 4. Visibility
+## 4. Masking: delete
 
-A gap is **visible** when the masked instruction still shows that a choice exists. A gap is **hidden** when the masked instruction gives no sign that anything is missing.
+Decided 2026-10-30: **gaps are made by deleting the detail**, not by replacing it with vague words. This is LHAW's *Delete* strategy.
 
-| | Visible | Hidden |
-|---|---|---|
-| Example | "Push back my meeting **a bit**"; "convert it to an integer" | The sentence "we need accommodations that allow pets" is deleted |
-| What it measures | How the agent handles a choice it can see | Whether the agent questions facts nobody stated |
-
-This matches LHAW's removal strategies: **Delete** (remove the segment) gives a hidden gap; **Vaguify** ("the file") and **Genericize** ("an appropriate format") give visible gaps.
-
-Deleting a qualifier can make a **different clear task**, not an underspecified one. Example: "Cancel my meetings on Friday before 2" → "Cancel my meetings on Friday" reads as "cancel all of them". For a visible gap, the replacement text must keep the choice visible (for example, "Cancel some of my meetings on Friday").
-
-> **Open decision (visibility).** Recommendation: visible gaps only for the next pilot; hidden gaps later as a separate condition. Visible and hidden items are never pooled in one analysis.
-
----
-
-## 5. Masking
-
-1. **No model edits the instruction.** A Python program either replaces exact spans (`str.replace`) or renders a masked template with the task's own slot values.
-2. **Every other character stays identical** to the full instruction.
-3. **Remove every place** that states or hints at the value, including function signatures and default arguments.
-4. **The replacement text** is neutral and, for a visible gap, keeps the choice visible. It also repairs grammar.
+1. **No model edits the instruction.** A Python program deletes the builder's exact spans (`str.replace` with an empty string).
+2. **Delete every place** that states or hints at the value, including function signatures and default arguments.
+3. **Replacement text only to repair grammar,** when a deletion leaves a broken sentence. It must add no information and no hint. Most gaps need no replacement at all.
+4. **Every other character stays identical** to the full instruction.
 5. **One gap per item** (single-gap mode). Multi-gap mode is not in v1.
 6. **Keep the full instruction.** Stage 2 runs it as the control (Branch B-Full).
-7. If a span is not found word for word, or a rendered full template does not reproduce the original text exactly, the gap is rejected.
+7. If a span is not found word for word, the gap is rejected.
+
+**Why delete.** A deleted detail can leave an instruction that reads as complete. Example: "Cancel my meetings on Friday before 2" → "Cancel my meetings on Friday". This is intended: a careful agent should still ask "all of them, or which ones?". Whether agents question such instructions is part of what the study measures.
 
 ---
 
-## 6. Alternative value
+## 5. Alternative value
 
-- Exactly one alternative per gap.
+- Exactly one alternative per gap, proposed by the builder.
 - It must be realistic: a reasonable user could have meant it.
-- Each source states **where alternatives come from** (the slot's own value list, the field's categories, or the builder). Alternatives from a source's own value list are preferred over model-written ones.
+- When the source has its own list of values (for example, WorkBench's generator lists), the builder should prefer a value from it, and the source file says where the list is.
 
 ---
 
-## 7. Check 1: leakage (unchanged from v0)
+## 6. Check 1: leakage (unchanged from v0)
 
 A blind reader (a language model) sees only the masked instruction. It picks the original value, the alternative value (in random order), or "undetermined", and lists any clue words.
 
@@ -119,13 +106,13 @@ A blind reader (a language model) sees only the masked instruction. It picks the
 
 Supporting literature: Gururangan et al. (NAACL 2018), Poliak et al. (\*SEM 2018).
 
-> **Open decision (reader model).** The builder and the reader were the same model family in v0. Recommendation: the Check 1 reader and the `verifier` come from a different family than any model that proposes gaps.
+> **Open decision (Check 1 reader).** Which model reads in Phase 2, and whether it differs from the builder's model family. The dry run used Claude Opus 5.5 (high effort), provisionally; the builder is GPT-6.1 Sol (high effort).
 
 ---
 
-## 8. Answer source
+## 7. Answer source
 
-Now a real field, not a fixed value.
+A real field, not a fixed value.
 
 | Value | Meaning |
 |---|---|
@@ -137,20 +124,19 @@ For `world` and `both`, the source file says where the value is stored. The W-Pr
 
 ---
 
-## 9. The contract: what every item must record
+## 8. The contract: what every item must record
 
 | Field | Meaning |
 |---|---|
 | `source` | Benchmark, pinned version, split, seed ID |
 | `full_instruction`, `masked_instruction` | The two texts |
-| `masking` | Spans removed and replacements, **or** the full and masked templates and slot values |
+| `spans_removed`, `replaced_with` | The deleted spans; replacement text only where grammar needed it (otherwise `""`) |
 | `original_value`, `alternative_values` | One alternative |
-| `alternative_origin` | Where the alternative came from |
-| `visibility` | `visible` or `hidden` |
-| `key_check` | The Test B answer, the method, and its evidence |
+| `lhaw_dimension` | `constraint`, `input`, or `context` |
+| `key_check` | The builder's Test B answer and one-sentence reason |
 | `answer_source` | `user`, `world`, or `both` |
 | `leakage_check` | Check 1 result |
-| `observable` | Where Stage 2 sees the decision (`code_output`, `db_state`, or `plan`), and the expected outcome under each value when the source can compute it |
+| `observable` | Where Stage 2 sees the decision (`code_output` or `db_state`), and the source's stored outcome for the original value when it has one |
 | `review` | Owner verdict and note |
 
 ### JSON schema
@@ -164,24 +150,17 @@ The list `reference_ambiguities` stays, so the Stage 2 prompts that read it stil
   "source": {"benchmark": "...", "version": "...", "split": "...", "instruction_sha256": "..."},
   "full_instruction": "...",
   "masked_instruction": "...",
-  "masking_mode": "single_gap",
-  "visibility": "visible",
+  "masking_mode": "single_gap_delete",
   "reference_ambiguities": [
     {
       "subpart_id": "gap_1",
       "variable": "...",
-      "masking": {
-        "spans_removed": ["..."], "replaced_with": ["..."],
-        "full_template": null, "masked_template": null, "slot_values": null
-      },
+      "spans_removed": ["..."],
+      "replaced_with": [""],
       "original_value": "...",
       "alternative_values": ["..."],
-      "alternative_origin": "slot_value_list | field_categories | builder",
-      "key_check": {
-        "test_b": true,
-        "method": "owner_rule | outcome_comparison | verifier",
-        "evidence": "..."
-      },
+      "lhaw_dimension": "constraint",
+      "key_check": {"test_b": true, "reason": "..."},
       "answer_source": "user",
       "is_crucial": true,
       "leakage_check": {
@@ -189,10 +168,7 @@ The list `reference_ambiguities` stays, so the Stage 2 prompts that read it stil
         "option_order": ["alternative_value", "original_value"],
         "leftover_clue_spans": []
       },
-      "observable": {
-        "where": "code_output | db_state | plan",
-        "expected_outcomes": {"original": null, "alternative": null}
-      }
+      "observable": {"where": "code_output | db_state", "original_outcome": null}
     }
   ],
   "extra_gaps": [],
@@ -202,51 +178,72 @@ The list `reference_ambiguities` stays, so the Stage 2 prompts that read it stil
 
 ---
 
-## 10. How Stage 2 uses an entry
+## 9. How Stage 2 uses an entry
 
 Stage 2 gives the masked instruction to an agent, then finds **which value the agent used** from its work, never from its own words:
 
 | `observable.where` | How the value is found |
 |---|---|
 | `code_output` | A judge reads the agent's code and output (BigCodeBench) |
-| `db_state` | Compare the final environment state with `expected_outcomes` (WorkBench). No judge is needed |
-| `plan` | Run the source's constraint checker on the plan under each value (TravelPlanner) |
+| `db_state` | Compare the final environment state with the stored outcome for the original value (WorkBench). Because Stage 1 runs no code, the outcome for the alternative value is not precomputed; Stage 2 decides how to identify it |
 
 Stated assumptions come only from the agent's words: its questions, its visible reasoning, its final report.
 
 ---
 
-## 11. Sources
+## 10. Sources
 
-| Source | File | How gaps are found | Key check method |
-|---|---|---|---|
-| BigCodeBench | `sources/bigcodebench.md` | A builder model proposes gaps | `verifier` |
-| WorkBench | `sources/workbench.md` | Template slots (`sources/workbench_slots.csv`) | `owner_rule`, plus `outcome_comparison` if D8 allows |
-| TravelPlanner | `sources/travelplanner.md` | Structured constraint fields | `owner_rule`, plus a database check that the alternative is available |
+| Source | File | What the builder reads |
+|---|---|---|
+| BigCodeBench | `sources/bigcodebench.md` | Instruction and reference code |
+| WorkBench | `sources/workbench.md` | Instruction, its template, the stored outcome, and the relevant database records |
+| Gaia2 (ARE), execution split | `sources/gaia2.md` | Instruction, its correct actions, and the app records they touch |
+
+TravelPlanner was dropped on 2026-10-30. Its draft is in `docs/archive/v1_drafts/travelplanner.md`.
 
 To add a source, add one file under `sources/` with the same seven headings.
 
 ---
 
-## 12. Open decisions
+## 11. Decisions
 
-| ID | Question | Recommendation |
+**Decided (2026-10-30):**
+
+| Decision | Outcome |
+|---|---|
+| Masking | Delete the detail; replacement text only to repair grammar |
+| D8 | Kept: no task code runs in Stage 1 |
+| Verifier | None. Test B is in the builder prompt; the owner reviews |
+| Builder guidance | LHAW's four dimensions are in the builder prompt; the finer taxonomy stays in Stage 3 |
+| TravelPlanner | Dropped |
+| Assistant source | Gaia2 (ARE), execution split. Candidates compared: τ²-bench, MultiWOZ via ToolWOZ |
+| Test A, gap kinds, made-up-name fail rule | Removed |
+
+**Decided (2026-10-30 to 2026-10-31, during pilot v1 Phase 1):**
+
+| Decision | Outcome |
+|---|---|
+| WorkBench version | `top_level` (the upstream README's current ground truth). Also exclude rows whose outcome differs in either dated snapshot: 554 eligible tasks. See `sources/workbench.md` |
+| Gaia2 pin | Revision `78ea3bdbdeec2bdcd6afa5420915d8a22f23ed99`, downloaded to `data/raw/gaia2/` |
+| Gaia2 invitations to ask | Exclude scenarios whose instruction invites the agent to ask (one found) |
+| Draw sizes | 60 BigCodeBench, 30 WorkBench (at most 6 per domain), 30 Gaia2 |
+| Location of a `world` / `both` value | Written in `key_check.reason`; no separate field |
+
+**Open:**
+
+| ID | Question | Status |
 |---|---|---|
-| Visibility | Visible gaps only, or visible and hidden? | Visible only for the next pilot |
-| D8 | May Stage 1 run a source's ground-truth data code (not agent code)? | Yes, for `outcome_comparison` |
-| Reader model | Which model family for Check 1 and the verifier? | A different family from any gap proposer |
-| One-way constraints | How to use filter constraints whose compliance can happen by chance (TravelPlanner house rule, transportation)? | A separate group, reported apart from distinct-value gaps |
-| WorkBench slots | Which slots become gaps? | Owner fills `sources/workbench_slots.csv` |
+| Check 1 reader | Which model reads in Phase 2, and is it a different family from the builder? | Owner names it before Phase 2 (dry run used Claude Opus 5.5, provisionally) |
 
 ---
 
-## 13. Not in v1
+## 12. Not in v1
 
-Unchanged from `stage1_method_v0.md` ("Not in v0, and when it comes back"), except:
+Unchanged from `../archive/v0/stage1_method_v0.md` ("Not in v0, and when it comes back"), except:
 
-- **Answer source** is back (Section 8).
-- **A key check** is back, as Test B (Section 3). It replaces the old Crucial / Non-Crucial label.
-- **Made-up names** are now allowed (Section 3).
-- **The decision-type taxonomy** moved to Stage 3 (`stage3_taxonomy.md`); it is not part of building the data.
+- **Answer source** is back (Section 7).
+- **Test B** is back, inside the builder prompt (Section 3). It replaces the old Crucial / Non-Crucial label.
+- **Made-up names** are allowed (Section 3).
+- **Masking deletes** instead of replacing with neutral text (Section 4).
 
-Still not in v1: hidden gaps (unless the owner decides otherwise), multi-gap mode, W-Absent, extra-gap search, Checks 2 and 3, RQ5 linked decisions.
+Still not in v1: multi-gap mode, W-Absent, extra-gap search, Checks 2 and 3, RQ5 linked decisions.

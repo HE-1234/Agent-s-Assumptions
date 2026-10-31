@@ -1,5 +1,7 @@
 # Prompts for pilot v0
 
+> **Archived on 2026-10-31.** Replaced by Stage 1 v1 in `docs/current/`. Do not act on this file.
+
 The pipeline reads the two `text` blocks below at runtime, found by their headings. Do not edit the blocks; a change to a prompt is a change to the method and needs the owner's approval.
 
 ## Builder

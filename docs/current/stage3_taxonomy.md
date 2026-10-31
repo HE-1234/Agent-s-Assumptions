@@ -1,13 +1,14 @@
 # Stage 3 (analysis): decision-type taxonomy (draft)
 
-> **Status: draft, not in force.** This taxonomy is **not** given to any model that builds Stage 1 data. Builders get only the Stage 1 rules in `stage1_method.md`, so they are not asked to juggle extra categories. The taxonomy is applied **after** the dataset is built, to describe the gaps and to break down Stage 2 results (for example, RQ3 defaults by decision type).
+> **Status: draft, for later.** Not used until the analysis stage. The decision types below are **not** given to any model that builds Stage 1 data. Builders get only the Stage 1 rules in `stage1_method.md`, which include LHAW's four top-level dimensions as guidance (decided 2026-10-30), so they are not asked to juggle finer categories. The taxonomy is applied **after** the dataset is built, to describe the gaps and to break down Stage 2 results (for example, RQ3 defaults by decision type).
 
 ## When and how labels are assigned
 
 - **When:** after Stage 1 accepts a gap, before or after Stage 2 runs. The label never changes which gaps are built.
 - **Who:** the owner, or a labeling model whose labels the owner spot-checks (report agreement).
 - **What is recorded:** `decision_type` and `lhaw_dimension`, stored next to the dataset entry (not inside the Stage 1 builder output).
-- **Templated sources:** for WorkBench and TravelPlanner, the label is assigned once per slot or field, not per item.
+- **Templated sources:** for WorkBench, the label can be assigned once per template detail, not per item.
+- **LHAW dimension:** the builder already records `lhaw_dimension` in Stage 1; this file adds the finer type within it.
 
 ## Decision types
 

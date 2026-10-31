@@ -1,6 +1,6 @@
 # Source: TravelPlanner
 
-> **Status: draft, not in force.** Follows the general method in `../stage1_method.md`.
+> **Dropped on 2026-10-30.** Kept for reference only; not part of v1. Do not build from it.
 
 ## 1. Source and pinned version
 
